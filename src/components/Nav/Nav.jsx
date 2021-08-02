@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
@@ -15,18 +16,26 @@ const useStyles = makeStyles((theme) => ({root:{display: 'flex', flexWrap: 'wrap
 // materialUI style handler
 
 function Nav() {
+  const [searchURL, setSearchURL] = useState('');
   const classes = useStyles();
   const user = useSelector((store) => store.user);
+  let loginLinkData = {path: '/login', text: 'Login / Register'};
+  if (user.id != null) {loginLinkData.path = '/user'; loginLinkData.text = 'Home'};
+  function getSearchQueryByFullURL(url) {return url.split('/').pop()};
+  // isolate the text after the final "/" in our input URL, since our API only takes that final string and not the whole URL
 
-  let loginLinkData = {
-    path: '/login',
-    text: 'Login / Register',
-  };
 
-  if (user.id != null) {
-    loginLinkData.path = '/user';
-    loginLinkData.text = 'Home';
-  }
+  const search = () => {
+    console.log(`URL submitted is:`, searchURL); //test function to make sure data is correct
+    let searchQuery = getSearchQueryByFullURL(searchURL);
+    console.log(`Searching for << ${searchQuery} >> on WarcraftLogs`); //test function to make sure data is correct
+    
+    // dispatch({
+    //     type: 'SEARCH',
+    //     payload: searchQuery
+    // });
+};
+
 
   return (
     <Box className="nav">
@@ -34,10 +43,10 @@ function Nav() {
       <Box>
         <FormControl fullWidth className={classes.margin} variant="outlined">
           <InputLabel htmlFor="searchInput">Search</InputLabel>
-          <OutlinedInput id="searchInput" labelWidth={60} endAdornment=
+          <OutlinedInput id="searchInput" labelWidth={60} value={searchURL} onChange={(event) => setSearchURL(event.target.value)} endAdornment=
             {
             <InputAdornment position="end">
-              <IconButton aria-label="search" edge="end">
+              <IconButton aria-label="search" edge="end" onClick={search}>
                 <SearchIcon />
               </IconButton>
             </InputAdornment>
@@ -56,6 +65,6 @@ function Nav() {
       </Box>
     </Box>
   );
-}
+};
 
 export default Nav;
