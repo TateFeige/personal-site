@@ -28,10 +28,13 @@ function Nav() {
    if (user.id != null) {loginLinkData.path = '/user'; loginLinkData.text = 'Home'};
    function getSearchQueryByFullURL(url) {return url.split('/').pop()};
    // isolate the text after the final "/" in our input URL, since our API only takes that final string and not the whole URL
-
    const search = () => {
-      console.log(`URL submitted is:`, searchURL); //test function to make sure data is correct
+      //console.log(`URL submitted is:`, searchURL); //test function to make sure data is correct
       let searchQuery = getSearchQueryByFullURL(searchURL);
+      if (searchQuery == "") {
+         alert('Please enter a search URL');
+         return false;
+      };
       console.log(`Searching for << ${searchQuery} >> on WarcraftLogs`); //test function to make sure data is correct
       dispatch({
          type: 'SEARCH',
@@ -40,34 +43,34 @@ function Nav() {
       history.push(`/report/${searchQuery}`);
     };
 
-      return (
-        <Box className="nav" aria-label="Navigation Bar">
-            <Link to="/home"><h2 className="nav-title">WarcraftLogs Visualizer</h2></Link>
-            <Box>
-                <FormControl fullWidth className={classes.margin} variant="outlined">
-                    <InputLabel htmlFor="searchInput">Search</InputLabel>
-                    <OutlinedInput id="searchInput" labelWidth={60} value={searchURL} onChange={(event) => setSearchURL(event.target.value)} endAdornment=
-                    {
-                        <InputAdornment position="end">
-                        <IconButton aria-label="search" edge="end" onClick={search}>
-                        <SearchIcon />
-                        </IconButton>
-                        </InputAdornment>
-                    }
-                    />
-                </FormControl>
-            </Box>
-            <Box>
-                <Link className="navLink" to={loginLinkData.path}>{loginLinkData.text}</Link>
-                    {user.id && (
-                    <>
-                    <Link className="navLink" to="/info">Info Page</Link>
-                    <LogOutButton className="navLink" />
-                    </>)}
-                <Link className="navLink" to="/about">About</Link>
-            </Box>
-        </Box>
-    );
+   return (
+      <Box className="nav" aria-label="Navigation Bar">
+         <Link to="/home"><h2 className="nav-title">WarcraftLogs Visualizer</h2></Link>
+         <Box>
+            <FormControl fullWidth className={classes.margin} variant="outlined">
+               <InputLabel htmlFor="searchInput">Search</InputLabel>
+               <OutlinedInput id="searchInput" labelWidth={60} value={searchURL} onChange={(event) => setSearchURL(event.target.value)} endAdornment=
+               {
+                  <InputAdornment position="end">
+                  <IconButton aria-label="search" edge="end" onClick={search}>
+                  <SearchIcon />
+                  </IconButton>
+                  </InputAdornment>
+               }
+               />
+            </FormControl>
+         </Box>
+         <Box>
+               <Link className="navLink" to={loginLinkData.path}>{loginLinkData.text}</Link>
+                  {user.id && (
+                  <>
+                  <Link className="navLink" to="/info">Info Page</Link>
+                  <LogOutButton className="navLink" />
+                  </>)}
+               <Link className="navLink" to="/about">About</Link>
+         </Box>
+      </Box>
+   );
 };
 
 export default Nav;

@@ -30,7 +30,7 @@ function UserPage() {
          <Box textAlign="center" aria-label="user information">
          <h1>Welcome, {user.username}</h1>
          <h2>Current Character:</h2>
-         <h3>(Character)</h3>
+         <h3>{user.character}</h3>
          <Button variant="contained" color="primary" disableElevation>Change Character</Button>
          </Box>
          <br /><br /><br />
