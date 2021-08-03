@@ -13,17 +13,13 @@ CREATE TABLE "user" (
 
 
 CREATE TABLE "all_fights_summary" (
-	"id" integer NOT NULL,
+	"id" SERIAL PRIMARY KEY,
 	"boss_id" integer UNIQUE,
 	"boss_name" varchar(255) NOT NULL UNIQUE,
 	"start_time" integer NOT NULL UNIQUE,
 	"end_time" integer NOT NULL UNIQUE,
 	"size" integer NOT NULL,
-	"difficulty" integer NOT NULL,
-	"kill" integer NOT NULL,
-	CONSTRAINT "all_fights_summary_pk" PRIMARY KEY ("id")
-) WITH (
-  OIDS=FALSE
+	"difficulty" integer NOT NULL
 );
 
 
@@ -98,11 +94,6 @@ CREATE TABLE "entries_damage" (
 );
 
 
-
-ALTER TABLE "all_fights_summary" ADD CONSTRAINT "all_fights_summary_fk0" FOREIGN KEY ("boss_id") REFERENCES "overview"("boss_id");
-ALTER TABLE "all_fights_summary" ADD CONSTRAINT "all_fights_summary_fk1" FOREIGN KEY ("boss_name") REFERENCES "overview"("boss_name");
-
-
 ALTER TABLE "fight_summary" ADD CONSTRAINT "fight_summary_fk0" FOREIGN KEY ("boss_id") REFERENCES "all_fights_summary"("boss_id");
 ALTER TABLE "fight_summary" ADD CONSTRAINT "fight_summary_fk1" FOREIGN KEY ("boss_name") REFERENCES "all_fights_summary"("boss_name");
 ALTER TABLE "fight_summary" ADD CONSTRAINT "fight_summary_fk2" FOREIGN KEY ("start_time") REFERENCES "all_fights_summary"("start_time");
@@ -120,4 +111,3 @@ ALTER TABLE "entries_damage" ADD CONSTRAINT "entries_damage_fk1" FOREIGN KEY ("n
 ALTER TABLE "entries_damage" ADD CONSTRAINT "entries_damage_fk2" FOREIGN KEY ("icon") REFERENCES "entries"("icon");
 ALTER TABLE "entries_damage" ADD CONSTRAINT "entries_damage_fk3" FOREIGN KEY ("item_level") REFERENCES "entries"("item_level");
 ALTER TABLE "entries_damage" ADD CONSTRAINT "entries_damage_fk4" FOREIGN KEY ("encounter_length") REFERENCES "fight_summary"("encounter_length");
-

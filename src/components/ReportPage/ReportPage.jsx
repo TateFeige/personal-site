@@ -28,11 +28,10 @@ function ReportPage() {
    const dispatch = useDispatch();
    const classes = useStyles();
    const user = useSelector((store) => store.user);
-   const refresh = () => {
-      dispatch({
-         type: 'SEARCH',
-         payload: searchQuery
-      });
+   const report = useSelector((store) => store.search);
+
+   const test = () => {
+      console.log(report);
    }
 
 
@@ -41,6 +40,7 @@ function ReportPage() {
          <Grid container justify="center" aria-label="report header">
             <IconButton color="primary" aria-label="Refresh Report"><RefreshIcon /></IconButton>
             <h1 align="center">Report (report.name)</h1>
+            <Button variant="contained" color="primary" disableElevation onClick={test}>Test</Button>
             <IconButton color="primary" aria-label="Add to favorites"><StarBorderIcon /></IconButton>
          </Grid>
          <br /><br /><br />
