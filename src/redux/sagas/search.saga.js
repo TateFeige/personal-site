@@ -7,6 +7,7 @@ function* search(searchQuery) {
    try {
       const WCLResponse = yield axios.get(`/api/search/${query}`);
       console.log(WCLResponse.data);
+      yield put ({type: "OVERVIEW", payload: WCLResponse.data});
    }
    catch(error) {
       console.log(`Error in search.saga, ${error}`);

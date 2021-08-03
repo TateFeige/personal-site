@@ -1,7 +1,7 @@
 //Main imports
 import React from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
 //MaterialUI imports
 import Box from '@material-ui/core/Box';
@@ -25,8 +25,15 @@ const useStyles = makeStyles({table: {minWidth: 700}});
 
 
 function ReportPage() {
+   const dispatch = useDispatch();
    const classes = useStyles();
    const user = useSelector((store) => store.user);
+   const refresh = () => {
+      dispatch({
+         type: 'SEARCH',
+         payload: searchQuery
+      });
+   }
 
 
    return (
@@ -38,7 +45,7 @@ function ReportPage() {
          </Grid>
          <br /><br /><br />
          <Grid container justify="center">
-         <Box style={{width: "85%"}} aria-label="history table container">
+         <Box style={{width: "85%"}} aria-label="report table container">
          <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="Report Table">
             <caption>Report Table</caption>
