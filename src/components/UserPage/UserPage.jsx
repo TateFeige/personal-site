@@ -1,9 +1,11 @@
+//Main imports
 import React from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import {useSelector} from 'react-redux';
 
 //MaterialUI imports
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -20,19 +22,24 @@ const useStyles = makeStyles({table: {minWidth: 700}});
 
 function UserPage() {
    const classes = useStyles();
-
-   // this component doesn't do much to start, just renders some user reducer info to the DOM
    const user = useSelector((store) => store.user);
-   //<h2>Welcome, {user.username}!</h2>
 
 
    return (
-      <Box>
-         <h2>Welcome, {user.username}!</h2>
-         <Grid container justify="space-between">
-         <Box style={{width: "40%"}}>
+      <Box aria-label="user page">
+         <Box textAlign="center" aria-label="user information">
+         <h1>Welcome, {user.username}</h1>
+         <h2>Current Character:</h2>
+         <h3>(Character)</h3>
+         <Button variant="contained" color="primary" disableElevation>Change Character</Button>
+         </Box>
+         <br /><br /><br />
+         <Grid container justify="space-between" aria-label="history and favorites tables container">
+         <Box style={{width: "40%"}} aria-label="history table container">
          <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="customized table">
+            <h2 align="center">History</h2>
+            <Table className={classes.table} aria-label="User History Table">
+            <caption>History Table</caption>
                <TableHead>
                   <TableRow>
                      <StyledTableCell>Date Created</StyledTableCell>
@@ -51,9 +58,11 @@ function UserPage() {
          </TableContainer>
          </Box>
          <br />
-         <Box style={{width: "40%"}} alignItems="flex-end">
+         <Box style={{width: "40%"}} alignItems="flex-end" aria-label="favorites table container">
          <TableContainer component={Paper}>
-            <Table className={classes.table}  aria-label="customized table">
+            <h2 align="center">Favorites</h2>
+            <Table className={classes.table}  aria-label="User Favorites Table">
+            <caption>Favorites Table</caption>
                <TableHead>
                   <TableRow>
                      <StyledTableCell>Date Created</StyledTableCell>
@@ -73,8 +82,8 @@ function UserPage() {
          </Box>
          </Grid>
       </Box>
-      );
-   };
+   );
+};
 
-// this allows us to use <App /> in index.js
+
 export default UserPage;

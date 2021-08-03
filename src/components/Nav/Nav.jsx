@@ -41,7 +41,7 @@ function Nav() {
     };
 
       return (
-        <Box className="nav">
+        <Box className="nav" aria-label="Navigation Bar">
             <Link to="/home"><h2 className="nav-title">WarcraftLogs Visualizer</h2></Link>
             <Box>
                 <FormControl fullWidth className={classes.margin} variant="outlined">
