@@ -2,7 +2,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 
@@ -19,27 +19,29 @@ import FormControl from '@material-ui/core/FormControl';
 const useStyles = makeStyles((theme) => ({root:{display: 'flex', flexWrap: 'wrap'}, margin:{width: '600px',  margin: theme.spacing(1), justifyContent:"flex-start",}, withoutLabel:{marginTop: theme.spacing(3)}}));
 
 function Nav() {
-    const [searchURL, setSearchURL] = useState('');
-    const dispatch = useDispatch();
-    const classes = useStyles();
-    const user = useSelector((store) => store.user);
-    let loginLinkData = {path: '/login', text: 'Login / Register'};
-    if (user.id != null) {loginLinkData.path = '/user'; loginLinkData.text = 'Home'};
-    function getSearchQueryByFullURL(url) {return url.split('/').pop()};
-    // isolate the text after the final "/" in our input URL, since our API only takes that final string and not the whole URL
+   const history = useHistory();
+   const [searchURL, setSearchURL] = useState('');
+   const dispatch = useDispatch();
+   const classes = useStyles();
+   const user = useSelector((store) => store.user);
+   let loginLinkData = {path: '/login', text: 'Login / Register'};
+   if (user.id != null) {loginLinkData.path = '/user'; loginLinkData.text = 'Home'};
+   function getSearchQueryByFullURL(url) {return url.split('/').pop()};
+   // isolate the text after the final "/" in our input URL, since our API only takes that final string and not the whole URL
 
-    const search = () => {
-        console.log(`URL submitted is:`, searchURL); //test function to make sure data is correct
-        let searchQuery = getSearchQueryByFullURL(searchURL);
-        console.log(`Searching for << ${searchQuery} >> on WarcraftLogs`); //test function to make sure data is correct
-        dispatch({
-            type: 'SEARCH',
-            payload: searchQuery
-        });
+   const search = () => {
+      console.log(`URL submitted is:`, searchURL); //test function to make sure data is correct
+      let searchQuery = getSearchQueryByFullURL(searchURL);
+      console.log(`Searching for << ${searchQuery} >> on WarcraftLogs`); //test function to make sure data is correct
+      dispatch({
+         type: 'SEARCH',
+         payload: searchQuery
+      });
+      history.push(`/report/${searchQuery}`);
     };
 
       return (
-        <Box className="nav">
+        <Box className="nav" aria-label="Navigation Bar">
             <Link to="/home"><h2 className="nav-title">WarcraftLogs Visualizer</h2></Link>
             <Box>
                 <FormControl fullWidth className={classes.margin} variant="outlined">
