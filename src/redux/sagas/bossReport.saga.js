@@ -16,6 +16,7 @@ function* report(reportItem) {
          }
       });
       console.log('bossResponse is:', bossResponse);
+      yield put({type: "POST_BOSS_FIGHT", payload: bossResponse});
    }
    catch(error) {
       console.log('Error in bossResponse:', error);
