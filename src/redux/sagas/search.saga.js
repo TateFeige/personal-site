@@ -3,7 +3,8 @@ import { put, takeLatest, call } from 'redux-saga/effects';
 
 function* search(searchQuery) {
    const query = searchQuery.payload;
-   //console.log(`Search saga has ${query}`); // test function
+   console.log(`Search saga has ${query}`); // test function
+   console.log(query);
    try {
       const WCLResponse = yield axios.get(`/api/search/search/${query}`);
       //console.log(WCLResponse.data); // test function

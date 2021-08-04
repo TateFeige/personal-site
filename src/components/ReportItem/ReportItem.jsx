@@ -62,7 +62,7 @@ function ReportItem(item) {
    };
 
    const fightSummary = (item) => {
-      console.log(item);
+      //console.log(item); // test function
       dispatch({
          type: "BOSS_REPORT",
          payload: item
