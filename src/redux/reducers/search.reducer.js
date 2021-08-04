@@ -4,6 +4,7 @@ import { put, takeLatest, call } from 'redux-saga/effects';
 const searchReducer = (state = [], action) => {
    switch (action.type) {
       case "POST_SUMMARY":
+         console.log ('stuff');
          console.log(action.payload);
          let fights = action.payload.fights;
          let fightsToReturn = [];
@@ -21,7 +22,7 @@ const searchReducer = (state = [], action) => {
          const overview = action.payload;
          //console.log(action.payload);
          axios.post('/api/database/postoverview', overview);
-         return state
+         return state;
       default:
          return state;
    };

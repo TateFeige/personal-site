@@ -17,7 +17,7 @@ CREATE TABLE "user" (
 
 CREATE TABLE "overview" (
 	"id" serial PRIMARY KEY,
-	"report_url" varchar(255),
+	"report_url" varchar(255) UNIQUE,
    "report_name" varchar(255),
 	"zone" varchar(255) NOT NULL,
 	"date" varchar(255) NOT NULL
