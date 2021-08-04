@@ -8,9 +8,9 @@ CREATE DATABASE "warcraftlogs";
 CREATE TABLE "all_fights_summary" (
 	"id" serial PRIMARY KEY,
 	"boss_id" integer UNIQUE,
-	"boss_name" varchar(255) NOT NULL,
-	"start_time" integer NOT NULL,
-	"end_time" integer NOT NULL,
+	"boss_name" varchar(255) NOT null unique,
+	"start_time" integer NOT null unique,
+	"end_time" integer NOT null unique,
 	"size" integer NOT NULL,
 	"difficulty" integer NOT NULL
 );
@@ -18,23 +18,23 @@ CREATE TABLE "all_fights_summary" (
 
 
 CREATE TABLE "fight_summary" (
-   "id" serial PRIMARY KEY,
-	"boss_id" integer NOT NULL,
-	"boss_name" varchar(255) NOT NULL,
-	"start_time" integer NOT NULL,
-	"end_time" integer NOT NULL,
-	"encounter_length" integer NOT NULL,
+   "id" serial PRIMARY key unique,
+	"boss_id" integer NOT null unique,
+	"boss_name" varchar(255) NOT null unique,
+	"start_time" integer NOT null unique,
+	"end_time" integer NOT null unique,
+	"encounter_length" integer NOT null unique,
 	"entries" varchar(255) NOT NULL
 );
 
 
 
 CREATE TABLE "entries" (
-	"id" serial PRIMARY KEY,
-	"name" varchar(255) NOT NULL,
-   "character_id" integer NOT NULL,
-	"icon" varchar(255) NOT NULL,
-	"item_level" integer NOT NULL,
+	"id" serial PRIMARY key unique,
+	"name" varchar(255) NOT null unique,
+    "character_id" integer NOT null unique,
+	"icon" varchar(255) NOT null unique,
+	"item_level" integer NOT null unique,
 	"entries_healing" integer NOT NULL,
 	"entries_damage" integer NOT NULL
 );
@@ -42,11 +42,11 @@ CREATE TABLE "entries" (
 
 
 CREATE TABLE "entries_healing" (
-	"id" serial PRIMARY KEY,
-	"name" varchar(255) NOT NULL,
-	"icon" varchar(255) NOT NULL,
-	"item_level" integer NOT NULL,
-	"encounter_length" integer NOT NULL,
+	"id" serial PRIMARY key unique,
+	"name" varchar(255) NOT null unique,
+	"icon" varchar(255) NOT null unique,
+	"item_level" integer NOT null unique,
+	"encounter_length" integer NOT null unique,
 	"total" integer NOT NULL,
 	"total/second" integer NOT NULL,
 	"healing_breakdown" integer NOT NULL
@@ -55,11 +55,11 @@ CREATE TABLE "entries_healing" (
 
 
 CREATE TABLE "entries_damage" (
-	"id" serial PRIMARY KEY,
-	"name" varchar(255) NOT NULL,
-	"icon" varchar(255) NOT NULL,
-	"item_level" integer NOT NULL,
-	"encounter_length" integer NOT NULL,
+	"id" serial PRIMARY key unique,
+	"name" varchar(255) NOT null unique,
+	"icon" varchar(255) NOT null unique,
+	"item_level" integer NOT null unique,
+	"encounter_length" integer NOT null unique,
 	"total" integer NOT NULL,
 	"total/second" integer NOT NULL,
 	"damage_breakdown" integer NOT NULL
@@ -103,8 +103,3 @@ ALTER TABLE "entries_damage" ADD CONSTRAINT "entries_damage_fk1" FOREIGN KEY ("n
 ALTER TABLE "entries_damage" ADD CONSTRAINT "entries_damage_fk2" FOREIGN KEY ("icon") REFERENCES "entries"("icon");
 ALTER TABLE "entries_damage" ADD CONSTRAINT "entries_damage_fk3" FOREIGN KEY ("item_level") REFERENCES "entries"("item_level");
 ALTER TABLE "entries_damage" ADD CONSTRAINT "entries_damage_fk4" FOREIGN KEY ("encounter_length") REFERENCES "fight_summary"("encounter_length");
-
-
-
-
-
