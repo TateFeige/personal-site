@@ -7,7 +7,7 @@ const fightReducer = (state = [], action) => {
          //console.log('BOSS_FIGHT has:', action.payload); // test function
          return state = action.payload;
       default:
-         return state;
+         return state = [];
    };
 };
 

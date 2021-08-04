@@ -1,7 +1,8 @@
 //Main imports
-import React from 'react';
+import React, {useEffect} from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import DamageRow from '../DamageRow/DamageRow';
 
 //MaterialUI imports
 import Box from '@material-ui/core/Box';
@@ -22,12 +23,21 @@ const useStyles = makeStyles({table: {minWidth: 700}});
 
 function FightPage() {
    const classes = useStyles();
+   const dispatch = useDispatch();
    const user = useSelector((store) => store.user);
    const fightInfo = useSelector((store) => store.fight);
    const test = () => {
       console.log(fightInfo);
    }
+
    //{fightInfo.data.damageDone.icon}{fightInfo.data.damageDone.name}{fightInfo.data.damageDone.total}
+   // {
+   //    ( user.id === item.user_id) ?
+   //    <td><button onClick={() => dispatch({ type: 'DELETE_YOUR_ITEM', payload: item.id})}>Delete</button></td> :
+   //    <td><button disabled>Delete</button></td>
+   //  }
+
+
 
    return (
       <Box aria-label="user page">
@@ -54,14 +64,7 @@ function FightPage() {
                <TableBody>
                {fightInfo.data.damageDone.map((reportItem) => {
                   return (
-                     <TableRow>
-                     <StyledTableCell></StyledTableCell>
-                     <StyledTableCell>{reportItem.icon}</StyledTableCell>
-                     <StyledTableCell>{reportItem.name}</StyledTableCell>
-                     <StyledTableCell>{reportItem.total}</StyledTableCell>
-                     <StyledTableCell></StyledTableCell>
-                     <StyledTableCell></StyledTableCell>
-                     </TableRow>
+                    <DamageRow id={reportItem.id} name={reportItem.name} icon={reportItem.icon} total={reportItem.total} />
                   );})}
                </TableBody>
             </Table>
@@ -75,7 +78,7 @@ function FightPage() {
             <caption>Healing Done Table</caption>
                <TableHead>
                   <TableRow>
-                     <StyledTableCell>Rank %</StyledTableCell>
+                     <StyledTableCell align="left">Rank %</StyledTableCell>
                      <StyledTableCell align="left">Rank</StyledTableCell>
                      <StyledTableCell align="left">Player</StyledTableCell>
                      <StyledTableCell align="left">HPS</StyledTableCell>
