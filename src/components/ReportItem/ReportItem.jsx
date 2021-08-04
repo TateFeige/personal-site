@@ -19,7 +19,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-const StyledTableCell = withStyles((theme) => ({head:{backgroundColor: theme.palette.common.black, color: theme.palette.common.white}, body:{fontSize: 14,}}))(TableCell);
+const StyledTableCell = withStyles((theme) => ({head:{backgroundColor: theme.palette.common.black, color: theme.palette.common.white}, body:{fontSize: 18,}}))(TableCell);
 const StyledTableRow = withStyles((theme) => ({root: {'&:nth-of-type(odd)': {backgroundColor: theme.palette.action.hover}}}))(TableRow);
 const useStyles = makeStyles({table: {minWidth: 700}});
 
@@ -29,7 +29,12 @@ function ReportItem(item) {
    const classes = useStyles();
    const user = useSelector((store) => store.user);
    const report = useSelector((store) => store.search);
-   const bossImage = (bossName) => {
+   const millisToMinutesAndSeconds = (millis) => { // function to convert the fight length (given from API in milliseconds) to minutes:seconds (much more readable)
+      var minutes = Math.floor(millis / 60000);
+      var seconds = ((millis % 60000) / 1000).toFixed(0);
+      return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+   };
+   const bossImage = (bossName) => { // adds an image to the report table based on boss
       switch (bossName) {
          case "The Tarragrue":
             return "https://assets.rpglogs.com/img/warcraft/bosses/2423-icon.jpg";
@@ -53,18 +58,24 @@ function ReportItem(item) {
             return "https://assets.rpglogs.com/img/warcraft/bosses/2435-icon.jpg"; 
          default:
             return "no image found";
-         
-      }
-   }
+      };
+   };
+
+   const fightSummary = (item) => {
+      console.log(item);
+      dispatch({
+         type: "BOSS_REPORT",
+         payload: item
+      });
+   };
 
 
    return (
-      <TableRow>
+      <TableRow onClick={() => fightSummary(item)}>
         <StyledTableCell align="left">{item.difficulty}</StyledTableCell>
         <StyledTableCell align="left"><img src={bossImage(item.name)} />{item.name}</StyledTableCell>
-        <StyledTableCell align="left">{item.length}</StyledTableCell>
+        <StyledTableCell align="left">{millisToMinutesAndSeconds(item.end_time - item.start_time)}</StyledTableCell>
       </TableRow>
-      
    );
 };
 

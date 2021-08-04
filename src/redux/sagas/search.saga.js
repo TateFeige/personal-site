@@ -3,12 +3,18 @@ import { put, takeLatest, call } from 'redux-saga/effects';
 
 function* search(searchQuery) {
    const query = searchQuery.payload;
-   // console.log(`Search saga has ${query}`); // test function
+   //console.log(`Search saga has ${query}`); // test function
    try {
       const WCLResponse = yield axios.get(`/api/search/search/${query}`);
-      yield put ({type: "POST_OVERVIEW", payload: WCLResponse.data});
-      console.log(WCLResponse.data);
-      
+      //console.log(WCLResponse.data); // test function
+      const date = new Date(WCLResponse.data.start);
+      const start = date.toLocaleDateString("en-US");
+      const overview = {date: start, report_length: (WCLResponse.data.end - WCLResponse.data.start), title: WCLResponse.data.title, zone: WCLResponse.data.zone, url: query};
+      const report = {id: query, name: WCLResponse.data.title};
+      //console.log(overview); // test function
+      yield put ({type: "POST_SUMMARY", payload: WCLResponse.data});
+      yield put ({type: "POST_REPORT", payload: report});
+      yield put ({type: "POST_OVERVIEW", payload: overview});
    }
    catch(error) {
       console.log(`Error in search.saga, ${error}`);

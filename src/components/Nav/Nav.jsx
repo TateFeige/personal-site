@@ -35,7 +35,7 @@ function Nav() {
          alert('Please enter a search URL');
          return false;
       };
-      console.log(`Searching for << ${searchQuery} >> on WarcraftLogs`); //test function to make sure data is correct
+      //console.log(`Searching for << ${searchQuery} >> on WarcraftLogs`); //test function to make sure data is correct
       dispatch({
          type: 'SEARCH',
          payload: searchQuery
