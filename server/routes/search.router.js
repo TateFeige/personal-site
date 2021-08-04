@@ -18,5 +18,9 @@ router.get('/search/:search', (req, res) => {
    });
 });
 
+router.get('/report/bossreport', (req, res) => {
+   const query = req.params;
+   console.log('req is:', req.query);
+});
 
 module.exports = router;
