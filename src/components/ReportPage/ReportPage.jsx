@@ -30,11 +30,7 @@ function ReportPage() {
    const classes = useStyles();
    const user = useSelector((store) => store.user);
    const report = useSelector((store) => store.search);
-   const millisToMinutesAndSeconds = (millis) => { // function to convert the fight length (given from API in milliseconds) to minutes:seconds (much more readable)
-      var minutes = Math.floor(millis / 60000);
-      var seconds = ((millis % 60000) / 1000).toFixed(0);
-      return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
-   };
+   const reportInfo = useSelector((store) => store.report);
    const difficultyConverter = (difficulty) => { // function to convert difficulty (given from API as a number) to a string (so it can be read by the user)
       switch (difficulty) {
          case 1:
@@ -59,7 +55,7 @@ function ReportPage() {
       <Box aria-label="report page">
          <Grid container justify="center" aria-label="report header">
             <IconButton color="primary" aria-label="Refresh Report"><RefreshIcon /></IconButton>
-            <h1 align="center">Report (report.name)</h1>
+            <h1 align="center">{reportInfo.name}</h1>
             <Button variant="contained" color="primary" disableElevation onClick={test}>Test</Button>
             <IconButton color="primary" aria-label="Add to favorites"><StarBorderIcon /></IconButton>
          </Grid>
@@ -79,7 +75,7 @@ function ReportPage() {
                <TableBody>
                {report.map((reportItem) => {
                   return (
-                     <ReportItem key={reportItem.boss} difficulty={difficultyConverter(reportItem.difficulty)} name={reportItem.name} length={millisToMinutesAndSeconds(reportItem.end_time - reportItem.start_time)} />
+                     <ReportItem id={reportItem.id} url={reportInfo.id} difficulty={difficultyConverter(reportItem.difficulty)} name={reportItem.name} end_time={reportItem.end_time} start_time={reportItem.start_time} />
                   );})}
                </TableBody>
             </Table>
