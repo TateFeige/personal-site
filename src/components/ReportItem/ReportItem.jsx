@@ -2,6 +2,7 @@
 import React from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import {useSelector, useDispatch} from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 
 //MaterialUI imports
 import Box from '@material-ui/core/Box';
@@ -25,6 +26,7 @@ const useStyles = makeStyles({table: {minWidth: 700}});
 
 
 function ReportItem(item) {
+   const history = useHistory();
    const dispatch = useDispatch();
    const classes = useStyles();
    const user = useSelector((store) => store.user);
@@ -62,11 +64,12 @@ function ReportItem(item) {
    };
 
    const fightSummary = (item) => {
-      //console.log(item); // test function
+      console.log(item); // test function
       dispatch({
          type: "BOSS_REPORT",
          payload: item
       });
+      history.push(`/fight?report=${item.url}&boss=${item.name}&difficulty=${item.difficulty}`);
    };
 
 
