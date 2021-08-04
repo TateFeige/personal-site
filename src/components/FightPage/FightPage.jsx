@@ -1,20 +1,89 @@
+//Main imports
 import React from 'react';
-import {useSelector, useDispatch} from 'react-redux';
+import LogOutButton from '../LogOutButton/LogOutButton';
+import {useSelector} from 'react-redux';
+
+//MaterialUI imports
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+const StyledTableCell = withStyles((theme) => ({head:{backgroundColor: theme.palette.common.black, color: theme.palette.common.white}, body:{fontSize: 14,}}))(TableCell);
+const StyledTableRow = withStyles((theme) => ({root: {'&:nth-of-type(odd)': {backgroundColor: theme.palette.action.hover}}}))(TableRow);
+const useStyles = makeStyles({table: {minWidth: 700}});
+
 
 function FightPage() {
+   const classes = useStyles();
+   const user = useSelector((store) => store.user);
    const fightInfo = useSelector((store) => store.fight);
    const test = () => {
       console.log(fightInfo);
    }
 
-  return (
-    <div className="container">
-      <div>
-        <p>This is the fight page</p>
-        <button onClick={test}>test</button>
-      </div>
-    </div>
-  );
-}
+   return (
+      <Box aria-label="user page">
+         <Box textAlign="center" aria-label="user information">
+         <Button variant="contained" color="primary" disableElevation onClick={test}>Test</Button>
+         </Box>
+         <br /><br /><br />
+         <Grid container justify="space-between" aria-label="history and favorites tables container">
+         <Box style={{width: "40%"}} aria-label="history table container">
+         <TableContainer component={Paper}>
+            <h2 align="center">Damage</h2>
+            <Table className={classes.table} aria-label="Damage Dealt Table">
+            <caption>Damage Dealt Table</caption>
+               <TableHead>
+                  <TableRow>
+                     <StyledTableCell>Date Created</StyledTableCell>
+                     <StyledTableCell align="left">Report Name</StyledTableCell>
+                     <StyledTableCell align="left">View</StyledTableCell>
+                  </TableRow>
+               </TableHead>
+               <TableBody>
+                  <StyledTableRow >
+                  <StyledTableCell component="th" scope="row"></StyledTableCell>
+                  <StyledTableCell align="left"></StyledTableCell>
+                  <StyledTableCell align="left"></StyledTableCell>
+                  </StyledTableRow>
+               </TableBody>
+            </Table>
+         </TableContainer>
+         </Box>
+         <br />
+         <Box style={{width: "40%"}} alignItems="flex-end" aria-label="favorites table container">
+         <TableContainer component={Paper}>
+            <h2 align="center">Healing</h2>
+            <Table className={classes.table}  aria-label="User Favorites Table">
+            <caption>Healing Done Table</caption>
+               <TableHead>
+                  <TableRow>
+                     <StyledTableCell>Date Created</StyledTableCell>
+                     <StyledTableCell align="left">Report Name</StyledTableCell>
+                     <StyledTableCell align="left">View</StyledTableCell>
+                  </TableRow>
+               </TableHead>
+               <TableBody>
+                  <StyledTableRow >
+                  <StyledTableCell component="th" scope="row"></StyledTableCell>
+                  <StyledTableCell align="left"></StyledTableCell>
+                  <StyledTableCell align="left"></StyledTableCell>
+                  </StyledTableRow>
+               </TableBody>
+            </Table>
+         </TableContainer>
+         </Box>
+         </Grid>
+      </Box>
+   );
+};
+
 
 export default FightPage;
