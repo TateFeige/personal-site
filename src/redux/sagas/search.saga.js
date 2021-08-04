@@ -9,10 +9,10 @@ function* search(searchQuery) {
       //console.log(WCLResponse.data); // test function
       const date = new Date(WCLResponse.data.start);
       const start = date.toLocaleDateString("en-US");
-      const overview = {date: start, title: WCLResponse.data.title, zone: WCLResponse.data.zone, url: query};
-      console.log(overview);
-      yield put ({type: "POST_OVERVIEW", payload: overview});
+      const overview = {date: start, report_length: (WCLResponse.data.end - WCLResponse.data.start), title: WCLResponse.data.title, zone: WCLResponse.data.zone, url: query};
+      //console.log(overview); // test function
       yield put ({type: "POST_SUMMARY", payload: WCLResponse.data});
+      yield put ({type: "POST_OVERVIEW", payload: overview});
    }
    catch(error) {
       console.log(`Error in search.saga, ${error}`);

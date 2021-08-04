@@ -4,12 +4,12 @@ import { put, takeLatest, call } from 'redux-saga/effects';
 const searchReducer = (state = [], action) => {
    switch (action.type) {
       case "POST_SUMMARY":
+         console.log(action.payload);
          let fights = action.payload.fights;
          let fightsToReturn = [];
          for (let x = 0; x < fights.length; x++) {
             if (fights[x].kill === true) {
-               //console.log(fights[x]); test function
-               axios.post('/api/database/allfights', fights[x]);
+               console.log(fights[x]); // test function
                fightsToReturn.push(fights[x]);
             }
          }

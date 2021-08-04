@@ -5,82 +5,20 @@
 CREATE DATABASE "warcraftlogs";
 
 
-CREATE TABLE "all_fights_summary" (
-	"id" serial PRIMARY KEY,
-   "report_id" varchar(255) NOT NULL UNIQUE,
-	"boss_id" integer NOT NULL,
-	"boss_name" varchar(255) NOT NULL,
-	"start_time" integer NOT NULL,
-	"end_time" integer NOT NULL,
-	"size" integer NOT NULL,
-	"difficulty" integer NOT NULL
-);
-
-
-
-CREATE TABLE "fight_summary" (
-   "id" serial PRIMARY KEY,
-	"boss_id" integer NOT NULL,
-	"boss_name" varchar(255) NOT NULL,
-	"start_time" integer NOT NULL,
-	"end_time" integer NOT NULL,
-	"encounter_length" integer NOT NULL,
-	"entries" varchar(255) NOT NULL
-);
-
-
-
-CREATE TABLE "entries" (
-	"id" serial PRIMARY KEY,
-	"name" varchar(255) NOT NULL,
-    "character_id" integer NOT NULL,
-	"icon" varchar(255) NOT NULL,
-	"item_level" integer NOT NULL,
-	"entries_healing" integer NOT NULL,
-	"entries_damage" integer NOT NULL
-);
-
-
-
-CREATE TABLE "entries_healing" (
-	"id" serial PRIMARY KEY,
-	"name" varchar(255) NOT NULL,
-	"icon" varchar(255) NOT NULL,
-	"item_level" integer NOT NULL,
-	"encounter_length" integer NOT NULL,
-	"total" integer NOT NULL,
-	"total/second" integer NOT NULL,
-	"healing_breakdown" integer NOT NULL
-);
-
-
-
-CREATE TABLE "entries_damage" (
-	"id" serial PRIMARY KEY,
-	"name" varchar(255) NOT NULL,
-	"icon" varchar(255) NOT NULL,
-	"item_level" integer NOT NULL,
-	"encounter_length" integer NOT NULL,
-	"total" integer NOT NULL,
-	"total/second" integer NOT NULL,
-	"damage_breakdown" integer NOT NULL
-);
-
-
-
 CREATE TABLE "user" (
 	"id" serial PRIMARY KEY,
 	"username" varchar(255) NOT NULL,
 	"password" varchar(255) NOT NULL,
-	"character" varchar(255) NOT NULL
+	"character" varchar(255),
+   "favorites" varchar(255),
+   "history" varchar(255)
 );
-
 
 
 CREATE TABLE "overview" (
 	"id" serial PRIMARY KEY,
-	"report_url" varchar(255) UNIQUE,
-   "report_name" varchar(255) NOT NULL,
+	"report_url" varchar(255),
+   "report_name" varchar(255),
 	"zone" varchar(255) NOT NULL,
 	"date" varchar(255) NOT NULL
 );
