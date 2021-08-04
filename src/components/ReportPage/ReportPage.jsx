@@ -1,5 +1,5 @@
 //Main imports
-import React from 'react';
+import React, {useEffect} from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import {useSelector, useDispatch} from 'react-redux';
 import ReportItem from '../ReportItem/ReportItem';
@@ -45,6 +45,7 @@ function ReportPage() {
             return "unknown";
       };
    };
+  
 
    const test = () => {
       console.log(report);

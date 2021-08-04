@@ -27,6 +27,7 @@ function FightPage() {
    const test = () => {
       console.log(fightInfo);
    }
+   //{fightInfo.data.damageDone.icon}{fightInfo.data.damageDone.name}{fightInfo.data.damageDone.total}
 
    return (
       <Box aria-label="user page">
@@ -42,17 +43,26 @@ function FightPage() {
             <caption>Damage Dealt Table</caption>
                <TableHead>
                   <TableRow>
-                     <StyledTableCell>Date Created</StyledTableCell>
-                     <StyledTableCell align="left">Report Name</StyledTableCell>
-                     <StyledTableCell align="left">View</StyledTableCell>
+                     <StyledTableCell align="left">Rank %</StyledTableCell>
+                     <StyledTableCell align="left">Rank</StyledTableCell>
+                     <StyledTableCell align="left">Player</StyledTableCell>
+                     <StyledTableCell align="left">DPS</StyledTableCell>
+                     <StyledTableCell align="left">ilvl</StyledTableCell>
+                     <StyledTableCell align="left">ilvl %</StyledTableCell>
                   </TableRow>
                </TableHead>
                <TableBody>
-                  <StyledTableRow >
-                  <StyledTableCell component="th" scope="row"></StyledTableCell>
-                  <StyledTableCell align="left"></StyledTableCell>
-                  <StyledTableCell align="left"></StyledTableCell>
-                  </StyledTableRow>
+               {fightInfo.data.damageDone.map((reportItem) => {
+                  return (
+                     <TableRow>
+                     <StyledTableCell></StyledTableCell>
+                     <StyledTableCell>{reportItem.icon}</StyledTableCell>
+                     <StyledTableCell>{reportItem.name}</StyledTableCell>
+                     <StyledTableCell>{reportItem.total}</StyledTableCell>
+                     <StyledTableCell></StyledTableCell>
+                     <StyledTableCell></StyledTableCell>
+                     </TableRow>
+                  );})}
                </TableBody>
             </Table>
          </TableContainer>
@@ -65,17 +75,26 @@ function FightPage() {
             <caption>Healing Done Table</caption>
                <TableHead>
                   <TableRow>
-                     <StyledTableCell>Date Created</StyledTableCell>
-                     <StyledTableCell align="left">Report Name</StyledTableCell>
-                     <StyledTableCell align="left">View</StyledTableCell>
+                     <StyledTableCell>Rank %</StyledTableCell>
+                     <StyledTableCell align="left">Rank</StyledTableCell>
+                     <StyledTableCell align="left">Player</StyledTableCell>
+                     <StyledTableCell align="left">HPS</StyledTableCell>
+                     <StyledTableCell align="left">ilvl</StyledTableCell>
+                     <StyledTableCell align="left">ilvl %</StyledTableCell>
                   </TableRow>
                </TableHead>
                <TableBody>
-                  <StyledTableRow >
-                  <StyledTableCell component="th" scope="row"></StyledTableCell>
-                  <StyledTableCell align="left"></StyledTableCell>
-                  <StyledTableCell align="left"></StyledTableCell>
-                  </StyledTableRow>
+               {fightInfo.data.healingDone.map((reportItem) => {
+                  return (
+                     <TableRow>
+                     <StyledTableCell></StyledTableCell>
+                     <StyledTableCell>{reportItem.icon}</StyledTableCell>
+                     <StyledTableCell>{reportItem.name}</StyledTableCell>
+                     <StyledTableCell>{reportItem.total}</StyledTableCell>
+                     <StyledTableCell></StyledTableCell>
+                     <StyledTableCell></StyledTableCell>
+                     </TableRow>
+                  );})}
                </TableBody>
             </Table>
          </TableContainer>
