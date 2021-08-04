@@ -15,7 +15,7 @@ const searchReducer = (state = [], action) => {
          }
          console.log('Kills are:', fightsToReturn);
          console.log('All fights are:', fights);
-         return fights;
+         return fightsToReturn;
       default:
          return state;
    };
