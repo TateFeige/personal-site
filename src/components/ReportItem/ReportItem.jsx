@@ -19,7 +19,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-const StyledTableCell = withStyles((theme) => ({head:{backgroundColor: theme.palette.common.black, color: theme.palette.common.white}, body:{fontSize: 14,}}))(TableCell);
+const StyledTableCell = withStyles((theme) => ({head:{backgroundColor: theme.palette.common.black, color: theme.palette.common.white}, body:{fontSize: 18,}}))(TableCell);
 const StyledTableRow = withStyles((theme) => ({root: {'&:nth-of-type(odd)': {backgroundColor: theme.palette.action.hover}}}))(TableRow);
 const useStyles = makeStyles({table: {minWidth: 700}});
 
@@ -29,7 +29,7 @@ function ReportItem(item) {
    const classes = useStyles();
    const user = useSelector((store) => store.user);
    const report = useSelector((store) => store.search);
-   const bossImage = (bossName) => {
+   const bossImage = (bossName) => { // adds an image to the report table based on boss name
       switch (bossName) {
          case "The Tarragrue":
             return "https://assets.rpglogs.com/img/warcraft/bosses/2423-icon.jpg";
@@ -53,9 +53,8 @@ function ReportItem(item) {
             return "https://assets.rpglogs.com/img/warcraft/bosses/2435-icon.jpg"; 
          default:
             return "no image found";
-         
-      }
-   }
+      };
+   };
 
 
    return (

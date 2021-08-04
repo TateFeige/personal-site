@@ -23,8 +23,8 @@ router.get('/search/:search', (req, res) => {
 /**
  * POST route template
  */
-router.post('/overview', (req, res) => {
-  const overview = req.body.fights;
+router.post('/postoverview', (req, res) => {
+  const overview = req;
   console.log('Overview has:', overview);
   //let qText = `INSERT INTO "overview" (zone, boss_id, boss_name)
   //VALUES ($1, $2, $3) RETURNING id`;

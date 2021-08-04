@@ -45,9 +45,10 @@
                return "Heroic";
             case 5:
                return "Mythic";  
-
-         }
-      }
+            default:
+               return "unknown";
+         };
+      };
 
       const test = () => {
          console.log(report);
