@@ -30,10 +30,29 @@
       const classes = useStyles();
       const user = useSelector((store) => store.user);
       const report = useSelector((store) => store.search);
+      const millisToMinutesAndSeconds = (millis) => { // function to convert the fight length (given from API in milliseconds) to minutes:seconds (much more readable)
+         var minutes = Math.floor(millis / 60000);
+         var seconds = ((millis % 60000) / 1000).toFixed(0);
+         return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+      };
+      const difficultyConverter = (difficulty) => { // function to convert difficulty (given from API as a number) to a string (so it can be read by the user)
+         switch (difficulty) {
+            case 1:
+               return "Looking For Raid";
+            case 3:
+               return "Normal";
+            case 4:
+               return "Heroic";
+            case 5:
+               return "Mythic";  
+
+         }
+      }
 
       const test = () => {
          console.log(report);
-      }
+      };
+   
 
 
       return (
@@ -52,15 +71,15 @@
                <caption>Report Table</caption>
                   <TableHead>
                      <TableRow>
-                        <StyledTableCell>Difficulty</StyledTableCell>
-                        <StyledTableCell align="left">Boss</StyledTableCell>
-                        <StyledTableCell align="left">Length</StyledTableCell>
+                        <StyledTableCell align="left" width="15%">Difficulty</StyledTableCell>
+                        <StyledTableCell align="center">Boss</StyledTableCell>
+                        <StyledTableCell align="left" width="15%">Length (minutes)</StyledTableCell>
                      </TableRow>
                   </TableHead>
                   <TableBody>
                   {report.map((reportItem) => {
                      return (
-                        <ReportItem key={reportItem.boss} difficulty={reportItem.difficulty} name={reportItem.name} length={(reportItem.start_time - reportItem.end_time)} />
+                        <ReportItem key={reportItem.boss} difficulty={difficultyConverter(reportItem.difficulty)} name={reportItem.name} length={millisToMinutesAndSeconds(reportItem.end_time - reportItem.start_time)} />
                      );})}
                   </TableBody>
                </Table>
