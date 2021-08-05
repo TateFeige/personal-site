@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import {useSelector, useDispatch} from 'react-redux';
 import DamageRow from '../DamageRow/DamageRow';
+import HealingRow from '../HealingRow/HealingRow';
 import axios from 'axios';
 
 
@@ -27,7 +28,7 @@ const dataColumns = [
    { field: 'RankPercent', headerName: 'Rank %', width: 150 },
    { field: 'Rank', headerName: 'Rank', width: 150 },
    { field: 'id', headerName: 'Player', width: 150 },
-   { field: 'DPS', headerName: 'DPS', width: 150 },
+   { field: 'HPS', headerName: 'HPS', width: 150 },
    { field: 'ilvl', headerName: 'ilvl', width: 150 },
    { field: 'ilvlPercent', headerName: 'ivlv%', width: 150 }, 
 ];
@@ -35,7 +36,7 @@ const dataRows = [
    {RankPercent: 5,
    Rank: 200,
    id: 'Sageth',
-   DPS: 2500,
+   HPS: 2500,
    ilvl: 242,
    ilvlPercent: 50,
    
@@ -48,15 +49,13 @@ const dataRows = [
 
 function FightPage() {
    const [bossItem, setBossItem] =  useState({});
+   let testRows = [];
+   let newDataRows = [];
    const classes = useStyles();
    const dispatch = useDispatch();
    const user = useSelector((store) => store.user);
    const report = useSelector((store) => store.search);
    const fightInfo = useSelector((store) => store.fight);
-   const test = () => {
-      findFight()
-      //console.log(fightInfo[0].id) // test function
-   };
    const findFight = () => {
       for (let x = 0; x < report.length; x++) {
          //console.log(report[x]);
@@ -69,6 +68,20 @@ function FightPage() {
    useEffect(() => { // get data on page load
       findFight();
   }, []);
+
+  const test = () => {
+   testRows = [];
+   bossItem.roles.dps.characters.map((player) => {
+       (
+         testRows.push({name: player.name, total: player.amount, ilvl: player.bracketData, ilvlParse: player.bracketPercent, rank: player.rank, rankTotal: player.totalParses, rankPercent: player.rankPercent})
+      )
+   
+      // for (let x = 0; x < testRows.length; x ++) {
+      //    console.log(testRows[x].props);
+      // }  
+   })
+   console.log(testRows);
+}
    
 
 
@@ -124,9 +137,8 @@ function FightPage() {
          <br />
          <Box style={{width: "40%"}} alignItems="flex-end" aria-label="favorites table container">
          <DataGrid
-               rows={dataRows}
+               rows={testRows}
                columns={dataColumns}
-               pageSize={5}
                />
          {/* <TableContainer component={Paper}>
             <h2 align="center">Healing</h2>
