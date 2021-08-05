@@ -55,7 +55,7 @@ function FightPage() {
 
    return (
       <>
-      {( fightInfo == undefined) ? 
+      {( bossItem.roles == undefined) ? 
             <Box textAlign="center" aria-label="Waiting for response">
                <h1>Loading</h1>
                <CircularProgress style={{height:"10%", width:"10%"}}/>
@@ -85,10 +85,18 @@ function FightPage() {
                   </TableRow>
                </TableHead>
                <TableBody>
-               {/* {fightInfo.data.damageDone.map((player) => {
+               {bossItem.roles.dps.characters.map((player) => {
                   return (
-                    <DamageRow id={player.id} name={player.name} icon={player.icon} total={player.total} />
-                  );})} */}
+                    <DamageRow id={player.id} name={player.name} server={player.server.name} icon={(player.spec) + " " + (player.class)} total={player.amount} ilvl={player.bracketData} ilvlParse={player.bracketPercent} rank={player.rank} rankTotal={player.totalParses} rankPercent={player.rankPercent}/>
+                  );})}
+               {bossItem.roles.healers.characters.map((player) => {
+                  return (
+                    <DamageRow id={player.id} name={player.name} server={player.server.name} icon={(player.spec) + " " + (player.class)} total={player.amount} ilvl={player.bracketData} ilvlParse={player.bracketPercent} rank={player.rank} rankTotal={player.totalParses} rankPercent={player.rankPercent}/>
+                  );})}
+               {bossItem.roles.tanks.characters.map((player) => {
+                  return (
+                    <DamageRow id={player.id} name={player.name} server={player.server.name} icon={(player.spec) + " " + (player.class)} total={player.amount} ilvl={player.bracketData} ilvlParse={player.bracketPercent} rank={player.rank} rankTotal={player.totalParses} rankPercent={player.rankPercent}/>
+                  );})}
                </TableBody>
             </Table>
          </TableContainer>

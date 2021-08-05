@@ -33,12 +33,12 @@ function DamageRow(item) {
 
    return (
       <TableRow>
-         <StyledTableCell></StyledTableCell>
-         <StyledTableCell>{item.icon}</StyledTableCell>
-         <StyledTableCell>{item.name}</StyledTableCell>
+         <StyledTableCell>{item.rankPercent}</StyledTableCell>
+         <StyledTableCell>{item.rank} out of {item.rankTotal}</StyledTableCell>
+         <StyledTableCell>{item.icon} <b>{item.name}</b></StyledTableCell>
          <StyledTableCell>{item.total}</StyledTableCell>
-         <StyledTableCell></StyledTableCell>
-         <StyledTableCell><button onClick={test}>Test</button></StyledTableCell>
+         <StyledTableCell>{item.ilvl}</StyledTableCell>
+         <StyledTableCell>{item.ilvlParse}</StyledTableCell>
       </TableRow>
    );
 };
