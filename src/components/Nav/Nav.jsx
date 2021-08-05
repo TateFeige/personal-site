@@ -2,6 +2,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
@@ -42,6 +43,68 @@ function Nav() {
       });
       history.push(`/report/${searchQuery}`);
     };
+
+//     const test = () => {
+//       let searchQuery = getSearchQueryByFullURL(searchURL);
+//       if (searchQuery == "") {
+//          alert('Please enter a search URL');
+//          return false;
+//       };
+//       const qs = require('qs');
+//       const dataString = qs.stringify({
+//       'grant_type': 'client_credentials' 
+//       });
+//       var config = {
+//       method: 'POST',
+//       url: 'https://www.warcraftlogs.com/oauth/token',
+//       headers: { 
+//          'Authorization': 'Basic OTQxNGZjNzktNzc2NS00MDg3LWIwOWYtOWM1Yzc2YzIxOWQ1OnlsT3VITks0M0l0QzNqNHhIUUxwekZLbmwzcG9GU1haU0Jnd1pPUk4=', 
+//          'Content-Type': 'application/x-www-form-urlencoded',
+//       },
+//       data : dataString,
+//       };
+//       axios(config)
+//       .then(response => {
+//       console.log(response.data);
+//       var data = JSON.stringify({
+//          query: `{
+//          reportData {
+//            report(code: "${searchQuery}") {
+//              rankings
+//            }
+//          }
+//        }`,
+//          variables: {}
+//        });
+       
+//        var config = {
+//          method: 'POST',
+//          url: 'https://www.warcraftlogs.com/api/v2/client',
+//          headers: { 
+//            'Accept': 'application/json', 
+//            'Authorization': `Bearer ${response.data.access_token}`, 
+//            'Content-Type': 'application/json'   
+//          },
+//          data : data
+//        };
+       
+//        axios(config)
+//        .then(function (response) {
+//          console.log(response.data.data.reportData.report);
+//          history.push(`/report/${searchQuery}`);
+//        })
+//        .catch(function (error) {
+//          console.log(error);
+//        });
+//       })
+//       .catch(error => {
+//       console.log(error);
+//       });
+//   }
+
+
+
+
 
    return (
       <Box className="nav" aria-label="Navigation Bar">

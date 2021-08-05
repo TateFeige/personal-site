@@ -14,7 +14,7 @@ function LandingPage() {
       history.push('/login');
    };
 
-   const test = () => {
+   const test = (searchQuery) => {
       const qs = require('qs');
       const dataString = qs.stringify({
       'grant_type': 'client_credentials' 
@@ -34,7 +34,7 @@ function LandingPage() {
       var data = JSON.stringify({
          query: `{
          reportData {
-           report(code: "6Lg3ctnvF8HmRbZp") {
+           report(code: "${searchQuery}") {
              rankings
            }
          }
