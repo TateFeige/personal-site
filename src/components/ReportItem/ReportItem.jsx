@@ -12,6 +12,7 @@ import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
 import IconButton from '@material-ui/core/IconButton';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
+
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -64,7 +65,7 @@ function ReportItem(item) {
    };
 
    const fightSummary = (item) => {
-      console.log(item); // test function
+      console.log('fightSummary item is:', item); // test function
       dispatch({
          type: "BOSS_REPORT",
          payload: item
@@ -77,7 +78,7 @@ function ReportItem(item) {
       <TableRow onClick={() => fightSummary(item)}>
         <StyledTableCell align="left">{item.difficulty}</StyledTableCell>
         <StyledTableCell align="left"><img src={bossImage(item.name)} />{item.name}</StyledTableCell>
-        <StyledTableCell align="left">{millisToMinutesAndSeconds(item.end_time - item.start_time)}</StyledTableCell>
+        <StyledTableCell align="left">{millisToMinutesAndSeconds(item.length)}</StyledTableCell>
       </TableRow>
    );
 };

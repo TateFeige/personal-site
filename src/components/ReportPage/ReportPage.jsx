@@ -46,7 +46,7 @@ function ReportPage() {
             return "unknown";
       };
    };
-   
+
    const test = () => {
       console.log(report);
    };
@@ -76,7 +76,7 @@ function ReportPage() {
                <TableBody>
                {report.map((reportItem) => {
                   return (
-                     <ReportItem id={reportItem.id} url={reportInfo.id} difficulty={difficultyConverter(reportItem.difficulty)} name={reportItem.name} end_time={reportItem.end_time} start_time={reportItem.start_time} />
+                     <ReportItem id={reportItem.fightID} url={reportInfo.id} difficulty={difficultyConverter(reportItem.difficulty)} name={reportItem.encounter.name} length={reportItem.duration}/>
                   );})}
                </TableBody>
             </Table>

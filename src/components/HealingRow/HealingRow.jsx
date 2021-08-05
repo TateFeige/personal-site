@@ -24,24 +24,44 @@ const StyledTableCell = withStyles((theme) => ({head:{backgroundColor: theme.pal
 const StyledTableRow = withStyles((theme) => ({root: {'&:nth-of-type(odd)': {backgroundColor: theme.palette.action.hover}}}))(TableRow);
 const useStyles = makeStyles({table: {minWidth: 700}});
 
+const dataColumns = [
+   { field: 'RankPercent', headerName: 'Rank %', width: 150 },
+   { field: 'Rank', headerName: 'Rank', width: 150 },
+   { field: 'id', headerName: 'Player', width: 150 },
+   { field: 'HPS', headerName: 'HPS', width: 150 },
+   { field: 'ilvl', headerName: 'ilvl', width: 150 },
+   { field: 'ilvlPercent', headerName: 'ivlv%', width: 150 }, 
+];
+const dataRows = [
+   {RankPercent: 5,
+   Rank: 200,
+   id: 'Sageth',
+   HPS: 2500,
+   ilvl: 242,
+   ilvlPercent: 50,
+   
+   
+   }
+]
 
-function DamageRow(item) {
+
+function HealingRow(item) {
    const test = () => {
       console.log(item);
    }
 
 
    return (
-      <TableRow>
-         <StyledTableCell>{item.rankPercent}</StyledTableCell>
-         <StyledTableCell>{item.rank} out of {item.rankTotal}</StyledTableCell>
-         <StyledTableCell>{item.icon} <b>{item.name}</b></StyledTableCell>
-         <StyledTableCell>{item.total}</StyledTableCell>
-         <StyledTableCell>{item.ilvl}</StyledTableCell>
-         <StyledTableCell>{item.ilvlParse}</StyledTableCell>
-      </TableRow>
+      {
+         RankPercent: item.rankPercent,
+         Rank: item.rank,
+         id: item.name,
+         HPS: item.total,
+         ilvl: item.ilvl,
+         ilvlPercent: item.ilvlParse,
+      }
    );
 };
 
 
-export default DamageRow;
+export default HealingRow;

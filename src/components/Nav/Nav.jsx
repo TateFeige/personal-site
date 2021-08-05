@@ -2,6 +2,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
@@ -42,6 +43,7 @@ function Nav() {
       });
       history.push(`/report/${searchQuery}`);
     };
+
 
    return (
       <Box className="nav" aria-label="Navigation Bar">
