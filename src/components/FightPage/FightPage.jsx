@@ -3,6 +3,8 @@ import React, {useEffect} from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import {useSelector, useDispatch} from 'react-redux';
 import DamageRow from '../DamageRow/DamageRow';
+import axios from 'axios';
+
 
 //MaterialUI imports
 import Box from '@material-ui/core/Box';
@@ -16,21 +18,23 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
 const StyledTableCell = withStyles((theme) => ({head:{backgroundColor: theme.palette.common.black, color: theme.palette.common.white}, body:{fontSize: 14,}}))(TableCell);
 const StyledTableRow = withStyles((theme) => ({root: {'&:nth-of-type(odd)': {backgroundColor: theme.palette.action.hover}}}))(TableRow);
 const useStyles = makeStyles({table: {minWidth: 700}});
+
+
 
 
 function FightPage() {
    const classes = useStyles();
    const dispatch = useDispatch();
    const user = useSelector((store) => store.user);
-   const fightInfo = useSelector((store) => store.fight);
+   const fightInfo = useSelector((store) => store.fight[0]);
    const test = () => {
       console.log(fightInfo);
-   }
-
-   //{fightInfo.data.damageDone.icon}{fightInfo.data.damageDone.name}{fightInfo.data.damageDone.total}
+   };
+   
    // {
    //    ( user.id === item.user_id) ?
    //    <td><button onClick={() => dispatch({ type: 'DELETE_YOUR_ITEM', payload: item.id})}>Delete</button></td> :
@@ -40,6 +44,15 @@ function FightPage() {
 
 
    return (
+      <>
+      {( fightInfo == undefined) ? 
+            <Box textAlign="center" aria-label="Waiting for response">
+               <h1>Loading</h1>
+               <CircularProgress style={{height:"10%", width:"10%"}}/>
+            </Box>
+
+      :
+      
       <Box aria-label="user page">
          <Box textAlign="center" aria-label="user information">
          <Button variant="contained" color="primary" disableElevation onClick={test}>Test</Button>
@@ -62,9 +75,9 @@ function FightPage() {
                   </TableRow>
                </TableHead>
                <TableBody>
-               {fightInfo.data.damageDone.map((reportItem) => {
+               {fightInfo.data.damageDone.map((player) => {
                   return (
-                    <DamageRow id={reportItem.id} name={reportItem.name} icon={reportItem.icon} total={reportItem.total} />
+                    <DamageRow id={player.id} name={player.name} icon={player.icon} total={player.total} />
                   );})}
                </TableBody>
             </Table>
@@ -87,23 +100,26 @@ function FightPage() {
                   </TableRow>
                </TableHead>
                <TableBody>
-               {fightInfo.data.healingDone.map((reportItem) => {
+               {fightInfo.data.healingDone.map((player) => {
                   return (
                      <TableRow>
                      <StyledTableCell></StyledTableCell>
-                     <StyledTableCell>{reportItem.icon}</StyledTableCell>
-                     <StyledTableCell>{reportItem.name}</StyledTableCell>
-                     <StyledTableCell>{reportItem.total}</StyledTableCell>
+                     <StyledTableCell>{player.icon}</StyledTableCell>
+                     <StyledTableCell>{player.name}</StyledTableCell>
+                     <StyledTableCell>{player.total}</StyledTableCell>
                      <StyledTableCell></StyledTableCell>
                      <StyledTableCell></StyledTableCell>
                      </TableRow>
-                  );})}
+                  )})}
                </TableBody>
             </Table>
          </TableContainer>
          </Box>
          </Grid>
       </Box>
+      }
+      </>
+
    );
 };
 

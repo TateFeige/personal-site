@@ -64,7 +64,7 @@ function ReportItem(item) {
    };
 
    const fightSummary = (item) => {
-      console.log(item); // test function
+      console.log('fightSummary item is:', item); // test function
       dispatch({
          type: "BOSS_REPORT",
          payload: item
