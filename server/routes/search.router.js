@@ -27,6 +27,9 @@ router.get('/search/:search', (req, res) => {
       query: `{
       reportData {
         report(code: "${search}") {
+          code
+          startTime
+          title
           rankings
         }
       }

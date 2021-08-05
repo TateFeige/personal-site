@@ -77,7 +77,7 @@ function ReportItem(item) {
       <TableRow onClick={() => fightSummary(item)}>
         <StyledTableCell align="left">{item.difficulty}</StyledTableCell>
         <StyledTableCell align="left"><img src={bossImage(item.name)} />{item.name}</StyledTableCell>
-        <StyledTableCell align="left">{millisToMinutesAndSeconds(item.end_time - item.start_time)}</StyledTableCell>
+        <StyledTableCell align="left">{millisToMinutesAndSeconds(item.length)}</StyledTableCell>
       </TableRow>
    );
 };

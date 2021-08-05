@@ -1,5 +1,5 @@
 //Main imports
-import React, {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import {useSelector, useDispatch} from 'react-redux';
 import DamageRow from '../DamageRow/DamageRow';
@@ -27,19 +27,29 @@ const useStyles = makeStyles({table: {minWidth: 700}});
 
 
 function FightPage() {
+   const [bossItem, setBossItem] =  useState({});
    const classes = useStyles();
    const dispatch = useDispatch();
    const user = useSelector((store) => store.user);
-   const fightInfo = useSelector((store) => store.fight[0]);
+   const report = useSelector((store) => store.search);
+   const fightInfo = useSelector((store) => store.fight);
    const test = () => {
-      console.log(fightInfo);
+      findFight()
+      //console.log(fightInfo[0].id) // test function
    };
+   const findFight = () => {
+      for (let x = 0; x < report.length; x++) {
+         //console.log(report[x]);
+            if (report[x].fightID == fightInfo[0].id) {
+            //boss = report[x];
+            const match = report[x];
+            setBossItem(match);
+            console.log(bossItem);
+      }}};
+   useEffect(() => { // get data on page load
+      findFight();
+  }, []);
    
-   // {
-   //    ( user.id === item.user_id) ?
-   //    <td><button onClick={() => dispatch({ type: 'DELETE_YOUR_ITEM', payload: item.id})}>Delete</button></td> :
-   //    <td><button disabled>Delete</button></td>
-   //  }
 
 
 
@@ -75,10 +85,10 @@ function FightPage() {
                   </TableRow>
                </TableHead>
                <TableBody>
-               {fightInfo.data.damageDone.map((player) => {
+               {/* {fightInfo.data.damageDone.map((player) => {
                   return (
                     <DamageRow id={player.id} name={player.name} icon={player.icon} total={player.total} />
-                  );})}
+                  );})} */}
                </TableBody>
             </Table>
          </TableContainer>
@@ -100,7 +110,7 @@ function FightPage() {
                   </TableRow>
                </TableHead>
                <TableBody>
-               {fightInfo.data.healingDone.map((player) => {
+               {/* {fightInfo.data.healingDone.map((player) => {
                   return (
                      <TableRow>
                      <StyledTableCell></StyledTableCell>
@@ -110,7 +120,7 @@ function FightPage() {
                      <StyledTableCell></StyledTableCell>
                      <StyledTableCell></StyledTableCell>
                      </TableRow>
-                  )})}
+                  )})} */}
                </TableBody>
             </Table>
          </TableContainer>
