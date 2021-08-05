@@ -19,9 +19,29 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { DataGrid } from '@material-ui/data-grid';
 const StyledTableCell = withStyles((theme) => ({head:{backgroundColor: theme.palette.common.black, color: theme.palette.common.white}, body:{fontSize: 14,}}))(TableCell);
 const StyledTableRow = withStyles((theme) => ({root: {'&:nth-of-type(odd)': {backgroundColor: theme.palette.action.hover}}}))(TableRow);
 const useStyles = makeStyles({table: {minWidth: 700}});
+const dataColumns = [
+   { field: 'RankPercent', headerName: 'Rank %', width: 150 },
+   { field: 'Rank', headerName: 'Rank', width: 150 },
+   { field: 'id', headerName: 'Player', width: 150 },
+   { field: 'DPS', headerName: 'DPS', width: 150 },
+   { field: 'ilvl', headerName: 'ilvl', width: 150 },
+   { field: 'ilvlPercent', headerName: 'ivlv%', width: 150 }, 
+];
+const dataRows = [
+   {RankPercent: 5,
+   Rank: 200,
+   id: 'Sageth',
+   DPS: 2500,
+   ilvl: 242,
+   ilvlPercent: 50,
+   
+   
+   }
+]
 
 
 
@@ -103,7 +123,12 @@ function FightPage() {
          </Box>
          <br />
          <Box style={{width: "40%"}} alignItems="flex-end" aria-label="favorites table container">
-         <TableContainer component={Paper}>
+         <DataGrid
+               rows={dataRows}
+               columns={dataColumns}
+               pageSize={5}
+               />
+         {/* <TableContainer component={Paper}>
             <h2 align="center">Healing</h2>
             <Table className={classes.table}  aria-label="User Favorites Table">
             <caption>Healing Done Table</caption>
@@ -118,7 +143,7 @@ function FightPage() {
                   </TableRow>
                </TableHead>
                <TableBody>
-               {/* {fightInfo.data.healingDone.map((player) => {
+               {fightInfo.data.healingDone.map((player) => {
                   return (
                      <TableRow>
                      <StyledTableCell></StyledTableCell>
@@ -128,10 +153,10 @@ function FightPage() {
                      <StyledTableCell></StyledTableCell>
                      <StyledTableCell></StyledTableCell>
                      </TableRow>
-                  )})} */}
+                  )})}
                </TableBody>
             </Table>
-         </TableContainer>
+         </TableContainer> */}
          </Box>
          </Grid>
       </Box>
