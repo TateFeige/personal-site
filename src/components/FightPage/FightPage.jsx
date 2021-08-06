@@ -95,9 +95,8 @@ const specIcon = (spec) => {
       case "WarriorProtection":
          return "https://assets.rpglogs.com/img/warcraft/icons/Warrior-Protection.jpg";
       default:
-         return "";
-   }
-}
+         return "";}};
+const getSearchQueryByFullURL = (url) => {return url.split('~').pop()};
 const StyledTableCell = withStyles((theme) => ({head:{backgroundColor: theme.palette.common.black, color: theme.palette.common.white}, body:{fontSize: 14,}}))(TableCell);
 const StyledTableRow = withStyles((theme) => ({root: {'&:nth-of-type(odd)': {backgroundColor: theme.palette.action.hover}}}))(TableRow);
 const useStyles = makeStyles({table: {minWidth: 700}});
@@ -111,17 +110,26 @@ const dataColumns = [
          amazing: params.value >= 95,
          almostPerfect: params.value >= 99,
          perfect: params.value >= 100,
-      })},
+         },
+      ),
+   },
    { field: 'Rank', type: 'number', headerName: 'Rank', width: 150 },
    { field: 'img', headerName: 'Spec', width: 50, renderCell:(params) =>
       (
-         <strong>
-            <img src={specIcon(params.value)} />
-         </strong>
+         <>
+            <img src={specIcon(params.value)} alt={params.value} title={params.value}/>
+         </>
       ),
    },
    { field: 'id', headerName: 'Player', width: 350 },
-   { field: 'DPS', type: 'number', headerName: 'DPS', width: 150 },
+   { field: 'DPS', type: 'number', headerName: 'DPS', width: 150, renderCell:(params) => 
+      (
+         <>
+            {Number(params.value).toLocaleString("en-US")}
+         </>
+      
+      ),
+   },
    { field: 'ilvl', type: 'number', headerName: 'ilvl', width: 150 },
    { field: 'bracketPercent', type: 'number', headerName: 'ilvl%', width: 150, cellClassName:(params) =>
       clsx('rank-color', {
@@ -132,7 +140,10 @@ const dataColumns = [
          amazing: params.value >= 95,
          almostPerfect: params.value >= 99,
          perfect: params.value >= 100,
-   })}];
+         },
+      ),
+   },
+];
 
 function FightPage() {
    const [bossItem, setBossItem] = useState({});
@@ -169,27 +180,24 @@ function FightPage() {
    useEffect(() => { // get data on page load
       findFight();
   }, []);
-  // SpecIcon: (player.class + " " + player.spec),
 
   const test = () => {
    let testRows = [];
    bossItem.roles.dps.characters.map((player) => {
        (
-         testRows.push({RankPercent: player.rankPercent, Rank: player.rank, img: player.class + player.spec, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
+         testRows.push({RankPercent: player.rankPercent, Rank: getSearchQueryByFullURL(player.rank), img: player.class + player.spec, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
       )})
    bossItem.roles.healers.characters.map((player) => {
        (
-         testRows.push({RankPercent: player.rankPercent, Rank: player.rank, img: player.class + player.spec, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
+         testRows.push({RankPercent: player.rankPercent, Rank: getSearchQueryByFullURL(player.rank), img: player.class + player.spec, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
       )})
    bossItem.roles.tanks.characters.map((player) => {
        (
-         testRows.push({RankPercent: player.rankPercent, Rank: player.rank, img: player.class + player.spec, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
+         testRows.push({RankPercent: player.rankPercent, Rank: getSearchQueryByFullURL(player.rank), img: player.class + player.spec, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
       )})
    setDamageRows(testRows);
-}
+   }
    
-
-
 
    return (
       <>
