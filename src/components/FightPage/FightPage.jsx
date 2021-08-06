@@ -22,77 +22,77 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { DataGrid } from '@material-ui/data-grid';
 const specIcon = (spec) => {
    switch (spec) {
-      case "DeathKnightBlood":
+      case "Blood DeathKnight":
          return "https://assets.rpglogs.com/img/warcraft/icons/DeathKnight-Blood.jpg";
-      case "DeathKnightFrost":
+      case "Frost DeathKnight":
          return "https://assets.rpglogs.com/img/warcraft/icons/DeathKnight-Frost.jpg";
-      case "DeathKnightUnholy":
+      case "Unholy DeathKnight":
          return "https://assets.rpglogs.com/img/warcraft/icons/DeathKnight-Unholy.jpg";
-      case "DruidBalance":
+      case "Balance Druid":
          return "https://assets.rpglogs.com/img/warcraft/icons/Druid-Balance.jpg";
-      case "DruidFeral":
+      case "Feral Druid":
          return "https://assets.rpglogs.com/img/warcraft/icons/Druid-Feral.jpg";
-      case "DruidGuardian":
+      case "Guardian Druid":
          return "https://assets.rpglogs.com/img/warcraft/icons/Druid-Guardian.jpg";
-      case "DruidRestoration":
+      case "Restoration Druid":
          return "https://assets.rpglogs.com/img/warcraft/icons/Druid-Restoration.jpg";
-      case "DemonHunterHavoc":
+      case "Havoc DemonHunter":
          return "https://assets.rpglogs.com/img/warcraft/icons/DemonHunter-Havoc.jpg";
-      case "DemonHunterVengeance":
+      case "Vengeance DemonHunter":
          return "https://assets.rpglogs.com/img/warcraft/icons/DemonHunter-Vengeance.jpg";
-      case "HunterBeastMastery":
+      case "BeastMastery Hunter":
          return "https://assets.rpglogs.com/img/warcraft/icons/Hunter-BeastMastery.jpg";
-      case "HunterMarksmanship":
+      case "Marksmanship Hunter":
          return "https://assets.rpglogs.com/img/warcraft/icons/Hunter-Marksmanship.jpg";
-      case "HunterSurvival":
+      case "Survival Hunter":
          return "https://assets.rpglogs.com/img/warcraft/icons/Hunter-Survival.jpg";
-      case "MageArcane":
+      case "Arcane Mage":
          return "https://assets.rpglogs.com/img/warcraft/icons/Mage-Arcane.jpg";
-      case "MageFire":
+      case "Fire Mage":
          return "https://assets.rpglogs.com/img/warcraft/icons/Mage-Fire.jpg";
-      case "MageFrost":
+      case "Frost Mage":
          return "https://assets.rpglogs.com/img/warcraft/icons/Mage-Frost.jpg";
-      case "MonkBrewmaster":
+      case "Brewmaster Monk":
          return "https://assets.rpglogs.com/img/warcraft/icons/Monk-Brewmaster.jpg";
-      case "MonkMistweaver":
+      case "Mistweaver Monk":
          return "https://assets.rpglogs.com/img/warcraft/icons/Monk-Mistweaver.jpg";
-      case "MonkWindwalker":
+      case "Windwalker Monk":
          return "https://assets.rpglogs.com/img/warcraft/icons/Monk-Windwalker.jpg";
-      case "PaladinHoly":
+      case "Holy Paladin":
          return "https://assets.rpglogs.com/img/warcraft/icons/Paladin-Holy.jpg";
-      case "PaladinProtection":
+      case "Protection Paladin":
          return "https://assets.rpglogs.com/img/warcraft/icons/Paladin-Protection.jpg";
-      case "PaladinRetribution":
+      case "Retribution Paladin":
          return "https://assets.rpglogs.com/img/warcraft/icons/Paladin-Retribution.jpg";
-      case "PriestDiscipline":
+      case "Discipline Priest":
          return "https://assets.rpglogs.com/img/warcraft/icons/Priest-Discipline.jpg";
-      case "PriestHoly":
+      case "Holy Priest":
          return "https://assets.rpglogs.com/img/warcraft/icons/Priest-Holy.jpg";
-      case "PriestShadow":
+      case "Shadow Priest":
          return "https://assets.rpglogs.com/img/warcraft/icons/Priest-Shadow.jpg";
-      case "RogueAssassination":
+      case "Assassination Rogue":
          return "https://assets.rpglogs.com/img/warcraft/icons/Rogue-Assassination.jpg";
-      case "RogueOutlaw":
+      case "Outlaw Rogue":
          return "https://assets.rpglogs.com/img/warcraft/icons/Rogue-Outlaw.jpg";
-      case "RogueSubtlety":
+      case "Subtlety Rogue":
          return "https://assets.rpglogs.com/img/warcraft/icons/Rogue-Subtlety.jpg";
-      case "ShamanElemental":
+      case "Elemental Shaman":
          return "https://assets.rpglogs.com/img/warcraft/icons/Shaman-Elemental.jpg";
-      case "ShamanEnhancement":
+      case "Enhancement Shaman":
          return "https://assets.rpglogs.com/img/warcraft/icons/Shaman-Enhancement.jpg";
-      case "ShamanRestoration":
+      case "Restoration Shaman":
          return "https://assets.rpglogs.com/img/warcraft/icons/Shaman-Restoration.jpg";
-      case "WarlockAffliction":
+      case "Affliction Warlock":
          return "https://assets.rpglogs.com/img/warcraft/icons/Warlock-Affliction.jpg";
-      case "WarlockDemonology":
+      case "Demonology Warlock":
          return "https://assets.rpglogs.com/img/warcraft/icons/Warlock-Demonology.jpg";
-      case "WarlockDestruction":
+      case "Destruction Warlock":
          return "https://assets.rpglogs.com/img/warcraft/icons/Warlock-Destruction.jpg";
-      case "WarriorArms":
+      case "Arms Warrior":
          return "https://assets.rpglogs.com/img/warcraft/icons/Warrior-Arms.jpg";
-      case "WarriorFury":
+      case "Fury Warrior":
          return "https://assets.rpglogs.com/img/warcraft/icons/Warrior-Fury.jpg";
-      case "WarriorProtection":
+      case "Protection Warrior":
          return "https://assets.rpglogs.com/img/warcraft/icons/Warrior-Protection.jpg";
       default:
          return "";}};
@@ -233,15 +233,15 @@ function FightPage() {
    let tempDamageRows = [];
    bossItem.roles.dps.characters.map((player) => {
        (
-         tempDamageRows.push({RankPercent: player.rankPercent, Rank: getSearchQueryByFullURL(player.rank), RankTotal: player.totalParses, img: player.class + player.spec, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
+         tempDamageRows.push({RankPercent: player.rankPercent, Rank: getSearchQueryByFullURL(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
       )})
    bossItem.roles.healers.characters.map((player) => {
        (
-         tempDamageRows.push({RankPercent: player.rankPercent, Rank: getSearchQueryByFullURL(player.rank), RankTotal: player.totalParses, img: player.class + player.spec, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
+         tempDamageRows.push({RankPercent: player.rankPercent, Rank: getSearchQueryByFullURL(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
       )})
    bossItem.roles.tanks.characters.map((player) => {
        (
-         tempDamageRows.push({RankPercent: player.rankPercent, Rank: getSearchQueryByFullURL(player.rank), RankTotal: player.totalParses, img: player.class + player.spec, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
+         tempDamageRows.push({RankPercent: player.rankPercent, Rank: getSearchQueryByFullURL(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
       )})
    setDamageRows(tempDamageRows);
    };
