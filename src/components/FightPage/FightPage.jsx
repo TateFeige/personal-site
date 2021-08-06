@@ -201,6 +201,7 @@ function FightPage() {
    const user = useSelector((store) => store.user);
    const report = useSelector((store) => store.search);
    const fightInfo = useSelector((store) => store.fight);
+   const healingInfo = useSelector((store) => store.healing);
    const difficultyConverter = (difficulty) => { // function to convert difficulty (given from API as a number) to a string (so it can be read by the user)
       switch (difficulty) {
          case 1:
@@ -230,6 +231,7 @@ function FightPage() {
   }, []);
 
   const test = () => {
+   console.log(healingInfo)
    let tempDamageRows = [];
    bossItem.roles.dps.characters.map((player) => {
        (
