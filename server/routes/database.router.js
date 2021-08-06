@@ -21,5 +21,13 @@ router.post('/postoverview', (req, res) => {
    });
  });
 
+router.post('/addFavorite', (req, res) => {
+   const favorite = req.user;
+   console.log('favorite item is:', req.query);
+
+
+
+})
+
 
 module.exports = router;
