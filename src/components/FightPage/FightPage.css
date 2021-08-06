@@ -1,6 +1,12 @@
 .MuiDataGrid-cell {
    font-size: 18px;
 }
+.MuiDataGrid-row:nth-of-type(odd) {
+   background-color: #242424;
+}
+.MuiDataGrid-row:nth-of-type(even) {
+   background-color: #363434;
+}
 
 .rank-color.underwhelming {
    color: #5a6666;
