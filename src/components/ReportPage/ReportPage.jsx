@@ -1,7 +1,5 @@
 //Main imports
-import React, {useEffect} from 'react';
-import ReactDOM from 'react-dom';
-import LogOutButton from '../LogOutButton/LogOutButton';
+import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import ReportItem from '../ReportItem/ReportItem';
 
@@ -26,7 +24,7 @@ const StyledTableRow = withStyles((theme) => ({root: {'&:nth-of-type(odd)': {bac
 const useStyles = makeStyles({table: {minWidth: 700}});
 
 
-function ReportPage() {
+function ReportPage() { // main function for this page
    const dispatch = useDispatch();
    const classes = useStyles();
    const user = useSelector((store) => store.user);
@@ -47,45 +45,43 @@ function ReportPage() {
       };
    };
 
-   const test = () => {
-      console.log(report);
-   };
-
+   // const test = () => {
+   //    console.log(report); // test function
+   // };
 
    return (
       <Box aria-label="report page">
          <Grid container justify="center" aria-label="report header">
             <IconButton color="primary" aria-label="Refresh Report"><RefreshIcon /></IconButton>
             <h1 align="center">{reportInfo.name}</h1>
-            <Button variant="contained" color="primary" disableElevation onClick={test}>Test</Button>
             <IconButton color="primary" aria-label="Add to favorites"><StarBorderIcon /></IconButton>
          </Grid>
          <br /><br /><br />
          <Grid container justify="center">
-         <Box style={{width: "85%"}} aria-label="report table container">
-         <TableContainer component={Paper} style={{backgroundColor: '#242424', color: 'white'}}>
-            <Table className={classes.table} aria-label="Report Table">
-            <caption>Report Table</caption>
-               <TableHead>
-                  <TableRow>
-                     <StyledTableCell align="left" width="15%">Difficulty</StyledTableCell>
-                     <StyledTableCell align="center">Boss</StyledTableCell>
-                     <StyledTableCell align="left" width="15%">Length (minutes)</StyledTableCell>
-                  </TableRow>
-               </TableHead>
-               <TableBody>
-               {report.map((reportItem) => {
-                  return (
-                     <ReportItem id={reportItem.fightID} url={reportInfo.id} difficulty={difficultyConverter(reportItem.difficulty)} name={reportItem.encounter.name} length={reportItem.duration}/>
-                  );})}
-               </TableBody>
-            </Table>
-         </TableContainer>
-         </Box>
+            <Box style={{width: "85%"}} aria-label="Report Table Container">
+               <TableContainer component={Paper} style={{backgroundColor: '#242424', color: 'white'}}>
+                  <Table className={classes.table} aria-label="Report Table">
+                     <caption>Report Table</caption>
+                     <TableHead>
+                        <TableRow>
+                           <StyledTableCell align="left" width="15%">Difficulty</StyledTableCell>
+                           <StyledTableCell align="center">Boss</StyledTableCell>
+                           <StyledTableCell align="left" width="15%">Length (minutes)</StyledTableCell>
+                        </TableRow>
+                     </TableHead>
+                     <TableBody>
+                        {report.map((reportItem) => {
+                           return (
+                              <ReportItem id={reportItem.fightID} url={reportInfo.id} difficulty={difficultyConverter(reportItem.difficulty)} name={reportItem.encounter.name} length={reportItem.duration}/>
+                        );})}
+                     </TableBody>
+                  </Table>
+               </TableContainer>
+            </Box>
          </Grid>
       </Box>
    );
-};
+}; // end of main function for this page
 
 
 export default ReportPage;

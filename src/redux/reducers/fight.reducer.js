@@ -1,7 +1,4 @@
-import axios from 'axios';
-import { put, takeLatest, call } from 'redux-saga/effects';
-
-const fightReducer = (state = [], action) => {
+const fightReducer = (state = [], action) => { // reducer that holds data for a submitted report's specific fight
    switch (action.type) {
       case "POST_BOSS_FIGHT":
          //console.log('BOSS_FIGHT has:', action.payload); // test function

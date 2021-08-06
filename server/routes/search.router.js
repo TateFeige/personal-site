@@ -4,74 +4,112 @@ const pool = require('../modules/pool');
 const router = express.Router();
 require('dotenv').config();
 
-
-router.get('/search/:search', (req, res) => {
+router.get('/search/:search', (req, res) => { // main search request, takes in URL from nav bar
    const search = req.params.search;
-   const qs = require('qs');
-   const dataString = qs.stringify({
+   const qs = require('qs'); // graphQL stuff
+   const dataString = qs.stringify({ // graphQL stuff
+      'grant_type': 'client_credentials' 
+   });
+   var config = { // first axios call, gets a token for authorization, uses dataString const for request body
+      method: 'POST',
+      url: 'https://www.warcraftlogs.com/oauth/token',
+      headers: { 
+         'Authorization': `Basic ${process.env.BASIC_AUTH}`, 
+         'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      data : dataString,
+   };
+   axios(config) // runs our first axios call
+   .then(response => {
+   //console.log(response.data); //test function
+      var data = JSON.stringify({ // main graphQL query, converted a string so axios can use it
+         query: `{ 
+            reportData {
+               report(code: "${search}") {
+                  code
+                  startTime
+                  title
+                  rankings
+               }
+            }
+         }`,
+         variables: {}
+      });
+      var config = { // second axios call, uses our bearer token from the first call as authorization and requests our data variable as the data we want from the API
+         method: 'POST',
+         url: 'https://www.warcraftlogs.com/api/v2/client',
+         headers: { 
+            'Accept': 'application/json', 
+            'Authorization': `Bearer ${response.data.access_token}`, 
+            'Content-Type': 'application/json'   
+         },
+         data : data
+      };
+      axios(config) // runs our second axios call
+      .then(response => {
+         //console.log(response.data.data.reportData.report); // test function
+         res.send(response.data) // send our data back
+         })
+      .catch(error => { // catch errors in second axios call (since it is nested inside the first call)
+         console.log(error);
+      });
+   })
+   .catch(error => { // catch errors in first axios call
+      console.log(error);
+   });
+}); // end of main search request
+
+router.get('/healing/:search', (req, res) => { 
+   // side request, sent alongside the main search request since we cannot get both DPS rankings and HPS rankings in the same graphQL call and thus need to make a second call to the APOI
+   const search = req.params.search;
+   const qs = require('qs'); // graphQL stuff
+   const dataString = qs.stringify({ // graphQL stuff
    'grant_type': 'client_credentials' 
    });
-   var config = {
-   method: 'POST',
-   url: 'https://www.warcraftlogs.com/oauth/token',
-   headers: { 
-      'Authorization': `Basic ${process.env.BASIC_AUTH}`, 
-      'Content-Type': 'application/x-www-form-urlencoded',
-   },
-   data : dataString,
-   };
-   axios(config)
-   .then(response => {
-   console.log(response.data);
-   var data = JSON.stringify({
-      query: `{
-      reportData {
-        report(code: "${search}") {
-          code
-          startTime
-          title
-          rankings
-        }
-      }
-    }`,
-      variables: {}
-    });
-    
-    var config = {
+   var config = { // first axios call, gets a token for authorization, uses dataString const for request body
       method: 'POST',
-      url: 'https://www.warcraftlogs.com/api/v2/client',
+      url: 'https://www.warcraftlogs.com/oauth/token',
       headers: { 
-        'Accept': 'application/json', 
-        'Authorization': `Bearer ${response.data.access_token}`, 
-        'Content-Type': 'application/json'   
+         'Authorization': `Basic ${process.env.BASIC_AUTH}`, 
+         'Content-Type': 'application/x-www-form-urlencoded',
       },
-      data : data
-    };
-    
-    axios(config)
-    .then(function (response) {
-      console.log(response.data.data.reportData.report);
-      res.send(response.data)
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+      data : dataString,
+   };
+   axios(config) // runs our first axios call
+   .then(response => {
+      console.log(response.data);
+      var data = JSON.stringify({ // main graphQL query, converted a string so axios can use it
+         query: `{
+            reportData {
+               report(code: "${search}") {
+                  rankings(playerMetric: hps)
+               }
+            }
+         }`,
+         variables: {}
+      });
+      var config = { // second axios call, uses our bearer token from the first call as authorization and requests our data variable as the data we want from the API
+         method: 'POST',
+         url: 'https://www.warcraftlogs.com/api/v2/client',
+         headers: { 
+            'Accept': 'application/json', 
+            'Authorization': `Bearer ${response.data.access_token}`, 
+            'Content-Type': 'application/json'   
+         },
+         data : data
+      };
+      axios(config)// runs our second axios call
+      .then(response => {
+         //console.log(response.data.data.reportData.report); // test function
+         res.send(response.data)// send our data back
+      })
+      .catch(error => {
+         console.log(error); // catch errors in second axios call (since it is nested inside the first call)
+      });
    })
    .catch(error => {
-   console.log(error);
+      console.log(error); // catch errors in first axios call
    });
-});
-
-router.get('/report/bossreport', (req, res) => {
-   const query = req.params;
-   console.log('req is:', req.query);
-   axios.get(`${process.env.WARCRAFTLOGS_SEARCH_ENDPOINT}/report/tables/summary/${req.query.url}?start=${req.query.start_time}&end=${req.query.end_time}&api_key=${process.env.WARCRAFTLOGS_API_KEY}`)
-   .then (response => {
-      res.send (response.data);
-   })
-   .catch (error => {
-      console.log('Error in getting boss report', error);
-   });
-});
+}); // end of main healing request
 
 module.exports = router;

@@ -1,7 +1,6 @@
 import axios from 'axios';
-import { put, takeLatest, call } from 'redux-saga/effects';
 
-const searchReducer = (state = [], action) => {
+const searchReducer = (state = [], action) => { // reducer that holds our search query and its data returned
    switch (action.type) {
       case "POST_SUMMARY":
          //console.log('data is:', action.payload.rankings.data); // test function
