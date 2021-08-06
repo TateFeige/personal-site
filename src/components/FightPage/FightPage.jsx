@@ -9,6 +9,7 @@ import './FightPage.css';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import clsx from 'clsx';
+import Typography from '@material-ui/core/Typography';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -286,8 +287,9 @@ function FightPage() {
          <Box aria-label="user page">
          <Box textAlign="center" aria-label="user information">
          <Button variant="contained" color="primary" disableElevation onClick={test}>Test</Button>
-         <h1>{difficultyConverter(bossItem.difficulty)} {bossItem.encounter.name}</h1>
-         {/* <h2><img src={bossImage(bossItem.encounter.name)} /></h2> */}
+         <Typography align="center" variant="h2" component="h2" gutterBottom>
+                  {difficultyConverter(bossItem.difficulty)} {bossItem.encounter.name}
+         </Typography>
          </Box>
          <br /><br /><br />
          <Grid container style={{width: "100%", height: "2000px"}} justify="space-between" aria-label="history and favorites tables container">
@@ -298,6 +300,10 @@ function FightPage() {
                   <CircularProgress style={{height:"10%", width:"10%"}}/>
                </Box>
                :
+               <>
+               <Typography align="center" variant="h3" component="h2" gutterBottom>
+                  Damage
+               </Typography>
                <DataGrid
                autoHeight
                autoWidth
@@ -305,6 +311,7 @@ function FightPage() {
                rows={damageRows}
                columns={damageDataColumns}
                />
+               </>
             }
          </Box>   
          <br />
@@ -315,6 +322,10 @@ function FightPage() {
                   <CircularProgress style={{height:"10%", width:"10%"}}/>
                </Box>
                :
+               <>
+               <Typography align="center" variant="h3" component="h2" gutterBottom>
+                  Healing
+               </Typography>
                <DataGrid
                autoHeight
                autoWidth
@@ -322,6 +333,7 @@ function FightPage() {
                rows={healingRows}
                columns={healingDataColumns}
                />
+               </>
             }
          </Box>
          </Grid>
