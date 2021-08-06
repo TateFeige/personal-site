@@ -101,7 +101,7 @@ const StyledTableCell = withStyles((theme) => ({head:{backgroundColor: theme.pal
 const StyledTableRow = withStyles((theme) => ({root: {'&:nth-of-type(odd)': {backgroundColor: theme.palette.action.hover}}}))(TableRow);
 const useStyles = makeStyles({table: {minWidth: 700}});
 const dataColumns = [
-   { field: 'RankPercent', type: 'number', headerName: 'Rank %', width: 150, cellClassName:(params) =>
+   { field: 'RankPercent', type: 'number', headerName: 'Rank %', flex: 2, cellClassName:(params) =>
       clsx('rank-color', {
          underwhelming: params.value >= 0,
          decent: params.value >= 35,
@@ -113,17 +113,17 @@ const dataColumns = [
          },
       ),
    },
-   { field: 'Rank', type: 'number', headerName: 'Rank', width: 150 },
-   { field: 'RankTotal', type: 'number', headerName: 'Out OF', width: 150 },
-   { field: 'img', headerName: 'Spec', width: 50, renderCell:(params) =>
+   { field: 'Rank', type: 'number', headerName: 'Rank', flex: 2 },
+   { field: 'RankTotal', type: 'number', headerName: 'Out Of', flex: 2 },
+   { field: 'img', headerName: 'Spec', flex: 1, renderCell:(params) =>
       (
          <>
             <img src={specIcon(params.value)} alt={params.value} title={params.value}/>
          </>
       ),
    },
-   { field: 'id', headerName: 'Player', width: 350 },
-   { field: 'DPS', type: 'number', headerName: 'DPS', width: 150, renderCell:(params) => 
+   { field: 'id', headerName: 'Player', flex: 10 },
+   { field: 'DPS', type: 'number', headerName: 'DPS', flex: 4, renderCell:(params) => 
       (
          <>
             {Number(params.value).toLocaleString("en-US")}
@@ -131,8 +131,8 @@ const dataColumns = [
       
       ),
    },
-   { field: 'ilvl', type: 'number', headerName: 'ilvl', width: 150 },
-   { field: 'bracketPercent', type: 'number', headerName: 'ilvl%', width: 150, cellClassName:(params) =>
+   { field: 'ilvl', type: 'number', headerName: 'ilvl', flex: 2 },
+   { field: 'bracketPercent', type: 'number', headerName: 'ilvl%', flex: 2, cellClassName:(params) =>
       clsx('rank-color', {
          underwhelming: params.value >= 0,
          decent: params.value >= 35,
@@ -215,8 +215,8 @@ function FightPage() {
          {/* <h2><img src={bossImage(bossItem.encounter.name)} /></h2> */}
          </Box>
          <br /><br /><br />
-         <Grid container justify="space-between" aria-label="history and favorites tables container">
-         <Box style={{width: "50%", minWidth: "800px", height: "75em"}} alignItems="flex-end" aria-label="favorites table container">
+         <Grid container style={{width: "100%", height: "2000px"}} justify="space-between" aria-label="history and favorites tables container">
+         <Box style={{width: "49%"}} alignItems="flex-end" aria-label="favorites table container">
             {( damageRows == [] ) ? 
                <Box textAlign="center" aria-label="Waiting for response">
                   <h1>Loading</h1>
@@ -224,6 +224,8 @@ function FightPage() {
                </Box>
                :
                <DataGrid
+               autoHeight
+               autoWidth
                style={{backgroundColor: '#242424', color: 'white'}}
                rows={damageRows}
                columns={dataColumns}
@@ -231,7 +233,7 @@ function FightPage() {
             }
          </Box>   
          <br />
-         <Box style={{width: "50%", minWidth: "800px", height: "75em"}}alignItems="flex-end" aria-label="favorites table container">
+         <Box style={{width: "49%"}} alignItems="flex-end" aria-label="favorites table container">
             {( damageRows == [] ) ? 
                <Box textAlign="center" aria-label="Waiting for response">
                   <h1>Loading</h1>
@@ -239,6 +241,8 @@ function FightPage() {
                </Box>
                :
                <DataGrid
+               autoHeight
+               autoWidth
                style={{backgroundColor: '#242424', color: 'white'}}
                rows={damageRows}
                columns={dataColumns}
