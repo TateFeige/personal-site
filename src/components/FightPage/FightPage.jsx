@@ -74,23 +74,80 @@ function FightPage() {
 
    const specIcon = (spec) => {
       switch (spec) {
-         
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+         case "Death Knight Blood":
+            return "https://static.wikia.nocookie.net/wowpedia/images/4/45/Spell_deathknight_bloodpresence.png/revision/latest/scale-to-width-down/64?cb=20180824094634";
+         case "Death Knight Frost":
+            return "https://static.wikia.nocookie.net/wowpedia/images/d/d0/Spell_deathknight_frostpresence.png/revision/latest/scale-to-width-down/64?cb=20080710164239";
+         case "Death Knight Unholy":
+            return "https://static.wikia.nocookie.net/wowpedia/images/6/6f/Spell_deathknight_unholypresence.png/revision/latest/scale-to-width-down/64?cb=20180824094727";
+         case "Druid Balance":
+            return "https://static.wikia.nocookie.net/wowpedia/images/1/14/Spell_nature_starfall.png/revision/latest/scale-to-width-down/64?cb=20070106061631";
+         case "Druid Feral":
+            return "https://static.wikia.nocookie.net/wowpedia/images/4/48/Ability_druid_catform.png/revision/latest/scale-to-width-down/64?cb=20180824000839";
+         case "Druid Guardian":
+            return "https://static.wikia.nocookie.net/wowpedia/images/b/bb/Ability_racial_bearform.png/revision/latest/scale-to-width-down/64?cb=20180824003211";
+         case "Druid Restoration":
+            return "https://static.wikia.nocookie.net/wowpedia/images/3/37/Spell_nature_healingtouch.png/revision/latest/scale-to-width-down/64?cb=20180804040410";
+         case "Demon Hunter Havoc":
+            return "https://static.wikia.nocookie.net/wowpedia/images/2/2d/Demon_hunter_havoc_icon.png/revision/latest/scale-to-width-down/64?cb=20150813232704";
+         case "Demon Hunter Vengeance":
+            return "https://static.wikia.nocookie.net/wowpedia/images/2/25/Demon_hunter_vengeance_icon.png/revision/latest/scale-to-width-down/64?cb=20150813232701";
+         case "Hunter Beast Mastery":
+            return "https://static.wikia.nocookie.net/wowpedia/images/9/98/Ability_hunter_bestialdiscipline.png/revision/latest/scale-to-width-down/64?cb=20180824001505";
+         case "Hunter Marksmanship":
+            return "https://static.wikia.nocookie.net/wowpedia/images/d/de/Ability_hunter_focusedaim.png/revision/latest/scale-to-width-down/64?cb=20180824001550";
+         case "Hunter Survival":
+            return "https://static.wikia.nocookie.net/wowpedia/images/d/da/Ability_hunter_camouflage.png/revision/latest/scale-to-width-down/64?cb=20180824001512";
+         case "Mage Arcane":
+            return "https://static.wikia.nocookie.net/wowpedia/images/d/d2/Spell_holy_magicalsentry.png/revision/latest/scale-to-width-down/64?cb=20070106001102";
+         case "Mage Fire":
+            return "https://static.wikia.nocookie.net/wowpedia/images/4/45/Spell_fire_firebolt02.png/revision/latest/scale-to-width-down/64?cb=20180824094905";
+         case "Mage Frost":
+            return "https://static.wikia.nocookie.net/wowpedia/images/1/1e/Spell_frost_frostbolt02.png/revision/latest/scale-to-width-down/64?cb=20180824095006";
+         case "Monk Brewmaster":
+            return "https://static.wikia.nocookie.net/wowpedia/images/d/d1/Spell_monk_brewmaster_spec.png/revision/latest/scale-to-width-down/64?cb=20140331030629";
+         case "Monk Mistweaver":
+            return "https://static.wikia.nocookie.net/wowpedia/images/4/4e/Spell_monk_mistweaver_spec.png/revision/latest/scale-to-width-down/64?cb=20140331030706";
+         case "Monk Windwalker":
+            return "https://static.wikia.nocookie.net/wowpedia/images/a/aa/Spell_monk_windwalker_spec.png/revision/latest/scale-to-width-down/64?cb=20140331030647";
+         case "Paladin Holy":
+            return "https://static.wikia.nocookie.net/wowpedia/images/b/b4/Spell_holy_holybolt.png/revision/latest/scale-to-width-down/64?cb=20060930060716";
+         case "Paladin Protection":
+            return "https://static.wikia.nocookie.net/wowpedia/images/2/2f/Ability_paladin_shieldofthetemplar.png/revision/latest/scale-to-width-down/64?cb=20080826222526";
+         case "Paladin Retribution":
+            return "https://static.wikia.nocookie.net/wowpedia/images/0/0a/Spell_holy_auraoflight.png/revision/latest/scale-to-width-down/64?cb=20180824095045";
+         case "Priest Discipline":
+            return "https://static.wikia.nocookie.net/wowpedia/images/3/35/Spell_holy_powerwordshield.png/revision/latest/scale-to-width-down/64?cb=20100927124748";
+         case "Priest Holy":
+            return "https://static.wikia.nocookie.net/wowpedia/images/d/d6/Spell_holy_guardianspirit.png/revision/latest/scale-to-width-down/64?cb=20080805053954";
+         case "Priest Shadow":
+            return "https://static.wikia.nocookie.net/wowpedia/images/3/30/Spell_shadow_shadowwordpain.png/revision/latest/scale-to-width-down/64?cb=20060923203245";
+         case "Rogue Assassination":
+            return "https://static.wikia.nocookie.net/wowpedia/images/6/65/Ability_rogue_eviscerate.png/revision/latest/scale-to-width-down/64?cb=20180824003419";
+         case "Rogue Outlaw":
+            return "https://static.wikia.nocookie.net/wowpedia/images/d/df/Inv_sword_30.png/revision/latest/scale-to-width-down/64?cb=20070121002913";
+         case "Rogue Subtlety":
+            return "https://static.wikia.nocookie.net/wowpedia/images/f/f8/Ability_stealth.png/revision/latest/scale-to-width-down/64?cb=20180218120322";
+         case "Shaman Elemental":
+            return "https://static.wikia.nocookie.net/wowpedia/images/4/4c/Spell_nature_lightning.png/revision/latest/scale-to-width-down/64?cb=20060923181844";
+         case "Shaman Enhancement":
+            return "https://static.wikia.nocookie.net/wowpedia/images/c/c5/Spell_shaman_improvedstormstrike.png/revision/latest/scale-to-width-down/64?cb=20180824100020";
+         case "Shaman Restoration":
+            return "https://static.wikia.nocookie.net/wowpedia/images/d/da/Spell_nature_magicimmunity.png/revision/latest/scale-to-width-down/64?cb=20060923182228";
+         case "Warlock Affliction":
+            return "https://static.wikia.nocookie.net/wowpedia/images/e/ef/Spell_shadow_deathcoil.png/revision/latest/scale-to-width-down/64?cb=20060923201506";
+         case "Warlock Demonology":
+            return "https://static.wikia.nocookie.net/wowpedia/images/d/dd/Spell_shadow_metamorphosis.png/revision/latest/scale-to-width-down/64?cb=20060923202219";
+         case "Warlock Destruction":
+            return "https://static.wikia.nocookie.net/wowpedia/images/f/fc/Spell_shadow_rainoffire.png/revision/latest/scale-to-width-down/64?cb=20060930193530";
+         case "Warrior Arms":
+            return "https://static.wikia.nocookie.net/wowpedia/images/e/e7/Ability_warrior_savageblow.png/revision/latest/scale-to-width-down/64?cb=20060829232240";
+         case "Warrior Fury":
+            return "https://static.wikia.nocookie.net/wowpedia/images/2/24/Ability_warrior_innerrage.png/revision/latest/scale-to-width-down/64?cb=20060928010455";
+         case "Warrior Protection":
+            return "https://static.wikia.nocookie.net/wowpedia/images/b/b1/Ability_warrior_defensivestance.png/revision/latest/scale-to-width-down/64?cb=20180218120852";
+         default:
+            return "https://static.wikia.nocookie.net/wowpedia/images/a/ab/Activequesticon.png/revision/latest/scale-to-width-down/16?cb=20070607020008";
       }
    }
 
@@ -174,37 +231,6 @@ function FightPage() {
                />
             }
          </Box>
-
-         {/* <TableContainer component={Paper}>
-            <h2 align="center">Damage</h2>
-            <Table className={classes.table} aria-label="Damage Dealt Table">
-            <caption>Damage Dealt Table</caption>
-               <TableHead>
-                  <TableRow>
-                     <StyledTableCell align="left">Rank %</StyledTableCell>
-                     <StyledTableCell align="left">Rank</StyledTableCell>
-                     <StyledTableCell align="left">Player</StyledTableCell>
-                     <StyledTableCell align="left">DPS</StyledTableCell>
-                     <StyledTableCell align="left">ilvl</StyledTableCell>
-                     <StyledTableCell align="left">ilvl %</StyledTableCell>
-                  </TableRow>
-               </TableHead>
-               <TableBody>
-               {bossItem.roles.dps.characters.map((player) => {
-                  return (
-                    <DamageRow id={player.id} name={player.name} server={player.server.name} icon={(player.spec) + " " + (player.class)} total={player.amount} ilvl={player.bracketData} ilvlParse={player.bracketPercent} rank={player.rank} rankTotal={player.totalParses} rankPercent={player.rankPercent}/>
-                  );})}
-               {bossItem.roles.healers.characters.map((player) => {
-                  return (
-                    <DamageRow id={player.id} name={player.name} server={player.server.name} icon={(player.spec) + " " + (player.class)} total={player.amount} ilvl={player.bracketData} ilvlParse={player.bracketPercent} rank={player.rank} rankTotal={player.totalParses} rankPercent={player.rankPercent}/>
-                  );})}
-               {bossItem.roles.tanks.characters.map((player) => {
-                  return (
-                    <DamageRow id={player.id} name={player.name} server={player.server.name} icon={(player.spec) + " " + (player.class)} total={player.amount} ilvl={player.bracketData} ilvlParse={player.bracketPercent} rank={player.rank} rankTotal={player.totalParses} rankPercent={player.rankPercent}/>
-                  );})}
-               </TableBody>
-            </Table>
-         </TableContainer> */}
          </Grid>
       </Box>
       }
