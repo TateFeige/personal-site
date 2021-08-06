@@ -1,0 +1,43 @@
+
+.MuiDataGrid-cell {
+   font-size: 18px;
+}
+
+.rank-color.underwhelming {
+   color: #5a6666;
+}
+
+.rank-color.decent {
+   color: #31ff24;
+}
+
+
+.rank-color.good {
+   color: #346efc;
+}
+
+
+.rank-color.great {
+   color: #a42ddd;
+}
+
+.rank-color.amazing {
+   color: #fa7e24;
+}
+
+.rank-color.almostPerfect {
+   color: #df65a8;
+}
+
+.rank-color.perfect {
+   color: #e2cc66;
+}
+
+
+
+
+
+
+
+
+

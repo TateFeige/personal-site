@@ -15,7 +15,7 @@ router.get('/search/:search', (req, res) => {
    method: 'POST',
    url: 'https://www.warcraftlogs.com/oauth/token',
    headers: { 
-      'Authorization': 'Basic OTQxNGZjNzktNzc2NS00MDg3LWIwOWYtOWM1Yzc2YzIxOWQ1OnlsT3VITks0M0l0QzNqNHhIUUxwekZLbmwzcG9GU1haU0Jnd1pPUk4=', 
+      'Authorization': `Basic ${process.env.BASIC_AUTH}`, 
       'Content-Type': 'application/x-www-form-urlencoded',
    },
    data : dataString,

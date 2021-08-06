@@ -63,7 +63,7 @@ function ReportPage() {
          <br /><br /><br />
          <Grid container justify="center">
          <Box style={{width: "85%"}} aria-label="report table container">
-         <TableContainer component={Paper}>
+         <TableContainer component={Paper} style={{backgroundColor: '#242424', color: 'white'}}>
             <Table className={classes.table} aria-label="Report Table">
             <caption>Report Table</caption>
                <TableHead>
