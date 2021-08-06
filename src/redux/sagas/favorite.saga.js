@@ -9,6 +9,7 @@ function* addFavorite(reportItem) {
       //console.log(item);
       const testing = yield axios.get(`/api/search/favorite/${item.report.id}`);
       console.log('test came back:', testing);
+      //yield axios.post(`)
      
    }
    catch(error) {
