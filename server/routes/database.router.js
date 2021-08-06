@@ -23,10 +23,16 @@ router.post('/postoverview', (req, res) => {
 
 router.post('/addFavorite', (req, res) => {
    const favorite = req.user;
-   console.log('favorite item is:', req.query);
-
-
-
+   console.log('favorite item is:', req.body.data.data.reportData.report);
+   let qText = `UPDATE "user" SET favorites = $1 WHERE id = $2`
+   pool.query(qText, [req.body.data.data.reportData.report, req.user.id])
+   .then(() => 
+      res.sendStatus(201)
+   )
+   .catch (error => {
+      console.log('error in addFavorite', error);
+      res.sendStatus(500);
+   });
 })
 
 

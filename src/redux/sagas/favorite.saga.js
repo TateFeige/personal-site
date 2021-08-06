@@ -7,9 +7,9 @@ function* addFavorite(reportItem) {
    try {
       //const favoriteItem = yield axios.get(')
       //console.log(item);
-      const testing = yield axios.get(`/api/search/favorite/${item.report.id}`);
-      console.log('test came back:', testing);
-      //yield axios.post(`)
+      const favItem = yield axios.get(`/api/search/favorite/${item.report.id}`);
+      console.log('test came back:', favItem);
+      yield axios.post(`/api/database/addFavorite`, favItem);
      
    }
    catch(error) {

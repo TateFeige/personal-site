@@ -15,7 +15,7 @@ CREATE TABLE "user" (
 );
 
 
-CREATE TABLE "overview" (
+CREATE TABLE "reports" (
 	"id" serial PRIMARY KEY,
 	"report_url" varchar(255) UNIQUE,
    "report_name" varchar(255),
