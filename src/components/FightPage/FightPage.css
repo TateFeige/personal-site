@@ -1,4 +1,3 @@
-
 .MuiDataGrid-cell {
    font-size: 18px;
 }
@@ -11,11 +10,9 @@
    color: #31ff24;
 }
 
-
 .rank-color.good {
    color: #346efc;
 }
-
 
 .rank-color.great {
    color: #a42ddd;
@@ -32,12 +29,3 @@
 .rank-color.perfect {
    color: #e2cc66;
 }
-
-
-
-
-
-
-
-
-
