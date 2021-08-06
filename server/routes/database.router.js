@@ -22,18 +22,21 @@ router.post('/postoverview', (req, res) => {
  });
 
 router.post('/addFavorite', (req, res) => {
-   const favorite = req.user;
-   console.log('favorite item is:', req.body.data.data.reportData.report);
-   let qText = `UPDATE "user" SET favorites = $1 WHERE id = $2`
-   pool.query(qText, [req.body.data.data.reportData.report, req.user.id])
-   .then(() => 
+   const favorite = req.body.data.data.reportData.report;
+   const date = new Date(favorite.startTime); // sets a date for the report
+   const start = date.toLocaleDateString("en-US")
+   console.log('favorite item is:', favorite);
+   let qText = `INSERT INTO "reports" (report_code, report_name, guild_faction, guild_name, guild_server, zone, date)
+   VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id`;
+   pool.query(qText, [favorite.code, favorite.title, favorite.guild.faction.name , favorite.guild.name, favorite.guild.server.name, favorite.zone.name, start ])
+   .then (() => 
       res.sendStatus(201)
    )
    .catch (error => {
-      console.log('error in addFavorite', error);
+      console.log(error);
       res.sendStatus(500);
    });
-})
+});
 
 
 module.exports = router;

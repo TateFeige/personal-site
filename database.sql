@@ -17,10 +17,13 @@ CREATE TABLE "user" (
 
 CREATE TABLE "reports" (
 	"id" serial PRIMARY KEY,
-	"report_url" varchar(255) UNIQUE,
+	"report_code" varchar(255) UNIQUE,
    "report_name" varchar(255),
-	"zone" varchar(255) NOT NULL,
-	"date" varchar(255) NOT NULL
+   "guild_faction" varchar(255),
+   "guild_name" varchar(255),
+   "guild_server" varchar(255),
+	"zone" varchar(255),
+	"date" varchar(255)
 );
 
 
