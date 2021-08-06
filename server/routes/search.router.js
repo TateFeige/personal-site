@@ -62,6 +62,60 @@ router.get('/search/:search', (req, res) => {
    });
 });
 
+router.get('/healing/:search', (req, res) => {
+   const search = req.params.search;
+   const qs = require('qs');
+   const dataString = qs.stringify({
+   'grant_type': 'client_credentials' 
+   });
+   var config = {
+   method: 'POST',
+   url: 'https://www.warcraftlogs.com/oauth/token',
+   headers: { 
+      'Authorization': `Basic ${process.env.BASIC_AUTH}`, 
+      'Content-Type': 'application/x-www-form-urlencoded',
+   },
+   data : dataString,
+   };
+   axios(config)
+   .then(response => {
+   console.log(response.data);
+   var data = JSON.stringify({
+      query: `{
+      reportData {
+        report(code: "${search}") {
+          rankings(playerMetric: hps)
+        }
+      }
+    }`,
+      variables: {}
+    });
+    
+    var config = {
+      method: 'POST',
+      url: 'https://www.warcraftlogs.com/api/v2/client',
+      headers: { 
+        'Accept': 'application/json', 
+        'Authorization': `Bearer ${response.data.access_token}`, 
+        'Content-Type': 'application/json'   
+      },
+      data : data
+    };
+    
+    axios(config)
+    .then(function (response) {
+      console.log(response.data.data.reportData.report);
+      res.send(response.data)
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+   })
+   .catch(error => {
+   console.log(error);
+   });
+});
+
 router.get('/report/bossreport', (req, res) => {
    const query = req.params;
    console.log('req is:', req.query);

@@ -41,6 +41,10 @@ function Nav() {
          type: 'SEARCH',
          payload: searchQuery
       });
+      dispatch({
+         type: 'HEALING',
+         payload: searchQuery
+      })
       history.push(`/report/${searchQuery}`);
       setSearchURL('');
     };
