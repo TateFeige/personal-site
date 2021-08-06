@@ -42,6 +42,7 @@ function Nav() {
          payload: searchQuery
       });
       history.push(`/report/${searchQuery}`);
+      setSearchURL('');
     };
 
 

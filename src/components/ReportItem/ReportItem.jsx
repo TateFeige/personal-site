@@ -75,10 +75,10 @@ function ReportItem(item) {
 
 
    return (
-      <TableRow onClick={() => fightSummary(item)}>
-        <StyledTableCell align="left">{item.difficulty}</StyledTableCell>
-        <StyledTableCell align="left"><img src={bossImage(item.name)} />{item.name}</StyledTableCell>
-        <StyledTableCell align="left">{millisToMinutesAndSeconds(item.length)}</StyledTableCell>
+      <TableRow onClick={() => fightSummary(item)} style={{color: 'white'}}>
+        <StyledTableCell style={{color: 'white'}} align="left">{item.difficulty}</StyledTableCell>
+        <StyledTableCell style={{color: 'white'}} align="left"><img src={bossImage(item.name)} />{item.name}</StyledTableCell>
+        <StyledTableCell style={{color: 'white'}} align="left">{millisToMinutesAndSeconds(item.length)}</StyledTableCell>
       </TableRow>
    );
 };

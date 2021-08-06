@@ -2,11 +2,8 @@
 import React, {useState, useEffect} from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import {useSelector, useDispatch} from 'react-redux';
-import DamageRow from '../DamageRow/DamageRow';
-import HealingRow from '../HealingRow/HealingRow';
 import axios from 'axios';
 import './FightPage.css';
-
 
 //MaterialUI imports
 import Box from '@material-ui/core/Box';
@@ -51,14 +48,6 @@ const dataColumns = [
          almostPerfect: params.value >= 99,
          perfect: params.value >= 100,
    })}];
-// const dataRows = [
-//    {RankPercent: 5,
-//    Rank: 200,
-//    id: 'Sageth',
-//    HPS: 2500,
-//    ilvl: 242,
-//    ilvlPercent: 50,}]
-
 
 function FightPage() {
    const [bossItem, setBossItem] = useState({});
@@ -82,32 +71,30 @@ function FightPage() {
             return "unknown";
       };
    };
-   const bossImage = (bossName) => { // adds an image to the report table based on boss
-      switch (bossName) {
-         case "The Tarragrue":
-            return "https://assets.rpglogs.com/img/warcraft/bosses/2423-icon.jpg";
-         case "The Eye of the Jailer":
-            return "https://assets.rpglogs.com/img/warcraft/bosses/2433-icon.jpg";
-         case "The Nine":
-            return "https://assets.rpglogs.com/img/warcraft/bosses/2429-icon.jpg";
-         case "Remnant of Ner'zhul":
-            return "https://assets.rpglogs.com/img/warcraft/bosses/2432-icon.jpg";
-         case "Soulrender Dormazain":
-            return "https://assets.rpglogs.com/img/warcraft/bosses/2434-icon.jpg";
-         case "Painsmith Raznal":
-            return "https://assets.rpglogs.com/img/warcraft/bosses/2430-icon.jpg";
-         case "Guardian of the First Ones":
-            return "https://assets.rpglogs.com/img/warcraft/bosses/2436-icon.jpg";
-         case "Fatescribe Roh-Kalo":
-            return "https://assets.rpglogs.com/img/warcraft/bosses/2431-icon.jpg";
-         case "Kel'Thuzad":
-            return "https://assets.rpglogs.com/img/warcraft/bosses/2422-icon.jpg";
-         case "Sylvanas Windrunner":
-            return "https://assets.rpglogs.com/img/warcraft/bosses/2435-icon.jpg"; 
-         default:
-            return "no image found";
-      };
-   };
+
+   const specIcon = (spec) => {
+      switch (spec) {
+         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      }
+   }
+
+
    const findFight = () => {
       for (let x = 0; x < report.length; x++) {
          //console.log(report[x]);
@@ -166,6 +153,7 @@ function FightPage() {
                </Box>
                :
                <DataGrid
+               style={{backgroundColor: '#242424', color: 'white'}}
                rows={damageRows}
                columns={dataColumns}
                />
@@ -180,6 +168,7 @@ function FightPage() {
                </Box>
                :
                <DataGrid
+               style={{backgroundColor: '#242424', color: 'white'}}
                rows={damageRows}
                columns={dataColumns}
                />
