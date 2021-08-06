@@ -114,6 +114,7 @@ const dataColumns = [
       ),
    },
    { field: 'Rank', type: 'number', headerName: 'Rank', width: 150 },
+   { field: 'RankTotal', type: 'number', headerName: 'Out OF', width: 150 },
    { field: 'img', headerName: 'Spec', width: 50, renderCell:(params) =>
       (
          <>
@@ -185,15 +186,15 @@ function FightPage() {
    let testRows = [];
    bossItem.roles.dps.characters.map((player) => {
        (
-         testRows.push({RankPercent: player.rankPercent, Rank: getSearchQueryByFullURL(player.rank), img: player.class + player.spec, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
+         testRows.push({RankPercent: player.rankPercent, Rank: getSearchQueryByFullURL(player.rank), RankTotal: player.totalParses, img: player.class + player.spec, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
       )})
    bossItem.roles.healers.characters.map((player) => {
        (
-         testRows.push({RankPercent: player.rankPercent, Rank: getSearchQueryByFullURL(player.rank), img: player.class + player.spec, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
+         testRows.push({RankPercent: player.rankPercent, Rank: getSearchQueryByFullURL(player.rank), RankTotal: player.totalParses, img: player.class + player.spec, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
       )})
    bossItem.roles.tanks.characters.map((player) => {
        (
-         testRows.push({RankPercent: player.rankPercent, Rank: getSearchQueryByFullURL(player.rank), img: player.class + player.spec, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
+         testRows.push({RankPercent: player.rankPercent, Rank: getSearchQueryByFullURL(player.rank), RankTotal: player.totalParses, img: player.class + player.spec, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
       )})
    setDamageRows(testRows);
    }
