@@ -1,5 +1,4 @@
-import axios from 'axios';
-import { put, takeLatest, call } from 'redux-saga/effects';
+import { put, takeLatest } from 'redux-saga/effects';
 
 function* report(reportItem) {
    const boss = reportItem.payload;
@@ -9,7 +8,7 @@ function* report(reportItem) {
       yield put({type: "POST_BOSS_FIGHT", payload: boss});
    }
    catch(error) {
-      console.log('Error in bossResponse:', error);
+      console.log('Error in bossResponse:', error); // catches any errors and logs them
    };
 };
 
@@ -21,12 +20,12 @@ function* healing(reportItem) {
       yield put({type: "POST_HEALING", payload: boss});
    }
    catch(error) {
-      console.log('Error in bossResponse:', error);
+      console.log('Error in bossResponse:', error); // catches any errors and logs them
    };
 };
 
 
-function* bossReportSaga() {
+function* bossReportSaga() { // listens for calls and runs a given function when one is heard
     yield takeLatest('BOSS_REPORT', report);
     yield takeLatest('BOSS_HEALING', healing)
 };

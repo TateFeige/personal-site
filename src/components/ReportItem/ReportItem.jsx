@@ -1,36 +1,18 @@
 //Main imports
 import React from 'react';
-import LogOutButton from '../LogOutButton/LogOutButton';
-import {useSelector, useDispatch} from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import {useDispatch} from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 //MaterialUI imports
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import RefreshIcon from '@material-ui/icons/Refresh';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-import StarIcon from '@material-ui/icons/Star';
-import IconButton from '@material-ui/core/IconButton';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
 const StyledTableCell = withStyles((theme) => ({head:{backgroundColor: theme.palette.common.black, color: theme.palette.common.white}, body:{fontSize: 18,}}))(TableCell);
-const StyledTableRow = withStyles((theme) => ({root: {'&:nth-of-type(odd)': {backgroundColor: theme.palette.action.hover}}}))(TableRow);
-const useStyles = makeStyles({table: {minWidth: 700}});
 
 
-function ReportItem(item) {
+function ReportItem(item) { // main function for this page
    const history = useHistory();
    const dispatch = useDispatch();
-   const classes = useStyles();
-   const user = useSelector((store) => store.user);
-   const report = useSelector((store) => store.search);
    const millisToMinutesAndSeconds = (millis) => { // function to convert the fight length (given from API in milliseconds) to minutes:seconds (much more readable)
       var minutes = Math.floor(millis / 60000);
       var seconds = ((millis % 60000) / 1000).toFixed(0);
@@ -64,14 +46,13 @@ function ReportItem(item) {
    };
 
    const fightSummary = (item) => {
-      console.log('fightSummary item is:', item); // test function
-      dispatch({
+      //console.log('fightSummary item is:', item); // test function
+      dispatch({ // send our boss item to be further broken down
          type: "BOSS_REPORT",
          payload: item
       });
-      history.push(`/fight?report=${item.url}&boss=${item.name}&difficulty=${item.difficulty}`);
+      history.push(`/fight?report=${item.url}&boss=${item.name}&difficulty=${item.difficulty}`); // push the user to a page based on the report and its information
    };
-
 
    return (
       <TableRow onClick={() => fightSummary(item)} style={{color: 'white'}}>
@@ -80,7 +61,7 @@ function ReportItem(item) {
         <StyledTableCell style={{color: 'white'}} align="left">{millisToMinutesAndSeconds(item.length)}</StyledTableCell>
       </TableRow>
    );
-};
+}; // end of main function for this page
 
 
 export default ReportItem;

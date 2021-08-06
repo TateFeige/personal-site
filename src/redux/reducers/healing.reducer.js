@@ -1,7 +1,4 @@
-import axios from 'axios';
-import { put, takeLatest, call } from 'redux-saga/effects';
-
-const healingReducer = (state = [], action) => {
+const healingReducer = (state = [], action) => { // reducer that holds our healing ranking info from the API cal;
    switch (action.type) {
       case "POST_HEALING":
          //console.log('data is:', action.payload.rankings.data); // test function
