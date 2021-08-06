@@ -194,6 +194,7 @@ const damageDataColumns = [
 
 function FightPage() {
    const [bossItem, setBossItem] = useState({});
+   const [bossHealingItem, setBossHealingItem] = useState({});
    const [damageRows, setDamageRows] = useState([]);
    const [healingRows, setHealingRows] = useState([]);
    const classes = useStyles();
@@ -224,15 +225,27 @@ function FightPage() {
             //boss = report[x];
             const match = report[x];
             setBossItem(match);
-            console.log(bossItem);
-      }}};
+            //console.log('boss is:', match);
+      }}
+      for (let x = 0; x < healingInfo.reportData.report.rankings.data.length; x++) {
+         //console.log(report[x]);
+            if (healingInfo.reportData.report.rankings.data[x].fightID == fightInfo[0].id) {
+            //boss = report[x];
+            const healingMatch = healingInfo.reportData.report.rankings.data[x];
+            setBossHealingItem(healingMatch);
+            //console.log(bossItem);
+      }}
+   
+   };
+      
    useEffect(() => { // get data on page load
       findFight();
   }, []);
 
   const test = () => {
-   console.log(healingInfo)
+   console.log(bossHealingItem)
    let tempDamageRows = [];
+   let tempHealingRows = [];
    bossItem.roles.dps.characters.map((player) => {
        (
          tempDamageRows.push({RankPercent: player.rankPercent, Rank: getSearchQueryByFullURL(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
@@ -245,7 +258,20 @@ function FightPage() {
        (
          tempDamageRows.push({RankPercent: player.rankPercent, Rank: getSearchQueryByFullURL(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
       )})
+   bossHealingItem.roles.dps.characters.map((player) => {
+       (
+         tempHealingRows.push({RankPercent: player.rankPercent, Rank: getSearchQueryByFullURL(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, HPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
+      )})
+   bossHealingItem.roles.healers.characters.map((player) => {
+       (
+         tempHealingRows.push({RankPercent: player.rankPercent, Rank: getSearchQueryByFullURL(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, HPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
+      )})
+   bossHealingItem.roles.tanks.characters.map((player) => {
+       (
+         tempHealingRows.push({RankPercent: player.rankPercent, Rank: getSearchQueryByFullURL(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, HPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
+      )})
    setDamageRows(tempDamageRows);
+   setHealingRows(tempHealingRows);
    };
    
 
