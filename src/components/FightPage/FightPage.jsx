@@ -100,7 +100,53 @@ const getSearchQueryByFullURL = (url) => {return url.split('~').pop()};
 const StyledTableCell = withStyles((theme) => ({head:{backgroundColor: theme.palette.common.black, color: theme.palette.common.white}, body:{fontSize: 14,}}))(TableCell);
 const StyledTableRow = withStyles((theme) => ({root: {'&:nth-of-type(odd)': {backgroundColor: theme.palette.action.hover}}}))(TableRow);
 const useStyles = makeStyles({table: {minWidth: 700}});
-const dataColumns = [
+const healingDataColumns = [
+   { field: 'RankPercent', type: 'number', headerName: 'Rank %', flex: 2, cellClassName:(params) =>
+      clsx('rank-color', {
+         underwhelming: params.value >= 0,
+         decent: params.value >= 35,
+         good: params.value >= 50,
+         great: params.value >= 75,
+         amazing: params.value >= 95,
+         almostPerfect: params.value >= 99,
+         perfect: params.value >= 100,
+         },
+      ),
+   },
+   { field: 'Rank', type: 'number', headerName: 'Rank', flex: 2 },
+   { field: 'RankTotal', type: 'number', headerName: 'Out Of', flex: 2 },
+   { field: 'img', headerName: 'Spec', flex: 1, renderCell:(params) =>
+      (
+         <>
+            <img src={specIcon(params.value)} alt={params.value} title={params.value}/>
+         </>
+      ),
+   },
+   { field: 'id', headerName: 'Player', flex: 10 },
+   { field: 'HPS', type: 'number', headerName: 'HPS', flex: 4, renderCell:(params) => 
+      (
+         <>
+            {Number(params.value).toLocaleString("en-US")}
+         </>
+      
+      ),
+   },
+   { field: 'ilvl', type: 'number', headerName: 'ilvl', flex: 2 },
+   { field: 'bracketPercent', type: 'number', headerName: 'ilvl%', flex: 2, cellClassName:(params) =>
+      clsx('rank-color', {
+         underwhelming: params.value >= 0,
+         decent: params.value >= 35,
+         good: params.value >= 50,
+         great: params.value >= 75,
+         amazing: params.value >= 95,
+         almostPerfect: params.value >= 99,
+         perfect: params.value >= 100,
+         },
+      ),
+   },
+];
+
+const damageDataColumns = [
    { field: 'RankPercent', type: 'number', headerName: 'Rank %', flex: 2, cellClassName:(params) =>
       clsx('rank-color', {
          underwhelming: params.value >= 0,
@@ -149,6 +195,7 @@ const dataColumns = [
 function FightPage() {
    const [bossItem, setBossItem] = useState({});
    const [damageRows, setDamageRows] = useState([]);
+   const [healingRows, setHealingRows] = useState([]);
    const classes = useStyles();
    const dispatch = useDispatch();
    const user = useSelector((store) => store.user);
@@ -183,21 +230,21 @@ function FightPage() {
   }, []);
 
   const test = () => {
-   let testRows = [];
+   let tempDamageRows = [];
    bossItem.roles.dps.characters.map((player) => {
        (
-         testRows.push({RankPercent: player.rankPercent, Rank: getSearchQueryByFullURL(player.rank), RankTotal: player.totalParses, img: player.class + player.spec, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
+         tempDamageRows.push({RankPercent: player.rankPercent, Rank: getSearchQueryByFullURL(player.rank), RankTotal: player.totalParses, img: player.class + player.spec, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
       )})
    bossItem.roles.healers.characters.map((player) => {
        (
-         testRows.push({RankPercent: player.rankPercent, Rank: getSearchQueryByFullURL(player.rank), RankTotal: player.totalParses, img: player.class + player.spec, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
+         tempDamageRows.push({RankPercent: player.rankPercent, Rank: getSearchQueryByFullURL(player.rank), RankTotal: player.totalParses, img: player.class + player.spec, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
       )})
    bossItem.roles.tanks.characters.map((player) => {
        (
-         testRows.push({RankPercent: player.rankPercent, Rank: getSearchQueryByFullURL(player.rank), RankTotal: player.totalParses, img: player.class + player.spec, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
+         tempDamageRows.push({RankPercent: player.rankPercent, Rank: getSearchQueryByFullURL(player.rank), RankTotal: player.totalParses, img: player.class + player.spec, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
       )})
-   setDamageRows(testRows);
-   }
+   setDamageRows(tempDamageRows);
+   };
    
 
    return (
@@ -228,13 +275,13 @@ function FightPage() {
                autoWidth
                style={{backgroundColor: '#242424', color: 'white'}}
                rows={damageRows}
-               columns={dataColumns}
+               columns={damageDataColumns}
                />
             }
          </Box>   
          <br />
          <Box style={{width: "49%"}} alignItems="flex-end" aria-label="favorites table container">
-            {( damageRows == [] ) ? 
+            {( healingRows == [] ) ? 
                <Box textAlign="center" aria-label="Waiting for response">
                   <h1>Loading</h1>
                   <CircularProgress style={{height:"10%", width:"10%"}}/>
@@ -244,8 +291,8 @@ function FightPage() {
                autoHeight
                autoWidth
                style={{backgroundColor: '#242424', color: 'white'}}
-               rows={damageRows}
-               columns={dataColumns}
+               rows={healingRows}
+               columns={healingDataColumns}
                />
             }
          </Box>
