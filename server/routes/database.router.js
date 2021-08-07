@@ -62,7 +62,6 @@ router.get('/newitem/:search', (req, res) => { // main request to post search qu
    });
 }); // end of main healing request
 
-
 router.post('/additem', (req, res) => { // adds the searched for report to our database for user page displaying
    let guildFaction = "none"; // default value for inserting into DB since PostgreSQL default is finicky
    let guildName = "none"; // default value for inserting into DB since PostgreSQL default is finicky
@@ -96,7 +95,6 @@ router.post('/additem', (req, res) => { // adds the searched for report to our d
    });
 });
 
-
 router.post('/addfavorite/:favorite', (req, res) => { // adds a report to the users database info
    //console.log('req is:', req.params.favorite); // test function
    //console.log(req.user.id); // test function
@@ -109,6 +107,34 @@ router.post('/addfavorite/:favorite', (req, res) => { // adds a report to the us
       console.log(favoritesArray);
       let qText = `UPDATE "user" SET favorites = $1 WHERE id = $2`;
       pool.query(qText, [favoritesArray, req.user.id])
+      .then (() => 
+         res.sendStatus(201)
+      )
+      .catch (error => { // catches any errors and console.logs them
+         console.log(error);
+         res.sendStatus(500);
+      });
+   })
+   .catch (error => { // catches any errors and console.logs them
+      console.log(error);
+      res.sendStatus(500);
+   });
+});
+
+router.post('/removefavorite/:favorite', (req, res) => { // adds a report to the users database info
+   //console.log('req is:', req.params.favorite); // test function
+   //console.log(req.user.id); // test function
+   let qText = `SELECT favorites FROM "user" WHERE id = $1`;
+   pool.query(qText, [req.user.id])
+   .then (results => {
+      let favoritesList = results.rows[0].favorites; // set an array to our response
+      let itemToRemove = req.params.favorite; // set our item to filter out to our given param
+      favoritesList = favoritesList.filter((item) => { // delete item from favorites array
+         return item !== itemToRemove
+      });
+      console.log('returned:', favoritesList); // test function
+      let qText = `UPDATE "user" SET favorites = $1 WHERE id = $2`;
+      pool.query(qText, [favoritesList, req.user.id])
       .then (() => 
          res.sendStatus(201)
       )

@@ -21,9 +21,16 @@ Why would you need this twice?`);
    };
 };
 
-function* removeFavorite(favoriteItem) {
+function* deleteFavorite(favoriteItem) {
    const favorite = favoriteItem.payload;
-   console.log(`removeFavorite saga has:`, favorite); // test function
+   console.log(`deleteFavorite saga has:`, favorite); // test function
+   try {
+      console.log(favorite);
+      yield axios.post(`/api/database/removefavorite/${favorite}`);
+   }
+   catch (error) {
+      console.log("Error in deleteFavorite:", error);
+   }
 };
 
 function* getFavorites() {
@@ -49,7 +56,7 @@ function* getFavorites() {
 
 function* favoriteSaga() { // listens for calls and runs a given function when one is heard
    yield takeLatest('ADD_TO_FAVORITES', addFavorite);
-   yield takeLatest('REMOVE_FROM_FAVORITES', removeFavorite);
+   yield takeLatest('DELETE_FAVORITE', deleteFavorite);
    yield takeLatest('GET_FAVORITES', getFavorites);
 };
   
