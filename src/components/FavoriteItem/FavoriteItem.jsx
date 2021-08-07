@@ -13,22 +13,25 @@ const StyledTableCell = withStyles((theme) => ({head:{backgroundColor: theme.pal
 
 function FavoriteItem(item) { // main function for this page
    const dispatch = useDispatch();
-   const fightSummary = (item) => {
-     console.log(item)
-   };
-   
-   const deleteFavorite = (item) => {
+   const deleteFavorite = (item) => { // handles deleting the selected item
       //console.log(item.report_code); // test function
       dispatch({
          type: "DELETE_FAVORITE",
          payload: item.report_code
       });
       dispatch({type: 'GET_FAVORITES'});
-   }
+   };
+
+   const fightSummary = (item) => {
+     console.log(item)
+   };
+   
+ 
 
    return (
       <TableRow onClick={() => fightSummary(item)}>
         <StyledTableCell style={{color: 'black'}} align="left">{item.date}</StyledTableCell>
+        <StyledTableCell style={{color: 'black'}} align="left">[{item.guild_faction}] {item.guild_name}-{item.guild_server}</StyledTableCell>
         <StyledTableCell style={{color: 'black'}} align="left">{item.report_name}</StyledTableCell>
         <StyledTableCell style={{color: 'black'}} align="left"><Button variant="contained" color="secondary" onClick={() => deleteFavorite(item)}>Delete</Button></StyledTableCell>
       </TableRow>

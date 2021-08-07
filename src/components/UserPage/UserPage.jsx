@@ -44,33 +44,11 @@ function UserPage() {
          <Button variant="contained" color="primary" disableElevation onClick={test}>Change Character</Button>
          </Box>
          <br /><br /><br />
-         <Grid container justify="space-between" aria-label="history and favorites tables container">
-         <Box style={{width: "40%"}} aria-label="history table container">
-         <TableContainer component={Paper}>
-            <h2 align="center">History</h2>
-            <Table className={classes.table} aria-label="User History Table">
-            <caption>History Table</caption>
-               <TableHead>
-                  <TableRow>
-                     <StyledTableCell>Date Created</StyledTableCell>
-                     <StyledTableCell align="left">Report Name</StyledTableCell>
-                     <StyledTableCell align="left">View</StyledTableCell>
-                  </TableRow>
-               </TableHead>
-               <TableBody>
-                  <StyledTableRow >
-                  <StyledTableCell component="th" scope="row"></StyledTableCell>
-                  <StyledTableCell align="left"></StyledTableCell>
-                  <StyledTableCell align="left"></StyledTableCell>
-                  </StyledTableRow>
-               </TableBody>
-            </Table>
-         </TableContainer>
-         </Box>
+         <Grid container justify="center" aria-label="history and favorites tables container">
          <br />
          {(favoritesList == undefined) ? <div>Waiting</div>
          :
-         <Box style={{width: "40%"}} alignItems="flex-end" aria-label="favorites table container">
+         <Box style={{width: "85%"}} alignItems="center" aria-label="favorites table container">
          <TableContainer component={Paper}>
             <h2 align="center">Favorites</h2>
             <Table className={classes.table}  aria-label="User Favorites Table">
@@ -78,8 +56,9 @@ function UserPage() {
                <TableHead>
                   <TableRow>
                      <StyledTableCell>Date Created</StyledTableCell>
+                     <StyledTableCell align="left">Guild</StyledTableCell>
                      <StyledTableCell align="left">Report Name</StyledTableCell>
-                     <StyledTableCell align="left">View</StyledTableCell>
+                     <StyledTableCell align="left"></StyledTableCell>
                   </TableRow>
                </TableHead>
                <TableBody>

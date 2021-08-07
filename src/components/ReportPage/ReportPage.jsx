@@ -53,17 +53,19 @@ function ReportPage() { // main function for this page
          payload: (reportInfo.id)
       });
    };
-
-   const test = () => {
-      console.log(reportInfo); // test function
-      //console.log(user) // test function
+   
+   const refreshHandler = () => { // adds the searched for report to the user's favorites on the database
+      console.log(reportInfo.id); // test function
+      dispatch({ // sends out another search request when refresh icon is clicked; so the user can update the data without re-entering the search
+         type: 'SEARCH',
+         payload: reportInfo.id
+      });
    };
-
 
    return (
       <Box aria-label="report page">
          <Grid container justify="center" aria-label="report header">
-            <IconButton color="primary" aria-label="Refresh Report" onClick={test}><RefreshIcon /></IconButton>
+            <IconButton color="primary" aria-label="Refresh Report" onClick={refreshHandler}><RefreshIcon /></IconButton>
             <h1 align="center">{reportInfo.name}</h1>
             {( user.id >= 1 ) ?
             <IconButton color="primary" aria-label="Add to favorites" onClick={favoriteHandler}><StarBorderIcon /></IconButton>
