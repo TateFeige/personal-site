@@ -5,6 +5,7 @@ import search from './search.reducer';
 import report from './report.reducer';
 import fight from './fight.reducer';
 import healing from './healing.reducer';
+import favorites from './favorite.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   report,
   fight,
   healing,
+  favorites,
 });
 
 export default rootReducer;

@@ -1,7 +1,8 @@
 //Main imports
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import ReportItem from '../ReportItem/ReportItem';
+import axios from 'axios';
 
 //MaterialUI imports
 import Box from '@material-ui/core/Box';
@@ -45,16 +46,31 @@ function ReportPage() { // main function for this page
       };
    };
 
-   // const test = () => {
-   //    console.log(report); // test function
-   // };
+   const favoriteHandler = () => { // adds the searched for report to the user's favorites on the database
+      //console.log(reportInfo.id); // test function
+      dispatch({
+         type: 'ADD_TO_FAVORITES',
+         payload: (reportInfo.id)
+      });
+   };
+   
+   const refreshHandler = () => { // adds the searched for report to the user's favorites on the database
+      console.log(reportInfo.id); // test function
+      dispatch({ // sends out another search request when refresh icon is clicked; so the user can update the data without re-entering the search
+         type: 'SEARCH',
+         payload: reportInfo.id
+      });
+   };
 
    return (
       <Box aria-label="report page">
          <Grid container justify="center" aria-label="report header">
-            <IconButton color="primary" aria-label="Refresh Report"><RefreshIcon /></IconButton>
+            <IconButton color="primary" aria-label="Refresh Report" onClick={refreshHandler}><RefreshIcon /></IconButton>
             <h1 align="center">{reportInfo.name}</h1>
-            <IconButton color="primary" aria-label="Add to favorites"><StarBorderIcon /></IconButton>
+            {( user.id >= 1 ) ?
+            <IconButton color="primary" aria-label="Add to favorites" onClick={favoriteHandler}><StarBorderIcon /></IconButton>
+            :
+            <></>}
          </Grid>
          <br /><br /><br />
          <Grid container justify="center">

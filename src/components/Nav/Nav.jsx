@@ -37,16 +37,20 @@ function Nav() {
          return false;
       };
       //console.log(`Searching for << ${searchQuery} >> on WarcraftLogs`); //test function to make sure data is correct
-      dispatch({
+      dispatch({ // main API call for the search query, returns some core information and the damage report
          type: 'SEARCH',
          payload: searchQuery
       });
-      dispatch({
+      dispatch({ // API call to get the healing report for the search query
          type: 'HEALING',
+         payload: searchQuery
+      });
+      dispatch({ // API call to add some core info of the report to our database for storage
+         type: 'ADD_TO_DATABASE',
          payload: searchQuery
       })
       history.push(`/report/${searchQuery}`);
-      setSearchURL('');
+      setSearchURL(''); // clear search field
     };
 
 
