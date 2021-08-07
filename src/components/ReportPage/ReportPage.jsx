@@ -1,5 +1,5 @@
 //Main imports
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import ReportItem from '../ReportItem/ReportItem';
 
@@ -44,18 +44,18 @@ function ReportPage() { // main function for this page
             return "unknown";
       };
    };
+
    const favoriteHandler = () => {
-      //console.log(reportInfo);
+      console.log(reportInfo.id); // test function
       dispatch({
-         type: 'ADD_TO_DATABASE',
-         payload: {report: reportInfo, user: user}
+         type: 'ADD_TO_FAVORITES',
+         payload: (reportInfo.id)
       });
    };
    const test = () => {
-      console.log(reportInfo);
-      console.log(user)
+      console.log(reportInfo); // test function
+      //console.log(user) // test function
    };
-   favoriteHandler();
 
    // const test = () => {
    //    console.log(report); // test function
