@@ -1,5 +1,5 @@
 //Main imports
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {useDispatch} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
@@ -16,12 +16,14 @@ function FavoriteItem(item) { // main function for this page
    const fightSummary = (item) => {
      console.log(item)
    };
+   
    const deleteFavorite = (item) => {
-      console.log(item.report_code);
+      //console.log(item.report_code); // test function
       dispatch({
          type: "DELETE_FAVORITE",
          payload: item.report_code
       });
+      dispatch({type: 'GET_FAVORITES'});
    }
 
    return (
