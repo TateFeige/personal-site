@@ -25,7 +25,11 @@ function UserPage() {
    const classes = useStyles();
    const user = useSelector((store) => store.user);
    const db = dispatch({type: 'GET_DB'});
-   dispatch({type: 'GET_FAVORITES'});
+   const favorites = dispatch({type: 'GET_FAVORITES'});
+   const test = () => {
+      console.log(db);
+      console.log(favorites);
+   }
 
 
    return (
@@ -34,7 +38,7 @@ function UserPage() {
          <h1>Welcome, {user.username}</h1>
          <h2>Current Character:</h2>
          <h3>{user.character}</h3>
-         <Button variant="contained" color="primary" disableElevation>Change Character</Button>
+         <Button variant="contained" color="primary" disableElevation onClick={test}>Change Character</Button>
          </Box>
          <br /><br /><br />
          <Grid container justify="space-between" aria-label="history and favorites tables container">

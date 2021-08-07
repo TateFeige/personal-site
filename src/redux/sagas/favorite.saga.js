@@ -29,9 +29,9 @@ function* removeFavorite(favoriteItem) {
 function* getFavorites() {
    //console.log('Getting favorites');
    const favorites = yield axios.get('/api/database/getfavorites');
-   //console.log(favorites.data);
+   console.log(favorites.data);
    const db = yield axios.get('/api/database/getdb');
-   //console.log(db.data);
+   console.log(db.data);
    //favorites.data.filter(findMatch);
 };
 
