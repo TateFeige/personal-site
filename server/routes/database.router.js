@@ -63,25 +63,26 @@ router.get('/newitem/:search', (req, res) => { // main request to post search qu
 }); // end of main healing request
 
 
-router.post('/additem', (req, res) => {
+router.post('/additem', (req, res) => { // adds the searched for report to our database for user page displaying
    const reportItem = req.body.data.data.reportData.report;
    const date = new Date(reportItem.startTime); // sets a date for the report
    const start = date.toLocaleDateString("en-US")
-   console.log('favorite item is:', reportItem);
+   //console.log('adding item:', reportItem); // test function 
    let qText = `INSERT INTO "reports" (report_code, report_name, guild_faction, guild_name, guild_server, zone, date)
-   VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id`;
+   VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id`; // main query to send
    pool.query(qText, [reportItem.code, reportItem.title, reportItem.guild.faction.name , reportItem.guild.name, reportItem.guild.server.name, reportItem .zone.name, start ])
+   // call our query with the data we want it to have 
    .then (() => 
       res.sendStatus(201)
    )
-   .catch (error => {
+   .catch (error => { // catches any errors and console.logs them
       console.log(error);
       res.sendStatus(500);
    });
 });
 
 
-router.get('/addfavorite/:favorite', (req, res) => {
+router.post('/addfavorite/:favorite', (req, res) => {
    console.log('req is:', req.params.favorite);
    console.log(req.user.id);
    let qText = `SELECT favorites FROM "user" WHERE id = $1`;
@@ -96,15 +97,33 @@ router.get('/addfavorite/:favorite', (req, res) => {
       .then (() => 
          res.sendStatus(201)
       )
-      .catch (error => {
+      .catch (error => { // catches any errors and console.logs them
          console.log(error);
          res.sendStatus(500);
       });
    })
-   .catch (error => {
+   .catch (error => { // catches any errors and console.logs them
       console.log(error);
       res.sendStatus(500);
    });
+});
+
+router.get('/getdb', (req, res) => { // gets database of reports for displaying on the user page
+   //console.log('in getdb router');
+   let qText = `SELECT * FROM "reports"`;
+   pool.query(qText)
+   .then (results => 
+      res.send(results.rows)
+   )
+   .catch (error => { // catches any errors and console.logs them
+      console.log("Error in getdb:", error);
+      res.sendStatus(500);
+   })
+});
+
+router.get('/getfavorites', (req, res) => { // gets the users personal favorites
+   //console.log('in getfavorites router');
+   res.send(req.user.favorites);
 });
 
 

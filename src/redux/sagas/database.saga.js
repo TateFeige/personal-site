@@ -17,8 +17,19 @@ function* addToDatabase(reportItem) {
    };
 };
 
+function* getDB() {
+   try {
+      const db = yield axios.get('/api/database/getdb');
+   }
+   catch(error) {
+      console.log('Error in getDB:', error);
+   };
+};
+
+
 function* databaseSaga() { // listens for calls and runs a given function when one is heard
    yield takeLatest('ADD_TO_DATABASE', addToDatabase);
+   yield takeLatest('GET_DB', getDB);
 };
  
 export default databaseSaga;

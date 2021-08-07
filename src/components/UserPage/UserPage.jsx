@@ -1,7 +1,7 @@
 //Main imports
 import React from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
 //MaterialUI imports
 import Box from '@material-ui/core/Box';
@@ -21,8 +21,11 @@ const useStyles = makeStyles({table: {minWidth: 700}});
 
 
 function UserPage() {
+   const dispatch = useDispatch();
    const classes = useStyles();
    const user = useSelector((store) => store.user);
+   const db = dispatch({type: 'GET_DB'});
+   dispatch({type: 'GET_FAVORITES'});
 
 
    return (

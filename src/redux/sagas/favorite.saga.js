@@ -3,8 +3,23 @@ import axios from 'axios';
 
 function* addFavorite(favoriteItem) {
    const favorite = favoriteItem.payload;
-   console.log(`addFavorite saga has:`, favorite); // test function
-   yield axios.get(`/api/database/addfavorite/${favorite}`);
+   //console.log(`addFavorite saga has:`, favorite); // test function
+   try {
+      const favorites = yield axios.get('/api/database/getfavorites');
+      console.log('Favorites saga has:', favorites)
+      for (let x = 0; x < favorites.data.length; x++) { // checks user's current favorites for a match and declines to post if there is one
+         if (favorites.data[x] == favorite) { // alert user with a popup if there is a match
+            alert(`Looks like you're trying to add a duplicate!
+Why would you need this twice?`);
+            return true;
+         }   
+      }
+      yield axios.post(`/api/database/addfavorite/${favorite}`); // if there isn't a match then post it
+   }
+   catch (error) {
+      console.log('Error in addFavorites:', error);
+   };
+   
 };
 
 function* removeFavorite(favoriteItem) {
@@ -12,10 +27,19 @@ function* removeFavorite(favoriteItem) {
    console.log(`removeFavorite saga has:`, favorite); // test function
 };
 
+function* getFavorites() {
+   //console.log('Getting favorites');
+   const favorites = yield axios.get('/api/database/getfavorites');
+   //console.log(favorites.data);
+   const db = yield axios.get('/api/database/getdb');
+   //console.log(db.data);
+   //favorites.data.filter(findMatch);
+};
 
 function* favoriteSaga() { // listens for calls and runs a given function when one is heard
    yield takeLatest('ADD_TO_FAVORITES', addFavorite);
    yield takeLatest('REMOVE_FROM_FAVORITES', removeFavorite);
+   yield takeLatest('GET_FAVORITES', getFavorites);
 };
   
 export default favoriteSaga;

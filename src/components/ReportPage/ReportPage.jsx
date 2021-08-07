@@ -2,6 +2,7 @@
 import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import ReportItem from '../ReportItem/ReportItem';
+import axios from 'axios';
 
 //MaterialUI imports
 import Box from '@material-ui/core/Box';
@@ -30,6 +31,7 @@ function ReportPage() { // main function for this page
    const user = useSelector((store) => store.user);
    const report = useSelector((store) => store.search);
    const reportInfo = useSelector((store) => store.report);
+   const check = useSelector((store) => store.favorites);
    const difficultyConverter = (difficulty) => { // function to convert difficulty (given from API as a number) to a string (so it can be read by the user)
       switch (difficulty) {
          case 1:
@@ -45,21 +47,19 @@ function ReportPage() { // main function for this page
       };
    };
 
-   const favoriteHandler = () => {
-      console.log(reportInfo.id); // test function
+   const favoriteHandler = () => { // adds the searched for report to the user's favorites on the database
+      //console.log(reportInfo.id); // test function
       dispatch({
          type: 'ADD_TO_FAVORITES',
          payload: (reportInfo.id)
       });
    };
+   
    const test = () => {
       console.log(reportInfo); // test function
       //console.log(user) // test function
    };
 
-   // const test = () => {
-   //    console.log(report); // test function
-   // };
 
    return (
       <Box aria-label="report page">
