@@ -6,20 +6,19 @@ function* addFavorite(favoriteItem) {
    //console.log(`addFavorite saga has:`, favorite); // test function
    try {
       const favorites = yield axios.get('/api/database/getfavorites');
-      console.log('Favorites saga has:', favorites)
+      //console.log('Favorites saga has:', favorites) // test function
       for (let x = 0; x < favorites.data.length; x++) { // checks user's current favorites for a match and declines to post if there is one
          if (favorites.data[x] == favorite) { // alert user with a popup if there is a match
             alert(`Looks like you're trying to add a duplicate!
 Why would you need this twice?`);
             return true;
-         }   
-      }
+         };
+      };
       yield axios.post(`/api/database/addfavorite/${favorite}`); // if there isn't a match then post it
    }
    catch (error) {
       console.log('Error in addFavorites:', error);
    };
-   
 };
 
 function* removeFavorite(favoriteItem) {

@@ -77,7 +77,7 @@ router.get('/healing/:search', (req, res) => {
    };
    axios(config) // runs our first axios call
    .then(response => {
-      console.log(response.data);
+      //console.log(response.data); // test function
       var data = JSON.stringify({ // main graphQL query, converted a string so axios can use it
          query: `{
             reportData {

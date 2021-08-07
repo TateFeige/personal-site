@@ -1,23 +1,22 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
-function* addToDatabase(reportItem) {
+function* addToDatabase(reportItem) { // main call for adding an item to our report database
    const item = reportItem.payload;
-   console.log(`addToDatabase saga has:`, item); // test function
+   //console.log(`addToDatabase saga has:`, item); // test function
    try {
       //const favoriteItem = yield axios.get(')
       //console.log(item);
       const itemToAdd = yield axios.get(`/api/database/newitem/${item}`);
-      console.log('test came back:', itemToAdd);
+      //console.log('test came back:', itemToAdd); // test function
       yield axios.post(`/api/database/additem`, itemToAdd);
-     
    }
    catch(error) {
       console.log('Error in addToDatabase:', error); // catches any errors and logs them
    };
 };
 
-function* getDB() {
+function* getDB() { // sends report database back to user page for displaying info
    try {
       const db = yield axios.get('/api/database/getdb');
    }

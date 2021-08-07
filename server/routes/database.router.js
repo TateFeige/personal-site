@@ -22,7 +22,7 @@ router.get('/newitem/:search', (req, res) => { // main request to post search qu
    };
    axios(config) // runs our first axios call
    .then(response => {
-      console.log(response.data);
+      //console.log(response.data); // test function
       var data = JSON.stringify({ // main graphQL query, converted a string so axios can use it
          query: `{
             reportData {
@@ -82,9 +82,9 @@ router.post('/additem', (req, res) => { // adds the searched for report to our d
 });
 
 
-router.post('/addfavorite/:favorite', (req, res) => {
-   console.log('req is:', req.params.favorite);
-   console.log(req.user.id);
+router.post('/addfavorite/:favorite', (req, res) => { // adds a report to the users database info
+   //console.log('req is:', req.params.favorite); // test function
+   //console.log(req.user.id); // test function
    let qText = `SELECT favorites FROM "user" WHERE id = $1`;
    pool.query(qText, [req.user.id])
    .then (results => {
