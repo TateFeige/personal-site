@@ -46,6 +46,9 @@ function UserPage() {
    const classes = useStyles();
    const user = useSelector((store) => store.user);
    const favoritesList = useSelector((store) => store.favorites[0]);
+   useEffect(() => { // get data on page load
+      dispatch({type: 'GET_FAVORITES'});
+   }, []);
 
    const test = () => {
       console.log('testing');
@@ -58,10 +61,6 @@ function UserPage() {
       setFavoritesDataRows(newArray);
       console.log(favoritesDataRows); // test function
       };
-      useEffect(() => { // get data on page load
-         dispatch({type: 'GET_FAVORITES'});
-      }, []);
-   
 
    return (
       <>
