@@ -16,7 +16,7 @@ function* search(searchQuery) { // main search function, this is where we sort o
       // sets a new variable report and gives it data we want to send
       yield put ({type: "POST_SUMMARY", payload: WCLResponse.data.data.reportData.report}); // POST_SUMMARY
       yield put ({type: "POST_REPORT", payload: report}); // POST_REPORT
-      yield put ({type: "POST_OVERVIEW", payload: overview}); // POST_OVERVIEW
+      //yield put ({type: "POST_OVERVIEW", payload: overview}); // POST_OVERVIEW
    }
    catch(error) {
       console.log(`Error in search.saga, ${error}`); // catches any errors and logs them

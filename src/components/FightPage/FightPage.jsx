@@ -1,5 +1,5 @@
 //Main imports
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, Component, componentDidMount} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import './FightPage.css';
 
@@ -236,7 +236,7 @@ function FightPage() { // main function for this page
    }, []);
 
    const test = () => { // onLoad function
-      //console.log(bossHealingItem) // test function
+      console.log(bossItem) // test function
       let tempDamageRows = []; // holder for damage data
       let tempHealingRows = []; // holder for healing data
       bossItem.roles.dps.characters.map((player) => {
@@ -258,18 +258,18 @@ function FightPage() { // main function for this page
       bossHealingItem.roles.healers.characters.map((player) => {
          ( // pushes healers to healing array
             tempHealingRows.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, HPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
-         )});
+         )})
       bossHealingItem.roles.tanks.characters.map((player) => {
          ( // pushes tanks to healing array
             tempHealingRows.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, HPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
-         )});
+         )})
       setDamageRows(tempDamageRows); // sets damage rows variable to our stored damage array
       setHealingRows(tempHealingRows); // sets our healing rows variable to our stored healing array
    }; // end of onLoad function
-   
+
    return (
       <>
-         {( bossItem.roles == undefined) ? 
+         {(bossItem.roles === undefined || bossHealingItem.roles === undefined || healingRows == [] || damageRows == [] || bossItem.encounter == undefined || bossItem == undefined) ? 
             <Box textAlign="center" aria-label="Waiting for response">
                <h1>Loading</h1>
                <CircularProgress style={{height:"10%", width:"10%"}}/>

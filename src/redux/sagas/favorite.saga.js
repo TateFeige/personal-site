@@ -1,15 +1,15 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
-function* addFavorite(reportItem) {
+function* addToDatabase(reportItem) {
    const item = reportItem.payload;
    //console.log(`addFavorite saga has:`, item); // test function
    try {
       //const favoriteItem = yield axios.get(')
       //console.log(item);
-      const favItem = yield axios.get(`/api/search/favorite/${item.report.id}`);
-      console.log('test came back:', favItem);
-      yield axios.post(`/api/database/addFavorite`, favItem);
+      const itemToAdd = yield axios.get(`/api/search/favorite/${item.report.id}`);
+      console.log('test came back:', itemToAdd);
+      yield axios.post(`/api/database/additem`, itemToAdd);
      
    }
    catch(error) {
@@ -24,7 +24,7 @@ function* removeFavorite(reportItem) {
 
 
 function* favoriteSaga() { // listens for calls and runs a given function when one is heard
-    yield takeLatest('ADD_TO_FAVORITES', addFavorite);
+    yield takeLatest('ADD_TO_DATABASE', addToDatabase);
     yield takeLatest('REMOVE_FROM_FAVORITES', removeFavorite)
 };
   

@@ -47,13 +47,15 @@ function ReportPage() { // main function for this page
    const favoriteHandler = () => {
       //console.log(reportInfo);
       dispatch({
-         type: 'ADD_TO_FAVORITES',
+         type: 'ADD_TO_DATABASE',
          payload: {report: reportInfo, user: user}
-      })
-   }
+      });
+   };
    const test = () => {
       console.log(reportInfo);
-   }
+      console.log(user)
+   };
+   favoriteHandler();
 
    // const test = () => {
    //    console.log(report); // test function
@@ -64,7 +66,10 @@ function ReportPage() { // main function for this page
          <Grid container justify="center" aria-label="report header">
             <IconButton color="primary" aria-label="Refresh Report" onClick={test}><RefreshIcon /></IconButton>
             <h1 align="center">{reportInfo.name}</h1>
+            {( user.id >= 1 ) ?
             <IconButton color="primary" aria-label="Add to favorites" onClick={favoriteHandler}><StarBorderIcon /></IconButton>
+            :
+            <></>}
          </Grid>
          <br /><br /><br />
          <Grid container justify="center">
