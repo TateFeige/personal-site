@@ -1,7 +1,8 @@
 //Main imports
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import {useSelector, useDispatch} from 'react-redux';
+import FavoriteItem from '../FavoriteItem/FavoriteItem';
 
 //MaterialUI imports
 import Box from '@material-ui/core/Box';
@@ -24,9 +25,13 @@ function UserPage() {
    const dispatch = useDispatch();
    const classes = useStyles();
    const user = useSelector((store) => store.user);
-   const favorites = dispatch({type: 'GET_FAVORITES'});
+   const favoritesList = useSelector((store) => store.favorites[0]);
+   useEffect(() => { // get data on page load
+      dispatch({type: 'GET_FAVORITES'});
+   }, []);  
    const test = () => {
-      console.log(favorites);
+      console.log(favoritesList);
+      dispatch({type: 'GET_FAVORITES'});
    }
 
 
@@ -63,6 +68,8 @@ function UserPage() {
          </TableContainer>
          </Box>
          <br />
+         {(favoritesList == undefined) ? <div>Waiting</div>
+         :
          <Box style={{width: "40%"}} alignItems="flex-end" aria-label="favorites table container">
          <TableContainer component={Paper}>
             <h2 align="center">Favorites</h2>
@@ -76,15 +83,16 @@ function UserPage() {
                   </TableRow>
                </TableHead>
                <TableBody>
-                  <StyledTableRow >
-                  <StyledTableCell component="th" scope="row"></StyledTableCell>
-                  <StyledTableCell align="left"></StyledTableCell>
-                  <StyledTableCell align="left"></StyledTableCell>
-                  </StyledTableRow>
+                  {favoritesList.map((favItem) => {
+                     return (
+                        <FavoriteItem id={favItem.id} date={favItem.date} guild_faction={favItem.guild_faction} guild_name={favItem.guild_name} guild_server={favItem.guild_server} report_code={favItem.report_code} report_name={favItem.report_name} zone={favItem.report_zone} />
+                  );})}
                </TableBody>
             </Table>
          </TableContainer>
          </Box>
+         }
+         
          </Grid>
       </Box>
    );

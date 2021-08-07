@@ -29,27 +29,22 @@ function* removeFavorite(favoriteItem) {
 function* getFavorites() {
    //console.log('Getting favorites');
    const favorites = yield axios.get('/api/database/getfavorites');
-   console.log(favorites.data);
+   //console.log(favorites.data); // test function
    const db = yield axios.get('/api/database/getdb');
-   console.log(db.data);
-   let array2 = favorites.data;
-   let array1 = db.data.report_name;
+   //console.log(db.data); // test function
+   let favoritesDetails = [];
    for (let x = 0; x < db.data.length; x++) {
-      console.log(db.data[x].report_code);
+      //console.log(db.data[x].report_code); // test function
       for (let y = 0; y < favorites.data.length; y++) {
-         console.log(favorites.data[y]);
+         //console.log(favorites.data[y]); // test function
          if (favorites.data[y] == db.data[x].report_code) {
-            console.log(db.data[x])
-         }
-      }
-   }
-
-   // var intersection = array1.filter(function(e) {
-   // return array2.indexOf(e) > -1;
-   // });
-
-   // console.log(intersection);
-   //favorites.data.filter(findMatch);
+            //console.log(db.data[x]); // test function
+            favoritesDetails.push(db.data[x]);
+         };
+      };
+   //console.log(favoritesDetails); // test function
+   };
+   yield put ({type: "POST_FAVORITES_LIST", payload: favoritesDetails});
 };
 
 function* favoriteSaga() { // listens for calls and runs a given function when one is heard

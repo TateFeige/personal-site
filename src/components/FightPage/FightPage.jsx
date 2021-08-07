@@ -1,5 +1,5 @@
 //Main imports
-import React, {useState, useEffect, Component, componentDidMount} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import './FightPage.css';
 
