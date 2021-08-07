@@ -1,8 +1,9 @@
 //Main imports
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, component, componentDidMount, componentWillReceiveProps} from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import {useSelector, useDispatch} from 'react-redux';
 import FavoriteItem from '../FavoriteItem/FavoriteItem';
+import axios from 'axios';
 
 //MaterialUI imports
 import Box from '@material-ui/core/Box';
@@ -16,26 +17,59 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import { DataGrid } from '@material-ui/data-grid';
 const StyledTableCell = withStyles((theme) => ({head:{backgroundColor: theme.palette.common.black, color: theme.palette.common.white}, body:{fontSize: 14,}}))(TableCell);
 const StyledTableRow = withStyles((theme) => ({root: {'&:nth-of-type(odd)': {backgroundColor: theme.palette.action.hover}}}))(TableRow);
 const useStyles = makeStyles({table: {minWidth: 700}});
+const favoritesDataColumns = [
+   { field: 'Date', type: 'date', headerName: 'Date Created', flex: 2 },
+   { field: 'Guild', type: 'string', headerName: 'Guild', flex: 2 },
+   { field: 'ReportName', type: 'string', headerName: 'Report Name', flex: 2 },
+   { field: 'Zone', type: 'string', headerName: 'Zone', flex: 2 },
+   { field: 'DeleteButton', type: 'string', headerName: 'Delete', flex: 2 },
+];
+
+const favoritesTestDataRows = [
+   {
+   id: '1',
+   Date: '8/8/2019',
+   Guild: 'Disambiguation',
+   ReportName: 'Sageth Rocks',
+   DeleteButton: 'Delete'
+   }
+]
 
 
 function UserPage() {
    const dispatch = useDispatch();
+   const [favoritesDataRows, setFavoritesDataRows] = useState([]);
    const classes = useStyles();
    const user = useSelector((store) => store.user);
    const favoritesList = useSelector((store) => store.favorites[0]);
-   useEffect(() => { // get data on page load
-      dispatch({type: 'GET_FAVORITES'});
-   }, []);  
-   const test = () => {
-      console.log(favoritesList);
-      dispatch({type: 'GET_FAVORITES'});
-   }
 
+   const test = () => {
+      console.log('testing');
+      //console.log(favoritesDataRows);
+      let newArray = [];
+      console.log(favoritesList);
+         favoritesList.map((favItem) => {
+         newArray.push({id: favItem.id, Date: favItem.date, Guild: (`[${favItem.guild_faction}] ${favItem.guild_name}-${favItem.guild_server}`), ReportName: favItem.report_name, Zone: favItem.zone})
+      });
+      setFavoritesDataRows(newArray);
+      console.log(favoritesDataRows); // test function
+      };
+      useEffect(() => { // get data on page load
+         dispatch({type: 'GET_FAVORITES'});
+      }, []);
+   
 
    return (
+      <>
+         {(favoritesList === undefined || favoritesList.map === undefined) ?
+            <>
+            <div>Loading</div>
+            </>
+      :
       <Box aria-label="user page">
          <Box textAlign="center" aria-label="user information">
          <h1>Welcome, {user.username}</h1>
@@ -71,9 +105,17 @@ function UserPage() {
          </TableContainer>
          </Box>
          }
-         
+         <DataGrid
+         autoHeight
+         autoWidth
+         style={{backgroundColor: '#242424', color: 'white'}}
+         rows={favoritesDataRows}
+         columns={favoritesDataColumns}
+         />
          </Grid>
       </Box>
+      }
+      </>
    );
 };
 
