@@ -13,6 +13,7 @@ const StyledTableCell = withStyles((theme) => ({head:{backgroundColor: theme.pal
 
 function FavoriteItem(item) { // main function for this page
    const dispatch = useDispatch();
+   const history = useHistory();
    const deleteFavorite = (item) => { // handles deleting the selected item
       //console.log(item.report_code); // test function
       dispatch({
@@ -23,7 +24,12 @@ function FavoriteItem(item) { // main function for this page
    };
 
    const fightSummary = (item) => {
-     console.log(item)
+     console.log(item.report_code);
+     dispatch({ // main API call for the search query, returns some core information and the damage report
+      type: 'SEARCH',
+      payload: item.report_code
+   });
+   history.push(`/report/${item.report_code}`);
    };
    
  
