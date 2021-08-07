@@ -31,7 +31,6 @@ function ReportPage() { // main function for this page
    const user = useSelector((store) => store.user);
    const report = useSelector((store) => store.search);
    const reportInfo = useSelector((store) => store.report);
-   const check = useSelector((store) => store.favorites);
    const difficultyConverter = (difficulty) => { // function to convert difficulty (given from API as a number) to a string (so it can be read by the user)
       switch (difficulty) {
          case 1:
@@ -54,7 +53,7 @@ function ReportPage() { // main function for this page
          payload: (reportInfo.id)
       });
    };
-   
+
    const test = () => {
       console.log(reportInfo); // test function
       //console.log(user) // test function

@@ -32,6 +32,23 @@ function* getFavorites() {
    console.log(favorites.data);
    const db = yield axios.get('/api/database/getdb');
    console.log(db.data);
+   let array2 = favorites.data;
+   let array1 = db.data.report_name;
+   for (let x = 0; x < db.data.length; x++) {
+      console.log(db.data[x].report_code);
+      for (let y = 0; y < favorites.data.length; y++) {
+         console.log(favorites.data[y]);
+         if (favorites.data[y] == db.data[x].report_code) {
+            console.log(db.data[x])
+         }
+      }
+   }
+
+   // var intersection = array1.filter(function(e) {
+   // return array2.indexOf(e) > -1;
+   // });
+
+   // console.log(intersection);
    //favorites.data.filter(findMatch);
 };
 

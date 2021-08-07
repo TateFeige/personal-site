@@ -24,10 +24,8 @@ function UserPage() {
    const dispatch = useDispatch();
    const classes = useStyles();
    const user = useSelector((store) => store.user);
-   const db = dispatch({type: 'GET_DB'});
    const favorites = dispatch({type: 'GET_FAVORITES'});
    const test = () => {
-      console.log(db);
       console.log(favorites);
    }
 

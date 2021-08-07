@@ -17,7 +17,7 @@ CREATE TABLE "user" (
 
 CREATE TABLE "reports" (
 	"id" serial PRIMARY KEY,
-	"report_code" varchar(255) UNIQUE,
+	"report_code" varchar(255) NOT NULL UNIQUE,
    "report_name" varchar(255),
    "guild_faction" varchar(255),
    "guild_name" varchar(255),

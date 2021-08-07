@@ -64,13 +64,28 @@ router.get('/newitem/:search', (req, res) => { // main request to post search qu
 
 
 router.post('/additem', (req, res) => { // adds the searched for report to our database for user page displaying
+   let guildFaction = "none"; // default value for inserting into DB since PostgreSQL default is finicky
+   let guildName = "none"; // default value for inserting into DB since PostgreSQL default is finicky
+   let guildServer = "none"; // default value for inserting into DB since PostgreSQL default is finicky
    const reportItem = req.body.data.data.reportData.report;
    const date = new Date(reportItem.startTime); // sets a date for the report
    const start = date.toLocaleDateString("en-US")
    //console.log('adding item:', reportItem); // test function 
    let qText = `INSERT INTO "reports" (report_code, report_name, guild_faction, guild_name, guild_server, zone, date)
    VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id`; // main query to send
-   pool.query(qText, [reportItem.code, reportItem.title, reportItem.guild.faction.name , reportItem.guild.name, reportItem.guild.server.name, reportItem .zone.name, start ])
+   console.log('Guild is:', reportItem);
+   if (reportItem.guild === null) {
+      guildFaction = "none";
+      guildName = "none";
+      guildServer = "none";
+   }
+   else if (reportItem.guild !== null) {
+      guildFaction = reportItem.guild.faction.name;
+      guildName = reportItem.guild.name;
+      guildServer = reportItem.guild.server.name;
+   };
+   
+   pool.query(qText, [reportItem.code, reportItem.title, guildFaction, guildName, guildServer, reportItem.zone.name, start ])
    // call our query with the data we want it to have 
    .then (() => 
       res.sendStatus(201)
