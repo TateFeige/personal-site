@@ -21,11 +21,16 @@ function* fetchUser() {
     yield put({ type: 'SET_USER', payload: response.data });
   } catch (error) {
     console.log('User get request failed', error);
-  }   
+  };   
+};
+
+function* changeCharacter() {
+   console.log('changing character');
 }
 
 function* userSaga() {
   yield takeLatest('FETCH_USER', fetchUser);
+  yield takeLatest('CHANGE_CHARACTER', changeCharacter);
 }
 
 export default userSaga;

@@ -1,6 +1,7 @@
 //Main imports
 import React, {useState, useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 import './FightPage.css';
 
 //MaterialUI imports
@@ -12,6 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { DataGrid } from '@material-ui/data-grid';
+import { GridApi } from '@material-ui/x-grid';
 const useStyles = makeStyles({table: {minWidth: 700}});
 const specIcon = (spec) => { // giant switch statement that adds a class/spec icon next to a player name. looks for the player spec + class and returns an image URL
    switch (spec) {
@@ -187,6 +189,7 @@ const damageDataColumns = [ // column data for the damage data grid
 
 
 function FightPage() { // main function for this page
+   const history = useHistory();
    const [bossItem, setBossItem] = useState({});
    const [bossHealingItem, setBossHealingItem] = useState({});
    const [damageRows, setDamageRows] = useState([]);
@@ -215,7 +218,7 @@ function FightPage() { // main function for this page
    const findFight = () => { // loops through our complete fight array and locates the boss that the user clicked on
       for (let x = 0; x < report.length; x++) { // loops through damage array
          //console.log(report[x]);
-            if (report[x].fightID == fightInfo[0].id) {
+            if (report[x].fightID == fightInfo.id) {
             //boss = report[x];
             const match = report[x];
             setBossItem(match); // set boss to be mapped
@@ -223,16 +226,18 @@ function FightPage() { // main function for this page
       }};
       for (let x = 0; x < healingInfo.reportData.report.rankings.data.length; x++) { // loops through healing array
          //console.log(report[x]);
-            if (healingInfo.reportData.report.rankings.data[x].fightID == fightInfo[0].id) {
+            if (healingInfo.reportData.report.rankings.data[x].fightID == fightInfo.id) {
             //boss = report[x];
             const healingMatch = healingInfo.reportData.report.rankings.data[x];
             setBossHealingItem(healingMatch); // set boss to be mapped
             //console.log(bossItem);
       }};
+     // test();
    }; // end of findFight
       
    useEffect(() => { // get data on page load
       findFight();
+      console.log('hello');
    }, []);
 
    const test = () => { // onLoad function
@@ -318,6 +323,7 @@ function FightPage() { // main function for this page
                               Healing
                            </Typography>
                            <DataGrid
+                           forceUpdate
                            autoHeight
                            autoWidth
                            style={{backgroundColor: '#242424', color: 'white'}}
