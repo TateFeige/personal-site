@@ -4,9 +4,10 @@ const fightReducer = (state = [], action) => { // reducer that holds data for a 
          //console.log('BOSS_FIGHT has:', action.payload); // test function
          let fightToReturn = [];
          fightToReturn.push(action.payload);
-         return fightToReturn;
+         state = action.payload;
+         return state;
       case "GET_FIGHT":
-         return fightToReturn;
+         return state;
       default:
          return state;
    };

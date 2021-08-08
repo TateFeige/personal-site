@@ -2,7 +2,8 @@ const reportReducer = (state = [], action) => { // reducer that holds data for a
    switch (action.type) {
       case "POST_REPORT":
          //console.log('POST_REPORT has:', action.payload); // test function
-         return action.payload;
+         state = action.payload;
+         return state;
       default:
          return state;
    };

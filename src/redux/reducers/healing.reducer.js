@@ -2,10 +2,10 @@ const healingReducer = (state = [], action) => { // reducer that holds our heali
    switch (action.type) {
       case "POST_HEALING":
          //console.log('data is:', action.payload.rankings.data); // test function
-         let fights = action.payload;
+         state = action.payload;
          //console.log('Kills are:', fightsToReturn); // test function
          //console.log('All fights are:', fights); // test function
-         return fights;
+         return state;
       default:
          return state;
    };

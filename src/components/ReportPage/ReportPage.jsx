@@ -20,12 +20,14 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
 const StyledTableCell = withStyles((theme) => ({head:{backgroundColor: theme.palette.common.black, color: theme.palette.common.white}, body:{fontSize: 14,}}))(TableCell);
 const StyledTableRow = withStyles((theme) => ({root: {'&:nth-of-type(odd)': {backgroundColor: theme.palette.action.hover}}}))(TableRow);
 const useStyles = makeStyles({table: {minWidth: 700}});
 
 
 function ReportPage() { // main function for this page
+   function getSearchQueryByFullURL(url) {return url.split('/').pop()};
    const dispatch = useDispatch();
    const classes = useStyles();
    const user = useSelector((store) => store.user);
@@ -45,6 +47,20 @@ function ReportPage() { // main function for this page
             return "unknown";
       };
    };
+   useEffect(() => { // get data on page load
+         dispatch({ // main API call for the search query, returns some core information and the damage report
+            type: 'SEARCH',
+            payload: getSearchQueryByFullURL(window.location.href)
+         });
+         dispatch({ // API call to get the healing report for the search query
+            type: 'HEALING',
+            payload: getSearchQueryByFullURL(window.location.href)
+         });
+   }, []);
+   const test = () => {
+      console.log(getSearchQueryByFullURL(window.location.href));
+      console.log(report);
+   }
 
    const favoriteHandler = () => { // adds the searched for report to the user's favorites on the database
       //console.log(reportInfo.id); // test function
@@ -53,7 +69,7 @@ function ReportPage() { // main function for this page
          payload: (reportInfo.id)
       });
    };
-   
+
    const refreshHandler = () => { // adds the searched for report to the user's favorites on the database
       console.log(reportInfo.id); // test function
       dispatch({ // sends out another search request when refresh icon is clicked; so the user can update the data without re-entering the search
@@ -67,6 +83,7 @@ function ReportPage() { // main function for this page
          <Grid container justify="center" aria-label="report header">
             <IconButton color="primary" aria-label="Refresh Report" onClick={refreshHandler}><RefreshIcon /></IconButton>
             <h1 align="center">{reportInfo.name}</h1>
+            <Button variant="contained" color="secondary" onClick={test}>Test</Button>
             {( user.id >= 1 ) ?
             <IconButton color="primary" aria-label="Add to favorites" onClick={favoriteHandler}><StarBorderIcon /></IconButton>
             :
@@ -74,6 +91,13 @@ function ReportPage() { // main function for this page
          </Grid>
          <br /><br /><br />
          <Grid container justify="center">
+            {( report == [] ) ?
+            <Box textAlign="center" aria-label="Waiting for response">
+               <h1>Loading</h1>
+               <CircularProgress style={{height:"10%", width:"10%"}}/>
+            </Box>:
+            
+            
             <Box style={{width: "85%"}} aria-label="Report Table Container">
                <TableContainer component={Paper} style={{backgroundColor: '#242424', color: 'white'}}>
                   <Table className={classes.table} aria-label="Report Table">
@@ -93,7 +117,7 @@ function ReportPage() { // main function for this page
                      </TableBody>
                   </Table>
                </TableContainer>
-            </Box>
+            </Box>}
          </Grid>
       </Box>
    );
