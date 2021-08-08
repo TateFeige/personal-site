@@ -10,8 +10,8 @@ CREATE TABLE "user" (
 	"username" varchar(255) NOT NULL,
 	"password" varchar(255) NOT NULL,
 	"character" varchar(255),
-   "favorites" TEXT [],
-   "history" varchar(255)
+   "armory" varchar(255),
+   "favorites" TEXT []
 );
 
 

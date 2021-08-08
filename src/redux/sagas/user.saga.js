@@ -24,8 +24,15 @@ function* fetchUser() {
   };   
 };
 
-function* changeCharacter() {
-   console.log('changing character');
+function* changeCharacter(character) {
+   console.log('changing character:', character.payload);
+   try {
+      let characterToSend = ({name: character.payload.Name, armory: character.payload.Armory})
+      yield axios.post(`/api/database/postcharacter/`, characterToSend);
+   }
+   catch (error) {
+      console.log("Error in changeCharacter:", error)
+   }
 }
 
 function* userSaga() {

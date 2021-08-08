@@ -9,6 +9,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -34,6 +35,8 @@ function UserPage() {
         history.push(`/report/${param.row.code}`);
       };
     };
+   const getSearchQueryByFullURL = (url) => {return url.split('/')}; // isolate the text after the final "/" in our input URL, since our API only takes that final string and not the whole URL
+   const [armoryLink, setArmoryLink] = useState('');
    const history = useHistory();
    const [open, setOpen] = React.useState(false);
    const handleOpen = () => {setOpen(true);};
@@ -48,8 +51,22 @@ function UserPage() {
    }, []);
 
    const changeCharacter = () => {
-      console.log(user.character);
       handleOpen();
+   };
+   
+   const saveCharacter = () => {
+      let characterRegion = (getSearchQueryByFullURL(armoryLink)[5].toUpperCase());
+      let characterRealm = (getSearchQueryByFullURL(armoryLink)[6].charAt(0).toUpperCase() + getSearchQueryByFullURL(armoryLink)[6].slice(1));
+      let characterName = (getSearchQueryByFullURL(armoryLink)[7].charAt(0).toUpperCase() + getSearchQueryByFullURL(armoryLink)[7].slice(1));
+      let characterToSend = {
+         Name: `(${characterRegion}) ${characterName}-${characterRealm}`,
+         Armory: armoryLink
+      };
+      dispatch({
+         type: "CHANGE_CHARACTER",
+         payload: characterToSend
+      });
+      //console.log(characterToSend);
    };
    
 
@@ -75,8 +92,12 @@ function UserPage() {
             }}
             >
                <Fade in={open}>
-                  <div className={classes.paper}>
-                  SOON(TM)
+                  <div className={classes.paper} aria-labelledby="Change Character form">
+                  {/* <TextField id="Region" label="Region" variant="outlined" value={userRegion} onChange={(event) => setUserRegion(event.target.value)} /><br /><br />
+                  <TextField id="Character" label="Character" variant="outlined" value={userCharacter} onChange={(event) => setUserCharacter(event.target.value)}/><br /><br />
+                  <TextField id="Realm" label="Realm" variant="outlined" value={userRealm} onChange={(event) => setUserRealm(event.target.value)}/><br /><br /> */}
+                  <TextField id="setArmoryLink" label="setArmoryLink" variant="outlined" value={armoryLink} onChange={(event) => setArmoryLink(event.target.value)}/><br /><br />
+                  <Button variant="contained" color="primary" disableElevation onClick={saveCharacter}>Save</Button>
                   </div>
                </Fade>
             </Modal>
