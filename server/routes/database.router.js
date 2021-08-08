@@ -167,5 +167,19 @@ router.get('/getfavorites', (req, res) => { // gets the users personal favorites
    res.send(req.user.favorites);
 });
 
+router.post('/postcharacter/', (req, res) => {
+   console.log(req.body);
+   console.log(req.user);
+   let qText = `UPDATE "user" SET character = $1, armory = $2 WHERE id = $3`;
+   pool.query(qText, [req.body.name, req.body.armory, req.user.id])
+   .then (results => 
+      res.send(results.rows)
+   )
+   .catch (error => {
+      console.log('Error in postCharacter:', error);
+      res.sendStatus(500);
+   })
+});
+
 
 module.exports = router;

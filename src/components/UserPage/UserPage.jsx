@@ -1,68 +1,110 @@
 //Main imports
-import React, {useState, useEffect, component, componentDidMount, componentWillReceiveProps} from 'react';
-import LogOutButton from '../LogOutButton/LogOutButton';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import {useSelector, useDispatch} from 'react-redux';
-import FavoriteItem from '../FavoriteItem/FavoriteItem';
+import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 
 //MaterialUI imports
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import InputLabel from '@material-ui/core/InputLabel';
+import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { DataGrid } from '@material-ui/data-grid';
-import { GridApi } from '@material-ui/x-grid';
-import { useIsFocusVisible } from '@material-ui/core';
-const StyledTableCell = withStyles((theme) => ({head:{backgroundColor: theme.palette.common.black, color: theme.palette.common.white}, body:{fontSize: 14,}}))(TableCell);
-const StyledTableRow = withStyles((theme) => ({root: {'&:nth-of-type(odd)': {backgroundColor: theme.palette.action.hover}}}))(TableRow);
-const useStyles = makeStyles({table: {minWidth: 700}});
-const favoritesDataColumns = [
-   { field: 'Date', type: 'date', headerName: 'Date Created', flex: 2 },
-   { field: 'Guild', type: 'string', headerName: 'Guild', flex: 2 },
-   { field: 'ReportName', type: 'string', headerName: 'Report Name', flex: 2 },
-   { field: 'Zone', type: 'string', headerName: 'Zone', flex: 2 },
-   { field: 'DeleteButton', type: 'string', headerName: 'Delete', flex: 2 },
-];
+const useStyles = makeStyles((theme) => ({table: {minWidth: 700}}, {modal: {display: 'flex', alignItems: 'center', justifyContent: 'center', color:"black"}, paper: {backgroundColor: theme.palette.background.paper, border: '2px solid #000', boxShadow: theme.shadows[5], padding: theme.spacing(2, 4, 3),},}));
+//end of MaterialUI imports
 
 
 function UserPage() {
+   const favoritesDataColumns = [{ field: 'date', type: 'date', headerName: 'Date Created', flex: 2 }, { field: 'guild', type: 'string', headerName: 'Guild', flex: 2 }, { field: 'title', type: 'string', headerName: 'Report Name', flex: 2,  renderCell: (params) => {return (<div style={{ cursor: "pointer" }}>{params.row.title}</div>);}}, { field: 'zone', type: 'string', headerName: 'Zone', flex: 2 }, { field: 'DeleteButton', type: 'string', headerName: 'Delete', flex: 2, renderCell: (params) => {return (<div style={{ cursor: "pointer" }}><Button variant="contained" color="secondary" onClick={() => deleteFavorite(params.row.code)}>Delete</Button></div>);}},];
+   // condensed handler for datagrid columns
+   const deleteFavorite = (item) => { // handles deleting the selected item
+      dispatch({
+         type: "DELETE_FAVORITE",
+         payload: item
+      });
+      dispatch({type: 'GET_FAVORITES'});
+   };
+   // handles redirecting to report page on report name click
+   const handleCellClick = (param) => { 
+      if (param.colDef.headerName == "Report Name") {
+        history.push(`/report/${param.row.code}`);
+      };
+    };
+   const getSearchQueryByFullURL = (url) => {return url.split('/')}; // isolate the text after the final "/" in our input URL, since our API only takes that final string and not the whole URL
+   const [armoryLink, setArmoryLink] = useState('');
    const history = useHistory();
+   const [open, setOpen] = React.useState(false);
+   const handleOpen = () => {setOpen(true);};
+   const handleClose = () => {setOpen(false); setArmoryLink('')};
    const dispatch = useDispatch();
-   const [favoritesDataRows, setFavoritesDataRows] = useState([]);
    const classes = useStyles();
    const user = useSelector((store) => store.user);
    const favoritesList = useSelector((store) => store.favorites);
+
    useEffect(() => { // get data on page load
       dispatch({type: 'GET_FAVORITES'});
-      test();
    }, []);
+
    const changeCharacter = () => {
-      console.log(user.character);
-   }
-
-   const test = () => {
-      //console.log(favoritesDataRows);
-      let newArray = [];
-      //console.log(favoritesList);
-         favoritesList.map((favItem) => {
-         newArray.push({id: favItem.id, Date: favItem.date, Guild: (`[${favItem.guild_faction}] ${favItem.guild_name}-${favItem.guild_server}`), ReportName: favItem.report_name, Zone: favItem.zone})
-
-      });
-      //console.log(newArray);
-      setFavoritesDataRows(newArray);
-      //console.log(favoritesDataRows); // test function
+      handleOpen();
+   };
+   
+   const saveCharacter = () => {
+      let characterToSend = '';
+      let characterRegion = '';
+      let characterRealm = '';
+      let characterName = '';
+      let profileLink = '';
+      //console.log(getSearchQueryByFullURL("https://raider.io/characters/us/kiljaeden/Sageth"));
+      if (getSearchQueryByFullURL(armoryLink)[2] == "www.warcraftlogs.com") { // checks if input URL warcraftlogs.com and then isolates data to set as user character
+         characterRegion = (getSearchQueryByFullURL(armoryLink)[4].toUpperCase());
+         characterRealm = (getSearchQueryByFullURL(armoryLink)[5].charAt(0).toUpperCase() + getSearchQueryByFullURL(armoryLink)[5].slice(1));
+         characterName = (getSearchQueryByFullURL(armoryLink)[6].charAt(0).toUpperCase() + getSearchQueryByFullURL(armoryLink)[6].slice(1));
+         profileLink = (`https://www.warcraftlogs.com/character/${characterRegion}/${characterRealm}/${characterName}`);
+         characterToSend = {
+            Name: `(${characterRegion}) ${characterName}-${characterRealm}`,
+            Armory: profileLink
+         };
+      }
+      if (getSearchQueryByFullURL(armoryLink)[2] == "raider.io") { // checks if input URL is raider.io and then isolates data to set as user character
+         characterRegion = (getSearchQueryByFullURL(armoryLink)[4].toUpperCase());
+         characterRealm = (getSearchQueryByFullURL(armoryLink)[5].charAt(0).toUpperCase() + getSearchQueryByFullURL(armoryLink)[5].slice(1));
+         characterName = (getSearchQueryByFullURL(armoryLink)[6].charAt(0).toUpperCase() + getSearchQueryByFullURL(armoryLink)[6].slice(1));
+         profileLink = (`https://raider.io/characters/${characterRegion}/${characterRealm}/${characterName}`);
+         characterToSend = {
+            Name: `(${characterRegion}) ${characterName}-${characterRealm}`,
+            Armory: profileLink
+         };
+      }
+      if (getSearchQueryByFullURL(armoryLink)[2] == "worldofwarcraft.com") { // // checks if input URL is worldofwarcraft.com and then isolates data to set as user character
+         characterRegion = (getSearchQueryByFullURL(armoryLink)[5].toUpperCase());
+         characterRealm = (getSearchQueryByFullURL(armoryLink)[6].charAt(0).toUpperCase() + getSearchQueryByFullURL(armoryLink)[6].slice(1));
+         characterName = (getSearchQueryByFullURL(armoryLink)[7].charAt(0).toUpperCase() + getSearchQueryByFullURL(armoryLink)[7].slice(1));
+         profileLink = (`https://worldofwarcraft.com/${getSearchQueryByFullURL(armoryLink)[3]}/character/${characterRealm}/${characterName}`);
+         characterToSend = {
+         Name: `(${characterRegion}) ${characterName}-${characterRealm}`,
+         Armory: profileLink
+         };
       };
+      if (characterToSend == '' || characterRegion == '' || characterRealm == '' || characterName == ''|| profileLink == '') {
+         alert("Invalid link");
+         setArmoryLink('');
+         return false;
+      }
+      dispatch({
+         type: "CHANGE_CHARACTER",
+         payload: characterToSend
+      });
+      console.log(characterToSend);
+      handleClose();
+   };
+   
 
    return (
       <>
@@ -73,45 +115,47 @@ function UserPage() {
       :
       <Box aria-label="user page">
          <Box textAlign="center" aria-label="user information">
+            <Modal
+            align="center"
+            aria-labelledby="player link modal"
+            aria-describedby="transition-modal-description"
+            className={classes.modal}
+            open={open}
+            onClose={handleClose}
+            closeAfterTransition
+            BackdropComponent={Backdrop}
+            BackdropProps={{
+               timeout: 500,
+            }}
+            >
+               <Fade in={open}>
+                  <Box className={classes.paper} style={{width: "35%", height: "10%", minHeight:"150px"}} aria-labelledby="Change Character Input">
+                  <TextField style={{width: "100%"}} id="SetLink" label="Link" helperText={<>
+                  <a href="https://www.warcraftlogs.com" target="_blank" style={{fontSize: "16px"}}>WarcraftLogs</a><a style={{fontSize: "16px"}}>, </a>
+                  <a href="https://worldofwarcraft.com" target="_blank" style={{fontSize: "16px"}}>WorldofWarcraft</a><a style={{fontSize: "16px"}}>, or </a>
+                  <a href="https://raider.io" target="_blank" style={{fontSize: "16px"}}>Raider.io</a>
+                  </>
+                  } variant="outlined" value={armoryLink} onChange={(event) => setArmoryLink(event.target.value)}/><br />
+                  <br />
+                  <Button style={{width: "30%", height:"35%", display: "flex", justify:"flex-end"}} variant="contained" color="primary" disableElevation onClick={saveCharacter}>Save</Button>
+                  </Box>
+               </Fade>
+            </Modal>
          <h1>Welcome, {user.username}</h1>
          <h2>Current Character:</h2>
-         <h3>{user.character}</h3>
+         <h3><a href={user.armory} target="_blank_">{user.character}</a></h3>
          <Button variant="contained" color="primary" disableElevation onClick={changeCharacter}>Change Character</Button>
-         <Button variant="contained" color="primary" disableElevation onClick={test}>Test</Button>
+         {/* <Button variant="contained" color="primary" disableElevation onClick={test}>Test</Button> */}
          </Box>
          <br /><br /><br />
          <Grid container justify="center" aria-label="history and favorites tables container">
          <br />
-         {(favoritesList == undefined) ? <div>Waiting</div>
-         :
-         <Box style={{width: "85%"}} alignItems="center" aria-label="favorites table container">
-         <TableContainer component={Paper}>
-            <h2 align="center">Favorites</h2>
-            <Table className={classes.table}  aria-label="User Favorites Table">
-            <caption>Favorites Table</caption>
-               <TableHead>
-                  <TableRow>
-                     <StyledTableCell>Date Created</StyledTableCell>
-                     <StyledTableCell align="left">Guild</StyledTableCell>
-                     <StyledTableCell align="left">Report Name</StyledTableCell>
-                     <StyledTableCell align="left"></StyledTableCell>
-                  </TableRow>
-               </TableHead>
-               <TableBody>
-                  {favoritesList.map((favItem) => {
-                     return (
-                        <FavoriteItem id={favItem.id} date={favItem.date} guild_faction={favItem.guild_faction} guild_name={favItem.guild_name} guild_server={favItem.guild_server} report_code={favItem.report_code} report_name={favItem.report_name} zone={favItem.report_zone} />
-                  );})}
-               </TableBody>
-            </Table>
-         </TableContainer>
-         </Box>
-         }
          <DataGrid
+         onCellClick={handleCellClick}
          autoHeight
          autoWidth
          style={{backgroundColor: '#242424', color: 'white'}}
-         rows={favoritesDataRows}
+         rows={favoritesList}
          columns={favoritesDataColumns}
          />
          </Grid>
