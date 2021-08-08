@@ -1,6 +1,6 @@
 //Main imports
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 
@@ -9,6 +9,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import InputLabel from '@material-ui/core/InputLabel';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Modal from '@material-ui/core/Modal';
@@ -40,7 +41,7 @@ function UserPage() {
    const history = useHistory();
    const [open, setOpen] = React.useState(false);
    const handleOpen = () => {setOpen(true);};
-   const handleClose = () => {setOpen(false);};
+   const handleClose = () => {setOpen(false); setArmoryLink('')};
    const dispatch = useDispatch();
    const classes = useStyles();
    const user = useSelector((store) => store.user);
@@ -55,18 +56,53 @@ function UserPage() {
    };
    
    const saveCharacter = () => {
-      let characterRegion = (getSearchQueryByFullURL(armoryLink)[5].toUpperCase());
-      let characterRealm = (getSearchQueryByFullURL(armoryLink)[6].charAt(0).toUpperCase() + getSearchQueryByFullURL(armoryLink)[6].slice(1));
-      let characterName = (getSearchQueryByFullURL(armoryLink)[7].charAt(0).toUpperCase() + getSearchQueryByFullURL(armoryLink)[7].slice(1));
-      let characterToSend = {
+      let characterToSend = '';
+      let characterRegion = '';
+      let characterRealm = '';
+      let characterName = '';
+      let profileLink = '';
+      //console.log(getSearchQueryByFullURL("https://raider.io/characters/us/kiljaeden/Sageth"));
+      if (getSearchQueryByFullURL(armoryLink)[2] == "www.warcraftlogs.com") { // checks if input URL warcraftlogs.com and then isolates data to set as user character
+         characterRegion = (getSearchQueryByFullURL(armoryLink)[4].toUpperCase());
+         characterRealm = (getSearchQueryByFullURL(armoryLink)[5].charAt(0).toUpperCase() + getSearchQueryByFullURL(armoryLink)[5].slice(1));
+         characterName = (getSearchQueryByFullURL(armoryLink)[6].charAt(0).toUpperCase() + getSearchQueryByFullURL(armoryLink)[6].slice(1));
+         profileLink = (`https://www.warcraftlogs.com/character/${characterRegion}/${characterRealm}/${characterName}`);
+         characterToSend = {
+            Name: `(${characterRegion}) ${characterName}-${characterRealm}`,
+            Armory: profileLink
+         };
+      }
+      if (getSearchQueryByFullURL(armoryLink)[2] == "raider.io") { // checks if input URL is raider.io and then isolates data to set as user character
+         characterRegion = (getSearchQueryByFullURL(armoryLink)[4].toUpperCase());
+         characterRealm = (getSearchQueryByFullURL(armoryLink)[5].charAt(0).toUpperCase() + getSearchQueryByFullURL(armoryLink)[5].slice(1));
+         characterName = (getSearchQueryByFullURL(armoryLink)[6].charAt(0).toUpperCase() + getSearchQueryByFullURL(armoryLink)[6].slice(1));
+         profileLink = (`https://raider.io/characters/${characterRegion}/${characterRealm}/${characterName}`);
+         characterToSend = {
+            Name: `(${characterRegion}) ${characterName}-${characterRealm}`,
+            Armory: profileLink
+         };
+      }
+      if (getSearchQueryByFullURL(armoryLink)[2] == "worldofwarcraft.com") { // // checks if input URL is worldofwarcraft.com and then isolates data to set as user character
+         characterRegion = (getSearchQueryByFullURL(armoryLink)[5].toUpperCase());
+         characterRealm = (getSearchQueryByFullURL(armoryLink)[6].charAt(0).toUpperCase() + getSearchQueryByFullURL(armoryLink)[6].slice(1));
+         characterName = (getSearchQueryByFullURL(armoryLink)[7].charAt(0).toUpperCase() + getSearchQueryByFullURL(armoryLink)[7].slice(1));
+         profileLink = (`https://worldofwarcraft.com/${getSearchQueryByFullURL(armoryLink)[3]}/character/${characterRealm}/${characterName}`);
+         characterToSend = {
          Name: `(${characterRegion}) ${characterName}-${characterRealm}`,
-         Armory: armoryLink
+         Armory: profileLink
+         };
       };
+      if (characterToSend == '' || characterRegion == '' || characterRealm == '' || characterName == ''|| profileLink == '') {
+         alert("Invalid link");
+         setArmoryLink('');
+         return false;
+      }
       dispatch({
          type: "CHANGE_CHARACTER",
          payload: characterToSend
       });
-      //console.log(characterToSend);
+      console.log(characterToSend);
+      handleClose();
    };
    
 
@@ -80,7 +116,8 @@ function UserPage() {
       <Box aria-label="user page">
          <Box textAlign="center" aria-label="user information">
             <Modal
-            aria-labelledby="transition-modal-title"
+            align="center"
+            aria-labelledby="player link modal"
             aria-describedby="transition-modal-description"
             className={classes.modal}
             open={open}
@@ -92,18 +129,21 @@ function UserPage() {
             }}
             >
                <Fade in={open}>
-                  <div className={classes.paper} aria-labelledby="Change Character form">
-                  {/* <TextField id="Region" label="Region" variant="outlined" value={userRegion} onChange={(event) => setUserRegion(event.target.value)} /><br /><br />
-                  <TextField id="Character" label="Character" variant="outlined" value={userCharacter} onChange={(event) => setUserCharacter(event.target.value)}/><br /><br />
-                  <TextField id="Realm" label="Realm" variant="outlined" value={userRealm} onChange={(event) => setUserRealm(event.target.value)}/><br /><br /> */}
-                  <TextField id="setArmoryLink" label="setArmoryLink" variant="outlined" value={armoryLink} onChange={(event) => setArmoryLink(event.target.value)}/><br /><br />
-                  <Button variant="contained" color="primary" disableElevation onClick={saveCharacter}>Save</Button>
-                  </div>
+                  <Box className={classes.paper} style={{width: "35%", height: "10%", minHeight:"150px"}} aria-labelledby="Change Character Input">
+                  <TextField style={{width: "100%"}} id="SetLink" label="Link" helperText={<>
+                  <a href="https://www.warcraftlogs.com" target="_blank" style={{fontSize: "16px"}}>WarcraftLogs</a><a style={{fontSize: "16px"}}>, </a>
+                  <a href="https://worldofwarcraft.com" target="_blank" style={{fontSize: "16px"}}>WorldofWarcraft</a><a style={{fontSize: "16px"}}>, or </a>
+                  <a href="https://raider.io" target="_blank" style={{fontSize: "16px"}}>Raider.io</a>
+                  </>
+                  } variant="outlined" value={armoryLink} onChange={(event) => setArmoryLink(event.target.value)}/><br />
+                  <br />
+                  <Button style={{width: "30%", height:"35%", display: "flex", justify:"flex-end"}} variant="contained" color="primary" disableElevation onClick={saveCharacter}>Save</Button>
+                  </Box>
                </Fade>
             </Modal>
          <h1>Welcome, {user.username}</h1>
          <h2>Current Character:</h2>
-         <h3>{user.character}</h3>
+         <h3><a href={user.armory} target="_blank_">{user.character}</a></h3>
          <Button variant="contained" color="primary" disableElevation onClick={changeCharacter}>Change Character</Button>
          {/* <Button variant="contained" color="primary" disableElevation onClick={test}>Test</Button> */}
          </Box>

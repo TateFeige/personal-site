@@ -25,19 +25,19 @@ function* fetchUser() {
 };
 
 function* changeCharacter(character) {
-   console.log('changing character:', character.payload);
+   //console.log('changing character:', character.payload); // test function
    try {
       let characterToSend = ({name: character.payload.Name, armory: character.payload.Armory})
       yield axios.post(`/api/database/postcharacter/`, characterToSend);
    }
    catch (error) {
       console.log("Error in changeCharacter:", error)
-   }
-}
+   };
+};
 
 function* userSaga() {
   yield takeLatest('FETCH_USER', fetchUser);
   yield takeLatest('CHANGE_CHARACTER', changeCharacter);
-}
+};
 
 export default userSaga;
