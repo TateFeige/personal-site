@@ -30,23 +30,16 @@ function UserPage() {
       { field: 'date', type: 'date', headerName: 'Date Created', flex: 2 },
       { field: 'guild', type: 'string', headerName: 'Guild', flex: 2 },
       { field: 'title', type: 'string', headerName: 'Report Name', flex: 2,  renderCell: (params) => {
-         return (
-             <div style={{ cursor: "pointer" }}>
-                 {params.row.title}
-              </div>
-         );
+         return (<div style={{ cursor: "pointer" }}>{params.row.title}</div>);
       }},
       { field: 'zone', type: 'string', headerName: 'Zone', flex: 2 },
       { field: 'DeleteButton', type: 'string', headerName: 'Delete', flex: 2, renderCell: (params) => {
-         return (
-             <div style={{ cursor: "pointer" }}>
-               <Button variant="contained" color="secondary" onClick={() => deleteFavorite(params.row.code)}>
-                  Delete {params.row.code}
-               </Button>
-              </div>
-         );
-      }
-   },
+         return (<div style={{ cursor: "pointer" }}>
+                     <Button variant="contained" color="secondary" onClick={() => deleteFavorite(params.row.code)}>Delete</Button>
+                  </div>
+               );
+         }
+      },
    ];
    const deleteFavorite = (item) => { // handles deleting the selected item
    //console.log(item); // test function

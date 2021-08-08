@@ -76,10 +76,10 @@ function Nav() {
                <Link className="navLink" to={loginLinkData.path}>{loginLinkData.text}</Link>
                   {user.id && (
                   <>
-                  <Link className="navLink" to="/info">Info Page</Link>
+                  {/* <Link className="navLink" to="/info">Info Page</Link> */}
                   <LogOutButton className="navLink" />
                   </>)}
-               <Link className="navLink" to="/about">About</Link>
+               {/* <Link className="navLink" to="/about">About</Link> */}
          </Box>
       </Box>
    );
