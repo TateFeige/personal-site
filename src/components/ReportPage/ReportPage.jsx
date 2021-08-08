@@ -33,20 +33,9 @@ function ReportPage() { // main function for this page
    const user = useSelector((store) => store.user);
    const report = useSelector((store) => store.search);
    const reportInfo = useSelector((store) => store.report);
-   const difficultyConverter = (difficulty) => { // function to convert difficulty (given from API as a number) to a string (so it can be read by the user)
-      switch (difficulty) {
-         case 1:
-            return "Looking For Raid";
-         case 3:
-            return "Normal";
-         case 4:
-            return "Heroic";
-         case 5:
-            return "Mythic";  
-         default:
-            return "unknown";
-      };
-   };
+   const difficultyConverter = (difficulty) => { switch (difficulty) {case 1: return "Looking For Raid"; case 3: return "Normal"; case 4: return "Heroic"; case 5: return "Mythic";   default: return "Unknown";};};
+   // function to convert difficulty (given from API as a number) to a string (so it can be read by the user)
+
    useEffect(() => { // get data on page load
          dispatch({ // main API call for the search query, returns some core information and the damage report
             type: 'SEARCH',
@@ -57,13 +46,8 @@ function ReportPage() { // main function for this page
             payload: getSearchQueryByFullURL(window.location.href)
          });
    }, []);
-   const test = () => {
-      console.log(getSearchQueryByFullURL(window.location.href));
-      console.log(report);
-   }
 
    const favoriteHandler = () => { // adds the searched for report to the user's favorites on the database
-      //console.log(reportInfo.id); // test function
       dispatch({
          type: 'ADD_TO_FAVORITES',
          payload: (reportInfo.id)
@@ -71,7 +55,6 @@ function ReportPage() { // main function for this page
    };
 
    const refreshHandler = () => { // adds the searched for report to the user's favorites on the database
-      console.log(reportInfo.id); // test function
       dispatch({ // sends out another search request when refresh icon is clicked; so the user can update the data without re-entering the search
          type: 'SEARCH',
          payload: reportInfo.id
@@ -83,7 +66,6 @@ function ReportPage() { // main function for this page
          <Grid container justify="center" aria-label="report header">
             <IconButton color="primary" aria-label="Refresh Report" onClick={refreshHandler}><RefreshIcon /></IconButton>
             <h1 align="center">{reportInfo.name}</h1>
-            <Button variant="contained" color="secondary" onClick={test}>Test</Button>
             {( user.id >= 1 ) ?
             <IconButton color="primary" aria-label="Add to favorites" onClick={favoriteHandler}><StarBorderIcon /></IconButton>
             :
@@ -96,8 +78,6 @@ function ReportPage() { // main function for this page
                <h1>Loading</h1>
                <CircularProgress style={{height:"10%", width:"10%"}}/>
             </Box>:
-            
-            
             <Box style={{width: "85%"}} aria-label="Report Table Container">
                <TableContainer component={Paper} style={{backgroundColor: '#242424', color: 'white'}}>
                   <Table className={classes.table} aria-label="Report Table">
