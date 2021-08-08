@@ -21,12 +21,15 @@ const useStyles = makeStyles((theme) => ({table: {minWidth: 700}}, {modal: {disp
 
 
 function UserPage() {
-   const favoritesDataColumns = [{ field: 'date', type: 'date', headerName: 'Date Created', flex: 2 }, { field: 'guild', type: 'string', headerName: 'Guild', flex: 2 }, { field: 'title', type: 'string', headerName: 'Report Name', flex: 2,  renderCell: (params) => {return (<div style={{ cursor: "pointer" }}>{params.row.title}</div>);}}, { field: 'zone', type: 'string', headerName: 'Zone', flex: 2 }, { field: 'DeleteButton', type: 'string', headerName: 'Delete', flex: 2, renderCell: (params) => {return (<div style={{ cursor: "pointer" }}><Button variant="contained" color="secondary" onClick={() => deleteFavorite(params.row.code)}>Delete</Button></div>);}},];
+   const favoritesDataColumns = [{ field: 'date', type: 'date', headerName: 'Date Created', flex: 2 }, { field: 'guild', type: 'string', headerName: 'Guild', flex: 2 }, { field: 'title', type: 'string', headerName: 'Report Name', flex: 2,  renderCell: (params) => {return (<div style={{ cursor: "pointer" }}>{params.row.title}</div>);}}, { field: 'zone', type: 'string', headerName: 'Zone', flex: 2 }, { field: 'DeleteButton', type: 'string', headerName: 'Delete', flex: 2, renderCell: (params) => {return (<div style={{ cursor: "pointer" }}><Button variant="contained" color="secondary" onClick={() => deleteFavorite(params.row)}>Delete</Button></div>);}},];
    // condensed handler for datagrid columns
    const deleteFavorite = (item) => { // handles deleting the selected item
+      if (confirm(`Remove << ${item.title} >> from your favorites?`) === false) { // pop up asking for confirmation of delete, if cancel is hit decline to delete
+         return false;
+     };
       dispatch({
          type: "DELETE_FAVORITE",
-         payload: item
+         payload: item.code
       });
       dispatch({type: 'GET_FAVORITES'});
    };
@@ -152,6 +155,7 @@ function UserPage() {
          <br />
          <DataGrid
          onCellClick={handleCellClick}
+         disableSelectionOnClick
          autoHeight
          autoWidth
          style={{backgroundColor: '#242424', color: 'white'}}

@@ -301,6 +301,7 @@ function FightPage() { // main function for this page
                               Damage
                            </Typography>
                            <DataGrid
+                           disableSelectionOnClick
                            autoHeight
                            autoWidth
                            style={{backgroundColor: '#242424', color: 'white'}}
@@ -323,7 +324,7 @@ function FightPage() { // main function for this page
                               Healing
                            </Typography>
                            <DataGrid
-                           forceUpdate
+                           disableSelectionOnClick 
                            autoHeight
                            autoWidth
                            style={{backgroundColor: '#242424', color: 'white'}}
