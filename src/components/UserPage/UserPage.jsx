@@ -28,10 +28,10 @@ const StyledTableCell = withStyles((theme) => ({head:{backgroundColor: theme.pal
 const StyledTableRow = withStyles((theme) => ({root: {'&:nth-of-type(odd)': {backgroundColor: theme.palette.action.hover}}}))(TableRow);
 const useStyles = makeStyles({table: {minWidth: 700}});
 const favoritesDataColumns = [
-   { field: 'Date', type: 'date', headerName: 'Date Created', flex: 2 },
-   { field: 'Guild', type: 'string', headerName: 'Guild', flex: 2 },
-   { field: 'ReportName', type: 'string', headerName: 'Report Name', flex: 2 },
-   { field: 'Zone', type: 'string', headerName: 'Zone', flex: 2 },
+   { field: 'date', type: 'date', headerName: 'Date Created', flex: 2 },
+   { field: 'guild', type: 'string', headerName: 'Guild', flex: 2 },
+   { field: 'title', type: 'string', headerName: 'Report Name', flex: 2 },
+   { field: 'zone', type: 'string', headerName: 'Zone', flex: 2 },
    { field: 'DeleteButton', type: 'string', headerName: 'Delete', flex: 2 },
 ];
 
@@ -39,30 +39,16 @@ const favoritesDataColumns = [
 function UserPage() {
    const history = useHistory();
    const dispatch = useDispatch();
-   const [favoritesDataRows, setFavoritesDataRows] = useState([]);
    const classes = useStyles();
    const user = useSelector((store) => store.user);
    const favoritesList = useSelector((store) => store.favorites);
    useEffect(() => { // get data on page load
       dispatch({type: 'GET_FAVORITES'});
-      test();
    }, []);
    const changeCharacter = () => {
       console.log(user.character);
    }
 
-   const test = () => {
-      //console.log(favoritesDataRows);
-      let newArray = [];
-      //console.log(favoritesList);
-         favoritesList.map((favItem) => {
-         newArray.push({id: favItem.id, Date: favItem.date, Guild: (`[${favItem.guild_faction}] ${favItem.guild_name}-${favItem.guild_server}`), ReportName: favItem.report_name, Zone: favItem.zone})
-
-      });
-      //console.log(newArray);
-      setFavoritesDataRows(newArray);
-      //console.log(favoritesDataRows); // test function
-      };
 
    return (
       <>
@@ -77,41 +63,16 @@ function UserPage() {
          <h2>Current Character:</h2>
          <h3>{user.character}</h3>
          <Button variant="contained" color="primary" disableElevation onClick={changeCharacter}>Change Character</Button>
-         <Button variant="contained" color="primary" disableElevation onClick={test}>Test</Button>
+         {/* <Button variant="contained" color="primary" disableElevation onClick={test}>Test</Button> */}
          </Box>
          <br /><br /><br />
          <Grid container justify="center" aria-label="history and favorites tables container">
          <br />
-         {(favoritesList == undefined) ? <div>Waiting</div>
-         :
-         <Box style={{width: "85%"}} alignItems="center" aria-label="favorites table container">
-         <TableContainer component={Paper}>
-            <h2 align="center">Favorites</h2>
-            <Table className={classes.table}  aria-label="User Favorites Table">
-            <caption>Favorites Table</caption>
-               <TableHead>
-                  <TableRow>
-                     <StyledTableCell>Date Created</StyledTableCell>
-                     <StyledTableCell align="left">Guild</StyledTableCell>
-                     <StyledTableCell align="left">Report Name</StyledTableCell>
-                     <StyledTableCell align="left"></StyledTableCell>
-                  </TableRow>
-               </TableHead>
-               <TableBody>
-                  {favoritesList.map((favItem) => {
-                     return (
-                        <FavoriteItem id={favItem.id} date={favItem.date} guild_faction={favItem.guild_faction} guild_name={favItem.guild_name} guild_server={favItem.guild_server} report_code={favItem.report_code} report_name={favItem.report_name} zone={favItem.report_zone} />
-                  );})}
-               </TableBody>
-            </Table>
-         </TableContainer>
-         </Box>
-         }
          <DataGrid
          autoHeight
          autoWidth
          style={{backgroundColor: '#242424', color: 'white'}}
-         rows={favoritesDataRows}
+         rows={favoritesList}
          columns={favoritesDataColumns}
          />
          </Grid>
