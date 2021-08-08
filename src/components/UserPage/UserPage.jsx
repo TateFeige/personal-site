@@ -1,6 +1,7 @@
 //Main imports
 import React, {useState, useEffect, component, componentDidMount, componentWillReceiveProps} from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
+import { Link, useHistory } from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import FavoriteItem from '../FavoriteItem/FavoriteItem';
 import axios from 'axios';
@@ -22,6 +23,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { DataGrid } from '@material-ui/data-grid';
 import { GridApi } from '@material-ui/x-grid';
+import { useIsFocusVisible } from '@material-ui/core';
 const StyledTableCell = withStyles((theme) => ({head:{backgroundColor: theme.palette.common.black, color: theme.palette.common.white}, body:{fontSize: 14,}}))(TableCell);
 const StyledTableRow = withStyles((theme) => ({root: {'&:nth-of-type(odd)': {backgroundColor: theme.palette.action.hover}}}))(TableRow);
 const useStyles = makeStyles({table: {minWidth: 700}});
@@ -35,6 +37,7 @@ const favoritesDataColumns = [
 
 
 function UserPage() {
+   const history = useHistory();
    const dispatch = useDispatch();
    const [favoritesDataRows, setFavoritesDataRows] = useState([]);
    const classes = useStyles();
@@ -42,12 +45,8 @@ function UserPage() {
    const favoritesList = useSelector((store) => store.favorites);
    useEffect(() => { // get data on page load
       dispatch({type: 'GET_FAVORITES'});
-      const testcall = dispatch({type: 'GET_FAVORITES_LIST'});
-      console.log(testcall);
-      axios.get('/api/database/getfavorites');
       test();
    }, []);
-
    const changeCharacter = () => {
       console.log(user.character);
    }
@@ -58,11 +57,9 @@ function UserPage() {
       //console.log(favoritesList);
          favoritesList.map((favItem) => {
          newArray.push({id: favItem.id, Date: favItem.date, Guild: (`[${favItem.guild_faction}] ${favItem.guild_name}-${favItem.guild_server}`), ReportName: favItem.report_name, Zone: favItem.zone})
-         //testuwu({id: favItem.id, Date: favItem.date, Guild: (`[${favItem.guild_faction}] ${favItem.guild_name}-${favItem.guild_server}`), ReportName: favItem.report_name, Zone: favItem.zone})
-         //testRows.push({id: favItem.id, Date: favItem.date, Guild: (`[${favItem.guild_faction}] ${favItem.guild_name}-${favItem.guild_server}`), ReportName: favItem.report_name, Zone: favItem.zone})
+
       });
       //console.log(newArray);
-      //console.log(testRows)
       setFavoritesDataRows(newArray);
       //console.log(favoritesDataRows); // test function
       };
