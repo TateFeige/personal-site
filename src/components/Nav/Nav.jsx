@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
-import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 
 //MaterialUI imports
@@ -22,15 +21,16 @@ const useStyles = makeStyles((theme) => ({root:{display: 'flex', flexWrap: 'wrap
 //end of MaterialUI imports
 
 
-function Nav() {
+function Nav() {    
+   const homeHandler = () => {history.push('/')};
+   const loginHandler = () => {history.push('/login')};
+   const logoutHandler = () => {dispatch({ type: 'LOGOUT' })};
    const history = useHistory();
    const getSearchQueryByFullURL = (url) => {return url.split('/')};
    const [searchURL, setSearchURL] = useState('');
    const dispatch = useDispatch();
    const classes = useStyles();
    const user = useSelector((store) => store.user);
-   let loginLinkData = {path: '/login', text: 'Login / Register'};
-   if (user.id != null) {loginLinkData.path = '/user'; loginLinkData.text = 'Home'};
     const search = () => {
       let searchQuery = getSearchQueryByFullURL(searchURL);
       //console.log(getSearchQueryByFullURL(searchURL));
@@ -74,13 +74,14 @@ function Nav() {
       alert("An unknown error has occurred. Please try again");
     };
 
+
    return (
       <Box className="nav" aria-label="Navigation Bar">
          <Link to="/home"><h2 className="nav-title">WarcraftLogs Visualizer</h2></Link>
          <Box>
             <FormControl fullWidth className={classes.margin} variant="outlined">
-               <InputLabel htmlFor="searchInput">Search</InputLabel>
-               <OutlinedInput id="searchInput" labelWidth={60} value={searchURL} onChange={(event) => setSearchURL(event.target.value)} endAdornment=
+               <InputLabel style={{color:"white"}} htmlFor="searchInput">Search</InputLabel>
+               <OutlinedInput style={{color:"white"}} id="searchInput" labelWidth={60} value={searchURL} onChange={(event) => setSearchURL(event.target.value)} endAdornment=
                {
                   <InputAdornment position="end">
                   <IconButton aria-label="search" edge="end" onClick={search}>
@@ -92,12 +93,10 @@ function Nav() {
             </FormControl>
          </Box>
          <Box>
-               <Link className="navLink" to={loginLinkData.path}>{loginLinkData.text}</Link>
-                  {user.id && (
-                  <>
-                  {/* <Link className="navLink" to="/info">Info Page</Link> */}
-                  <LogOutButton className="navLink" />
-                  </>)}
+            <Button variant="contained" color="primary" style={{height: "70px"}} onClick={homeHandler}>Home</Button>
+            {(user.id == null) ? <Button variant="contained" color="primary" style={{height: "70px"}} onClick={loginHandler}>Log In</Button> :
+            <Button variant="contained" color="primary" style={{height: "70px"}} onClick={logoutHandler}>Log Out</Button>
+            }
          </Box>
       </Box>
    );
