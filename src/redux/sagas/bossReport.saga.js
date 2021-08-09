@@ -14,7 +14,7 @@ function* report(reportItem) {
          //console.log("Looking for:", boss);
          //console.log (WCLResponse.data.data.reportData.report.rankings.data[x]);
          if (boss.id == WCLResponse.data.data.reportData.report.rankings.data[x].fightID) {
-            WCLResponse.data.data.reportData.report.rankings.data[x].roles.dps.characters.map((player) => {
+            WCLResponse.data.data.reportData.report.rankings.data[x].roles.tanks.characters.map((player) => {
                ( // pushes DPS players to damage array
                   reportToSend.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
                )});
@@ -22,7 +22,7 @@ function* report(reportItem) {
                ( // pushes DPS players to damage array
                   reportToSend.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
                )});
-            WCLResponse.data.data.reportData.report.rankings.data[x].roles.tanks.characters.map((player) => {
+            WCLResponse.data.data.reportData.report.rankings.data[x].roles.dps.characters.map((player) => {
                ( // pushes DPS players to damage array
                   reportToSend.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
                )});
@@ -49,7 +49,7 @@ function* healingReport(reportItem) {
          //console.log("Looking for:", boss);
          //console.log (WCLResponse.data.data.reportData.report.rankings.data[x]);
          if (boss.id == WCLResponse.data.data.reportData.report.rankings.data[x].fightID) {
-            WCLResponse.data.data.reportData.report.rankings.data[x].roles.dps.characters.map((player) => {
+            WCLResponse.data.data.reportData.report.rankings.data[x].roles.tanks.characters.map((player) => {
                ( // pushes DPS players to damage array
                   reportToSend.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, HPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
                )});
@@ -57,7 +57,7 @@ function* healingReport(reportItem) {
                ( // pushes DPS players to damage array
                   reportToSend.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, HPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
                )});
-            WCLResponse.data.data.reportData.report.rankings.data[x].roles.tanks.characters.map((player) => {
+            WCLResponse.data.data.reportData.report.rankings.data[x].roles.dps.characters.map((player) => {
                ( // pushes DPS players to damage array
                   reportToSend.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, HPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
                )});

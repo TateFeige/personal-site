@@ -36,10 +36,10 @@ function Nav() {
          alert('Please enter a search URL');
          return false;
       };
-      // dispatch({ // main API call for the search query, returns some core information and the damage report
-      //    type: 'SEARCH',
-      //    payload: searchQuery
-      // });
+      dispatch({ // main API call for the search query, returns some core information and the damage report
+         type: 'SEARCH',
+         payload: searchQuery
+      });
       dispatch({ // API call to add some core info of the report to our database for storage
          type: 'ADD_TO_DATABASE',
          payload: searchQuery
@@ -47,8 +47,6 @@ function Nav() {
       history.push(`/report/${searchQuery}`);
       setSearchURL(''); // clear search field
     };
-
-
 
    return (
       <Box className="nav" aria-label="Navigation Bar">
