@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
+
 //MaterialUI imports
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -14,6 +15,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { DataGrid } from '@material-ui/data-grid';
 const useStyles = makeStyles((theme) => ({table: {minWidth: 700}}, {modal: {display: 'flex', alignItems: 'center', justifyContent: 'center', color:"black"}, paper: {backgroundColor: theme.palette.background.paper, border: '2px solid #000', boxShadow: theme.shadows[5], padding: theme.spacing(2, 4, 3),},}));
+import './UserPage.css';
 //end of MaterialUI imports
 
 
@@ -151,11 +153,13 @@ function UserPage() {
             <Grid container justify="center" aria-label="history and favorites tables container">
             <br />
             <DataGrid
+               style={{backgroundColor: '#242424', color: 'white'}}
+               showColumnRightBorder
+               hideFooter
                onCellClick={handleCellClick}
                disableSelectionOnClick
                autoHeight
                autoWidth
-               style={{backgroundColor: '#242424', color: 'white'}}
                rows={favoritesList}
                columns={favoritesDataColumns}
             />
