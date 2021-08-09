@@ -22,9 +22,9 @@ const useStyles = makeStyles((theme) => ({root:{display: 'flex', flexWrap: 'wrap
 
 
 function Nav() {    
-   const homeHandler = () => {history.push('/')};
-   const loginHandler = () => {history.push('/login')};
-   const logoutHandler = () => {dispatch({ type: 'LOGOUT' })};
+   const homeHandler = () => {history.push('/'); setSearchURL('');};
+   const loginHandler = () => {history.push('/login'); setSearchURL('');};
+   const logoutHandler = () => {dispatch({ type: 'LOGOUT' }); setSearchURL('');};
    const history = useHistory();
    const getSearchQueryByFullURL = (url) => {return url.split('/')};
    const [searchURL, setSearchURL] = useState('');
@@ -81,7 +81,7 @@ function Nav() {
          <Box>
             <FormControl fullWidth className={classes.margin} variant="outlined">
                <InputLabel style={{color:"white"}} htmlFor="searchInput">Search</InputLabel>
-               <OutlinedInput style={{color:"white"}} id="searchInput" labelWidth={60} value={searchURL} onChange={(event) => setSearchURL(event.target.value)} endAdornment=
+               <OutlinedInput id="searchInput" labelWidth={60} value={searchURL} onChange={(event) => setSearchURL(event.target.value)} endAdornment=
                {
                   <InputAdornment position="end">
                   <IconButton aria-label="search" edge="end" onClick={search}>

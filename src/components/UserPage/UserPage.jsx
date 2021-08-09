@@ -145,7 +145,7 @@ function UserPage() {
             </Modal>
             <h1>Welcome, {user.username}</h1>
             <h2>Current Character:</h2>
-            <h3><a href={user.armory} target="_blank_">{user.character}</a></h3>
+            <h3><a href={user.armory} target="_blank_" style={{color:"pink"}}>{user.character}</a></h3>
             <Button variant="contained" color="primary" disableElevation onClick={changeCharacter}>Change Character</Button>
             {/* <Button variant="contained" color="primary" disableElevation onClick={test}>Test</Button> */}
             </Box>
