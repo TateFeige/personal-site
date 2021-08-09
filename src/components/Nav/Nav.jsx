@@ -10,6 +10,7 @@ import './Nav.css';
 //MaterialUI imports
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import { useSelector } from 'react-redux';
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
@@ -23,29 +24,54 @@ const useStyles = makeStyles((theme) => ({root:{display: 'flex', flexWrap: 'wrap
 
 function Nav() {
    const history = useHistory();
+   const getSearchQueryByFullURL = (url) => {return url.split('/')};
    const [searchURL, setSearchURL] = useState('');
    const dispatch = useDispatch();
    const classes = useStyles();
    const user = useSelector((store) => store.user);
    let loginLinkData = {path: '/login', text: 'Login / Register'};
    if (user.id != null) {loginLinkData.path = '/user'; loginLinkData.text = 'Home'};
-   function getSearchQueryByFullURL(url) {return url.split('/').pop()}; // isolate the text after the final "/" in our input URL, since our API only takes that final string and not the whole URL
-   const search = () => { // main search handler, gets called on click
+    const search = () => {
       let searchQuery = getSearchQueryByFullURL(searchURL);
-      if (searchQuery == "") {
-         alert('Please enter a search URL');
+      //console.log(getSearchQueryByFullURL(searchURL));
+      if (searchURL == '' || searchURL == ' ' || searchURL.length < 8) {
+         alert("Please enter a valid search");
+         setSearchURL(''); // clear search field
          return false;
       };
-      dispatch({ // main API call for the search query, returns some core information and the damage report
-         type: 'SEARCH',
-         payload: searchQuery
-      });
-      dispatch({ // API call to add some core info of the report to our database for storage
-         type: 'ADD_TO_DATABASE',
-         payload: searchQuery
-      })
-      history.push(`/report/${searchQuery}`);
-      setSearchURL(''); // clear search field
+      if (searchQuery[0] !== "https:" && searchQuery[0] !== ""  && searchQuery[0]) {
+            //console.log('searching for:', searchQuery[0]);
+            dispatch({ // main API call for the search query, returns some core information and the damage report
+               type: 'SEARCH',
+               payload: searchQuery[0]
+            });
+            dispatch({ // API call to add some core info of the report to our database for storage
+               type: 'ADD_TO_DATABASE',
+               payload: searchQuery[0]
+            })
+            history.push(`/report/${searchQuery[0]}`);
+            setSearchURL(''); // clear search field
+            return false;
+      };
+      if (searchQuery[2] !== "www.warcraftlogs.com" && searchQuery[2] !== undefined) {
+         alert('Please enter a valid warcraftlogs URL');
+         return false;
+      };
+      if (searchQuery[2] == "www.warcraftlogs.com") {
+            //console.log('searching for:', searchQuery[4]);
+            dispatch({ // main API call for the search query, returns some core information and the damage report
+               type: 'SEARCH',
+               payload: searchQuery[4]
+            });
+            dispatch({ // API call to add some core info of the report to our database for storage
+               type: 'ADD_TO_DATABASE',
+               payload: searchQuery[4]
+            })
+            history.push(`/report/${searchQuery[4]}`);
+            setSearchURL(''); // clear search field
+            return false;
+      };
+      alert("an unknown error has occurred. Please try again");
     };
 
    return (
