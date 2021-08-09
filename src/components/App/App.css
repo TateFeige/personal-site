@@ -4,11 +4,15 @@ body,
   height: 100%;
 }
 
+
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0px;
-  background-color: #000000;
+  background-color: #2a2119;
   color: white;
+  background: url(https://d2ertrwg9e34np.cloudfront.net/original/1X/41869db9dbc5e39ec78a2318471c9e61cb35d294.jpg) center -200px no-repeat,url(https://d2ertrwg9e34np.cloudfront.net/original/1X/bdc66e287962f31926ec16d5dd0a709f5eb883fa.jpg) center -200px repeat-y;
+  background-color: #231a13;
 }
 
 img {
@@ -34,7 +38,7 @@ Button
   border-color: #014041;
   border-width: 1px 1px 3px;
   border-radius: 4px;
-  background-color: #00acb0;
+  background-color: #006fb2;
   color: #f8f8f8;
   font-size: 1.1rem;
   outline: 0;
@@ -57,7 +61,7 @@ Button
 }
 
 .btn:hover {
-  background-color: #008183;
+  background-color: #14aeea;
   text-decoration: none;
 }
 
@@ -74,8 +78,8 @@ Button
 
 .btn_asLink:hover {
   background-color: transparent;
-  border-color: #008183;
-  color: #008183;
+  border-color: #006fb2;
+  color: #14aeea;
 }
 
 /* --------------------------------------------------------------------------------

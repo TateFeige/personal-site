@@ -1,0 +1,31 @@
+.MuiDataGrid-root	{
+   background-image: url(https://d2ertrwg9e34np.cloudfront.net/original/1X/41869db9dbc5e39ec78a2318471c9e61cb35d294.jpg);
+   background-repeat: repeat-x;
+   background-position: center top -60px;
+   background-blend-mode: overlay;
+}
+
+.MuiDataGrid-columnHeader {
+   color: aquamarine;
+   background-color: #322a24;
+   background-image: url(https://d2ertrwg9e34np.cloudfront.net/original/1X/41869db9dbc5e39ec78a2318471c9e61cb35d294.jpg);
+   background-position: center top -60px;
+   background-repeat: round;
+   background-blend-mode: exclusion;
+}
+
+.MuiDataGrid-row {
+   background-color: #322a24;
+   overflow: hidden;
+   background-image: url(https://d2ertrwg9e34np.cloudfront.net/original/1X/41869db9dbc5e39ec78a2318471c9e61cb35d294.jpg);
+   background-repeat: repeat-x;
+   background-position: center top -60px;
+   background-blend-mode: exclusion;
+}
+
+.MuiDataGrid-row:nth-of-type(odd) {
+   background-color: #242424;
+}
+.MuiDataGrid-row:nth-of-type(even) {
+   background-color: #363434;
+}

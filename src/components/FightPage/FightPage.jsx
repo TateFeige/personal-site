@@ -221,10 +221,11 @@ function FightPage() { // main function for this page
          {(fightInfo == [] ? <div>LOADING</div> :
          <Box aria-label="user page">
             <Box textAlign="center" aria-label="user information">
-               <Typography align="center" variant="h2" component="h2" gutterBottom>
-                  {getSearchQueryByFullURL(window.location.hash.substring(15))[2].substring(11)}
-                  &nbsp;
+               <Typography align="center" variant="h2" component="h2" >
                   {getSearchQueryByFullURL(window.location.hash.substring(15))[1].substring(5).split('+').join(' ')}
+               </Typography>
+               <Typography align="center" variant="h5" component="h3" gutterBottom style={{fontSize: "28px"}}>
+                  {getSearchQueryByFullURL(window.location.hash.substring(15))[2].substring(11)}
                </Typography>
             </Box>
             <br /><br /><br />
@@ -232,6 +233,8 @@ function FightPage() { // main function for this page
                <Box style={{width: "49%"}} alignItems="flex-end" aria-label="favorites table container">
                   <Typography align="center" variant="h3" component="h2" gutterBottom>Damage</Typography>
                   <DataGrid
+                     showColumnRightBorder
+                     hideFooter
                      disableSelectionOnClick
                      autoHeight
                      autoWidth
@@ -244,6 +247,8 @@ function FightPage() { // main function for this page
                <Box style={{width: "49%"}} alignItems="flex-end" aria-label="favorites table container">
                   <Typography align="center" variant="h3" component="h2" gutterBottom>Healing</Typography>
                   <DataGrid
+                     showColumnRightBorder
+                     hideFooter
                      disableSelectionOnClick 
                      autoHeight
                      autoWidth
