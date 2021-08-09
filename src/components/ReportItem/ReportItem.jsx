@@ -44,9 +44,10 @@ function ReportItem(item) { // main function for this page
             return "no image found";
       };
    };
+   
 
    const fightSummary = (item) => {
-      //console.log('fightSummary item is:', item); // test function
+      console.log('fightSummary item is:', item); // test function
       dispatch({ // send our boss item to be further broken down
          type: "BOSS_REPORT",
          payload: item
@@ -55,7 +56,7 @@ function ReportItem(item) { // main function for this page
          type: "HEALING_REPORT",
          payload: item
       });
-      history.push(`/fight?report=${item.url}&boss=${item.name}&difficulty=${item.difficulty}`); // push the user to a page based on the report and its information
+      history.push(`/fight?report=${item.url}&boss=${item.name}&difficulty=${item.difficulty}&id=${item.id}`); // push the user to a page based on the report and its information
    };
 
    return (

@@ -1,8 +1,10 @@
 //Main imports
 import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 import ReportItem from '../ReportItem/ReportItem';
 import axios from 'axios';
+import { useBeforeunload } from 'react-beforeunload'
 
 //MaterialUI imports
 import Box from '@material-ui/core/Box';
@@ -28,6 +30,7 @@ const useStyles = makeStyles({table: {minWidth: 700}});
 
 function ReportPage() { // main function for this page
    function getSearchQueryByFullURL(url) {return url.split('/').pop()};
+   const history = useHistory();
    const dispatch = useDispatch();
    const classes = useStyles();
    const user = useSelector((store) => store.user);
@@ -36,23 +39,12 @@ function ReportPage() { // main function for this page
    const difficultyConverter = (difficulty) => { switch (difficulty) {case 1: return "Looking For Raid"; case 3: return "Normal"; case 4: return "Heroic"; case 5: return "Mythic";   default: return "Unknown";};};
    // function to convert difficulty (given from API as a number) to a string (so it can be read by the user)
 
-   // useEffect(() => { // get data on page load
-   //       dispatch({ // main API call for the search query, returns some core information and the damage report
-   //          type: 'SEARCH',
-   //          payload: getSearchQueryByFullURL(window.location.href)
-   //       });
-   //       dispatch({ // API call to get the healing report for the search query
-   //          type: 'HEALING',
-   //          payload: getSearchQueryByFullURL(window.location.href)
-   //       });
-   // }, []);
-
-   const favoriteHandler = () => { // adds the searched for report to the user's favorites on the database
-      dispatch({
-         type: 'ADD_TO_FAVORITES',
-         payload: (reportInfo.id)
+   useEffect(() => { // get data on page load
+      dispatch({ // main API call for the search query, returns some core information and the damage report
+         type: 'SEARCH',
+         payload: getSearchQueryByFullURL(window.location.href)
       });
-   };
+   }, []);
 
    const refreshHandler = () => { // adds the searched for report to the user's favorites on the database
       dispatch({ // sends out another search request when refresh icon is clicked; so the user can update the data without re-entering the search

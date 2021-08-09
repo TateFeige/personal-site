@@ -7,7 +7,7 @@ function* search(searchQuery) { // main search function, this is where we sort o
    //console.log(query); // test function
    try {
       const WCLResponse = yield axios.get(`/api/search/search/${query}`); // sets a variable to our response
-      console.log("data is:", WCLResponse.data.data.reportData.report); // test function
+      //console.log("data is:", WCLResponse.data.data.reportData.report); // test function
       const date = new Date(WCLResponse.data.data.reportData.report.startTime); // sets a date for the report
       const start = date.toLocaleDateString("en-US"); // converts date to a readable format
       const overview = {date: start, report_length: (WCLResponse.data.end - WCLResponse.data.start), title: WCLResponse.data.title, zone: WCLResponse.data.zone, url: query};
