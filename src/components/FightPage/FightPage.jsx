@@ -215,128 +215,96 @@ function FightPage() { // main function for this page
       };
    };
 
-   const findFight = () => { // loops through our complete fight array and locates the boss that the user clicked on
-      for (let x = 0; x < report.length; x++) { // loops through damage array
-         //console.log(report[x]);
-            if (report[x].fightID == fightInfo.id) {
-            //boss = report[x];
-            const match = report[x];
-            setBossItem(match); // set boss to be mapped
-            //console.log('boss is:', match);
-      }};
-      for (let x = 0; x < healingInfo.reportData.report.rankings.data.length; x++) { // loops through healing array
-         //console.log(report[x]);
-            if (healingInfo.reportData.report.rankings.data[x].fightID == fightInfo.id) {
-            //boss = report[x];
-            const healingMatch = healingInfo.reportData.report.rankings.data[x];
-            setBossHealingItem(healingMatch); // set boss to be mapped
-            //console.log(bossItem);
-      }};
-     // test();
-   }; // end of findFight
+   // const findFight = () => { // loops through our complete fight array and locates the boss that the user clicked on
+   //    for (let x = 0; x < report.length; x++) { // loops through damage array
+   //       //console.log(report[x]);
+   //          if (report[x].fightID == fightInfo.id) {
+   //          //boss = report[x];
+   //          const match = report[x];
+   //          setBossItem(match); // set boss to be mapped
+   //          //console.log('boss is:', match);
+   //    }};
+   //    for (let x = 0; x < healingInfo.reportData.report.rankings.data.length; x++) { // loops through healing array
+   //       //console.log(report[x]);
+   //          if (healingInfo.reportData.report.rankings.data[x].fightID == fightInfo.id) {
+   //          //boss = report[x];
+   //          const healingMatch = healingInfo.reportData.report.rankings.data[x];
+   //          setBossHealingItem(healingMatch); // set boss to be mapped
+   //          //console.log(bossItem);
+   //    }};
+   //   // test();
+   // }; // end of findFight
       
-   useEffect(() => { // get data on page load
-      findFight();
-      console.log('hello');
-   }, []);
+   // useEffect(() => { // get data on page load
+   //    dispatch({
+   //       type: "GET_FIGHT"
+   //    })
+   // }, []);
 
-   const test = () => { // onLoad function
-      console.log(bossItem) // test function
-      let tempDamageRows = []; // holder for damage data
-      let tempHealingRows = []; // holder for healing data
-      bossItem.roles.dps.characters.map((player) => {
-         ( // pushes DPS players to damage array
-            tempDamageRows.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
-         )});
-      bossItem.roles.healers.characters.map((player) => {
-         ( // pushes healers to damage array
-            tempDamageRows.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
-         )});
-      bossItem.roles.tanks.characters.map((player) => {
-         ( // pushes tanks to damage array
-            tempDamageRows.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
-         )});
-      bossHealingItem.roles.dps.characters.map((player) => {
-         ( // pushes DPS to healing array
-            tempHealingRows.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, HPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
-         )});
-      bossHealingItem.roles.healers.characters.map((player) => {
-         ( // pushes healers to healing array
-            tempHealingRows.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, HPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
-         )})
-      bossHealingItem.roles.tanks.characters.map((player) => {
-         ( // pushes tanks to healing array
-            tempHealingRows.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, HPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
-         )})
-      setDamageRows(tempDamageRows); // sets damage rows variable to our stored damage array
-      setHealingRows(tempHealingRows); // sets our healing rows variable to our stored healing array
-   }; // end of onLoad function
+   const test = () => {
+      console.log(fightInfo[5]);
+   };
+
+   // const test = () => { // onLoad function
+   //    console.log(bossItem) // test function
+   //    let tempHealingRows = []; // holder for healing data
+   //    bossHealingItem.roles.dps.characters.map((player) => {
+   //       ( // pushes DPS to healing array
+   //          tempHealingRows.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, HPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
+   //       )});
+   //    bossHealingItem.roles.healers.characters.map((player) => {
+   //       ( // pushes healers to healing array
+   //          tempHealingRows.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, HPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
+   //       )})
+   //    bossHealingItem.roles.tanks.characters.map((player) => {
+   //       ( // pushes tanks to healing array
+   //          tempHealingRows.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, HPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
+   //       )})
+   //    setHealingRows(tempHealingRows); // sets our healing rows variable to our stored healing array
+   // }; // end of onLoad function
 
    return (
       <>
-         {(bossItem.roles === undefined || bossHealingItem.roles === undefined || healingRows == [] || damageRows == [] || bossItem.encounter == undefined || bossItem == undefined) ? 
-            <Box textAlign="center" aria-label="Waiting for response">
-               <h1>Loading</h1>
-               <CircularProgress style={{height:"10%", width:"10%"}}/>
-            </Box>
-         :
+         {(fightInfo == [] ? <div>LOADING</div> :
             <Box aria-label="user page">
                <Box textAlign="center" aria-label="user information">
                   <Button variant="contained" color="primary" disableElevation onClick={test}>Test</Button>
-                  <Typography align="center" variant="h2" component="h2" gutterBottom>{
+                  {/* <Typography align="center" variant="h2" component="h2" gutterBottom>{
                      difficultyConverter(bossItem.difficulty)} {bossItem.encounter.name}
-                  </Typography>
+                  </Typography> */}
                </Box>
             <br /><br /><br />
                <Grid container style={{width: "100%", height: "2000px"}} justify="space-between" aria-label="history and favorites tables container">
                   <Box style={{width: "49%"}} alignItems="flex-end" aria-label="favorites table container">
-                     {( damageRows == [] ) ? 
-                        <Box textAlign="center" aria-label="Waiting for response">
-                           <h1>Loading</h1>
-                           <CircularProgress style={{height:"10%", width:"10%"}}/>
-                        </Box>
-                     :
-                        <>
-                           <Typography align="center" variant="h3" component="h2" gutterBottom>
-                              Damage
-                           </Typography>
-                           <DataGrid
-                           disableSelectionOnClick
-                           autoHeight
-                           autoWidth
-                           style={{backgroundColor: '#242424', color: 'white'}}
-                           rows={damageRows}
-                           columns={damageDataColumns}
-                            />
-                        </>
-                     }
+                     <Typography align="center" variant="h3" component="h2" gutterBottom>
+                        Damage
+                     </Typography>
+                     <DataGrid
+                     disableSelectionOnClick
+                     autoHeight
+                     autoWidth
+                     style={{backgroundColor: '#242424', color: 'white'}}
+                     rows={fightInfo}
+                     columns={damageDataColumns}
+                        />
                   </Box>   
                   <br />
                   <Box style={{width: "49%"}} alignItems="flex-end" aria-label="favorites table container">
-                     {( healingRows == [] ) ? 
-                        <Box textAlign="center" aria-label="Waiting for response">
-                           <h1>Loading</h1>
-                           <CircularProgress style={{height:"10%", width:"10%"}}/>
-                        </Box>
-                     :
-                        <>
-                           <Typography align="center" variant="h3" component="h2" gutterBottom>
-                              Healing
-                           </Typography>
-                           <DataGrid
-                           disableSelectionOnClick 
-                           autoHeight
-                           autoWidth
-                           style={{backgroundColor: '#242424', color: 'white'}}
-                           rows={healingRows}
-                           columns={healingDataColumns}
-                           />
-                        </>
-                     }
+                     <Typography align="center" variant="h3" component="h2" gutterBottom>
+                        Healing
+                     </Typography>
+                     <DataGrid
+                     disableSelectionOnClick 
+                     autoHeight
+                     autoWidth
+                     style={{backgroundColor: '#242424', color: 'white'}}
+                     rows={healingInfo}
+                     columns={healingDataColumns}
+                     />
                   </Box>
                </Grid>
             </Box>
-         }
+            )}
       </>
    );
 }; // main function for this page

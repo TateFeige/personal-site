@@ -53,7 +53,17 @@ function App() {
              <ReportPage />
           </Route>
           <Route
+            exact path="/report/:id"
+          >
+             <ReportPage />
+          </Route>
+          <Route
             path="/fight"
+          >
+             <FightPage />
+          </Route>
+          <Route
+            exact path="/fight/:id  "
           >
              <FightPage />
           </Route>

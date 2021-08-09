@@ -1,10 +1,8 @@
 const fightReducer = (state = [], action) => { // reducer that holds data for a submitted report's specific fight
    switch (action.type) {
       case "POST_BOSS_FIGHT":
-         //console.log('BOSS_FIGHT has:', action.payload); // test function
-         let fightToReturn = [];
-         fightToReturn.push(action.payload);
          state = action.payload;
+         console.log("in POST_BOSS_FIGHT:", state);
          return state;
       case "GET_FIGHT":
          return state;
