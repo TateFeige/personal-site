@@ -46,6 +46,13 @@ function ReportPage() { // main function for this page
       });
    }, []);
 
+   const favoriteHandler = () => { // adds the searched for report to the user's favorites on the database
+      dispatch({
+         type: 'ADD_TO_FAVORITES',
+         payload: (reportInfo.id)
+      });
+   };
+
    const refreshHandler = () => { // adds the searched for report to the user's favorites on the database
       dispatch({ // sends out another search request when refresh icon is clicked; so the user can update the data without re-entering the search
          type: 'SEARCH',

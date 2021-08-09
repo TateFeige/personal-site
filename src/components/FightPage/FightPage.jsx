@@ -8,7 +8,6 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import clsx from 'clsx';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { DataGrid } from '@material-ui/data-grid';
 const specIcon = (spec) => { // giant switch statement that adds a class/spec icon next to a player name. looks for the player spec + class and returns an image URL
