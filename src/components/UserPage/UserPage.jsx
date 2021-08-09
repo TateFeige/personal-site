@@ -21,12 +21,15 @@ const useStyles = makeStyles((theme) => ({table: {minWidth: 700}}, {modal: {disp
 
 
 function UserPage() {
-   const favoritesDataColumns = [{ field: 'date', type: 'date', headerName: 'Date Created', flex: 2 }, { field: 'guild', type: 'string', headerName: 'Guild', flex: 2 }, { field: 'title', type: 'string', headerName: 'Report Name', flex: 2,  renderCell: (params) => {return (<div style={{ cursor: "pointer" }}>{params.row.title}</div>);}}, { field: 'zone', type: 'string', headerName: 'Zone', flex: 2 }, { field: 'DeleteButton', type: 'string', headerName: 'Delete', flex: 2, renderCell: (params) => {return (<div style={{ cursor: "pointer" }}><Button variant="contained" color="secondary" onClick={() => deleteFavorite(params.row.code)}>Delete</Button></div>);}},];
+   const favoritesDataColumns = [{ field: 'date', type: 'date', headerName: 'Date Created', flex: 2 }, { field: 'guild', type: 'string', headerName: 'Guild', flex: 2 }, { field: 'title', type: 'string', headerName: 'Report Name', flex: 2,  renderCell: (params) => {return (<div style={{ cursor: "pointer" }}>{params.row.title}</div>);}}, { field: 'zone', type: 'string', headerName: 'Zone', flex: 2 }, { field: 'DeleteButton', type: 'string', headerName: 'Delete', flex: 2, renderCell: (params) => {return (<div style={{ cursor: "pointer" }}><Button variant="contained" color="secondary" onClick={() => deleteFavorite(params.row)}>Delete</Button></div>);}},];
    // condensed handler for datagrid columns
    const deleteFavorite = (item) => { // handles deleting the selected item
+      if (confirm(`Remove << ${item.title} >> from your favorites?`) === false) { // pop up asking for confirmation of delete, if cancel is hit decline to delete
+         return false;
+     };
       dispatch({
          type: "DELETE_FAVORITE",
-         payload: item
+         payload: item.code
       });
       dispatch({type: 'GET_FAVORITES'});
    };
@@ -135,29 +138,30 @@ function UserPage() {
                   <a href="https://worldofwarcraft.com" target="_blank" style={{fontSize: "16px"}}>WorldofWarcraft</a><a style={{fontSize: "16px"}}>, or </a>
                   <a href="https://raider.io" target="_blank" style={{fontSize: "16px"}}>Raider.io</a>
                   </>
-                  } variant="outlined" value={armoryLink} onChange={(event) => setArmoryLink(event.target.value)}/><br />
+                  } placeholder="E.g. https://worldofwarcraft.com/en-us/character/us/kelthuzad/Asmongold" variant="outlined" value={armoryLink} onChange={(event) => setArmoryLink(event.target.value)}/><br />
                   <br />
                   <Button style={{width: "30%", height:"35%", display: "flex", justify:"flex-end"}} variant="contained" color="primary" disableElevation onClick={saveCharacter}>Save</Button>
                   </Box>
                </Fade>
             </Modal>
-         <h1>Welcome, {user.username}</h1>
-         <h2>Current Character:</h2>
-         <h3><a href={user.armory} target="_blank_">{user.character}</a></h3>
-         <Button variant="contained" color="primary" disableElevation onClick={changeCharacter}>Change Character</Button>
-         {/* <Button variant="contained" color="primary" disableElevation onClick={test}>Test</Button> */}
-         </Box>
-         <br /><br /><br />
-         <Grid container justify="center" aria-label="history and favorites tables container">
-         <br />
-         <DataGrid
-         onCellClick={handleCellClick}
-         autoHeight
-         autoWidth
-         style={{backgroundColor: '#242424', color: 'white'}}
-         rows={favoritesList}
-         columns={favoritesDataColumns}
-         />
+            <h1>Welcome, {user.username}</h1>
+            <h2>Current Character:</h2>
+            <h3><a href={user.armory} target="_blank_">{user.character}</a></h3>
+            <Button variant="contained" color="primary" disableElevation onClick={changeCharacter}>Change Character</Button>
+            {/* <Button variant="contained" color="primary" disableElevation onClick={test}>Test</Button> */}
+            </Box>
+            <br /><br /><br />
+            <Grid container justify="center" aria-label="history and favorites tables container">
+            <br />
+            <DataGrid
+               onCellClick={handleCellClick}
+               disableSelectionOnClick
+               autoHeight
+               autoWidth
+               style={{backgroundColor: '#242424', color: 'white'}}
+               rows={favoritesList}
+               columns={favoritesDataColumns}
+            />
          </Grid>
       </Box>
       }

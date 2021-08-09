@@ -1,7 +1,6 @@
 //Main imports
-import React, {useState, useEffect} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import './FightPage.css';
 
 //MaterialUI imports
@@ -11,10 +10,7 @@ import clsx from 'clsx';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { DataGrid } from '@material-ui/data-grid';
-import { GridApi } from '@material-ui/x-grid';
-const useStyles = makeStyles({table: {minWidth: 700}});
 const specIcon = (spec) => { // giant switch statement that adds a class/spec icon next to a player name. looks for the player spec + class and returns an image URL
    switch (spec) {
       case "Blood DeathKnight":
@@ -94,7 +90,6 @@ const specIcon = (spec) => { // giant switch statement that adds a class/spec ic
    };
 }; // end of spec icon handler
 
-const removeTilde = (url) => {return url.split('~').pop()}; // removes the tilde from our data so that materialUI can sort it and so its easier to read
 const healingDataColumns = [ // column data for the healer data grid
    { field: 'RankPercent', type: 'number', headerName: 'Rank %', flex: 2, cellClassName:(params) =>
       clsx('rank-color', { // sorts number into color based on performance
@@ -189,153 +184,78 @@ const damageDataColumns = [ // column data for the damage data grid
 
 
 function FightPage() { // main function for this page
-   const history = useHistory();
-   const [bossItem, setBossItem] = useState({});
-   const [bossHealingItem, setBossHealingItem] = useState({});
-   const [damageRows, setDamageRows] = useState([]);
-   const [healingRows, setHealingRows] = useState([]);
-   const classes = useStyles();
+   let boss = {difficulty: '', id: '', name: '', url: ''};
+   const getSearchQueryByFullURL = (url) => {return url.split('&')};
    const dispatch = useDispatch();
-   const user = useSelector((store) => store.user);
-   const report = useSelector((store) => store.search);
    const fightInfo = useSelector((store) => store.fight);
    const healingInfo = useSelector((store) => store.healing);
-   const difficultyConverter = (difficulty) => { // function to convert difficulty (given from API as a number) to a string (so it can be read by the user)
-      switch (difficulty) {
-         case 1:
-            return "Looking For Raid";
-         case 3:
-            return "Normal";
-         case 4:
-            return "Heroic";
-         case 5:
-            return "Mythic";  
-         default:
-            return "unknown";
-      };
-   };
-
-   const findFight = () => { // loops through our complete fight array and locates the boss that the user clicked on
-      for (let x = 0; x < report.length; x++) { // loops through damage array
-         //console.log(report[x]);
-            if (report[x].fightID == fightInfo.id) {
-            //boss = report[x];
-            const match = report[x];
-            setBossItem(match); // set boss to be mapped
-            //console.log('boss is:', match);
-      }};
-      for (let x = 0; x < healingInfo.reportData.report.rankings.data.length; x++) { // loops through healing array
-         //console.log(report[x]);
-            if (healingInfo.reportData.report.rankings.data[x].fightID == fightInfo.id) {
-            //boss = report[x];
-            const healingMatch = healingInfo.reportData.report.rankings.data[x];
-            setBossHealingItem(healingMatch); // set boss to be mapped
-            //console.log(bossItem);
-      }};
-     // test();
-   }; // end of findFight
-      
    useEffect(() => { // get data on page load
-      findFight();
-      console.log('hello');
+      pageRefreshHandler();
    }, []);
 
-   const test = () => { // onLoad function
-      console.log(bossItem) // test function
-      let tempDamageRows = []; // holder for damage data
-      let tempHealingRows = []; // holder for healing data
-      bossItem.roles.dps.characters.map((player) => {
-         ( // pushes DPS players to damage array
-            tempDamageRows.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
-         )});
-      bossItem.roles.healers.characters.map((player) => {
-         ( // pushes healers to damage array
-            tempDamageRows.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
-         )});
-      bossItem.roles.tanks.characters.map((player) => {
-         ( // pushes tanks to damage array
-            tempDamageRows.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, DPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
-         )});
-      bossHealingItem.roles.dps.characters.map((player) => {
-         ( // pushes DPS to healing array
-            tempHealingRows.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, HPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
-         )});
-      bossHealingItem.roles.healers.characters.map((player) => {
-         ( // pushes healers to healing array
-            tempHealingRows.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, HPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
-         )})
-      bossHealingItem.roles.tanks.characters.map((player) => {
-         ( // pushes tanks to healing array
-            tempHealingRows.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, HPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
-         )})
-      setDamageRows(tempDamageRows); // sets damage rows variable to our stored damage array
-      setHealingRows(tempHealingRows); // sets our healing rows variable to our stored healing array
-   }; // end of onLoad function
+   const pageRefreshHandler = () => {
+      const queryString = window.location.hash.substring(15);
+      const getSearchQueryByFullURL = (url) => {return url.split('&')}
+      let report = getSearchQueryByFullURL(queryString)[0];
+      let bossName = getSearchQueryByFullURL(queryString)[1].substring(5).split('+').join(' ');
+      let difficulty = getSearchQueryByFullURL(queryString)[2].substring(11);
+      let bossID = getSearchQueryByFullURL(queryString)[3].substring(3);
+      boss = {
+         difficulty: difficulty,
+         id: bossID,
+         name: bossName,
+         url: report
+      };
+      console.log(boss);
+      dispatch({ // send our boss item to be further broken down
+         type: "BOSS_REPORT",
+         payload: boss
+      });
+      dispatch({ // send our boss item to be further broken down
+         type: "HEALING_REPORT",
+         payload: boss
+      });
+   };
 
    return (
       <>
-         {(bossItem.roles === undefined || bossHealingItem.roles === undefined || healingRows == [] || damageRows == [] || bossItem.encounter == undefined || bossItem == undefined) ? 
-            <Box textAlign="center" aria-label="Waiting for response">
-               <h1>Loading</h1>
-               <CircularProgress style={{height:"10%", width:"10%"}}/>
+         {(fightInfo == [] ? <div>LOADING</div> :
+         <Box aria-label="user page">
+            <Box textAlign="center" aria-label="user information">
+               <Typography align="center" variant="h2" component="h2" gutterBottom>
+                  {getSearchQueryByFullURL(window.location.hash.substring(15))[2].substring(11)}
+                  &nbsp;
+                  {getSearchQueryByFullURL(window.location.hash.substring(15))[1].substring(5).split('+').join(' ')}
+               </Typography>
             </Box>
-         :
-            <Box aria-label="user page">
-               <Box textAlign="center" aria-label="user information">
-                  <Button variant="contained" color="primary" disableElevation onClick={test}>Test</Button>
-                  <Typography align="center" variant="h2" component="h2" gutterBottom>{
-                     difficultyConverter(bossItem.difficulty)} {bossItem.encounter.name}
-                  </Typography>
-               </Box>
             <br /><br /><br />
-               <Grid container style={{width: "100%", height: "2000px"}} justify="space-between" aria-label="history and favorites tables container">
-                  <Box style={{width: "49%"}} alignItems="flex-end" aria-label="favorites table container">
-                     {( damageRows == [] ) ? 
-                        <Box textAlign="center" aria-label="Waiting for response">
-                           <h1>Loading</h1>
-                           <CircularProgress style={{height:"10%", width:"10%"}}/>
-                        </Box>
-                     :
-                        <>
-                           <Typography align="center" variant="h3" component="h2" gutterBottom>
-                              Damage
-                           </Typography>
-                           <DataGrid
-                           autoHeight
-                           autoWidth
-                           style={{backgroundColor: '#242424', color: 'white'}}
-                           rows={damageRows}
-                           columns={damageDataColumns}
-                            />
-                        </>
-                     }
-                  </Box>   
-                  <br />
-                  <Box style={{width: "49%"}} alignItems="flex-end" aria-label="favorites table container">
-                     {( healingRows == [] ) ? 
-                        <Box textAlign="center" aria-label="Waiting for response">
-                           <h1>Loading</h1>
-                           <CircularProgress style={{height:"10%", width:"10%"}}/>
-                        </Box>
-                     :
-                        <>
-                           <Typography align="center" variant="h3" component="h2" gutterBottom>
-                              Healing
-                           </Typography>
-                           <DataGrid
-                           forceUpdate
-                           autoHeight
-                           autoWidth
-                           style={{backgroundColor: '#242424', color: 'white'}}
-                           rows={healingRows}
-                           columns={healingDataColumns}
-                           />
-                        </>
-                     }
-                  </Box>
-               </Grid>
-            </Box>
-         }
+            <Grid container style={{width: "100%", height: "2000px"}} justify="space-between" aria-label="history and favorites tables container">
+               <Box style={{width: "49%"}} alignItems="flex-end" aria-label="favorites table container">
+                  <Typography align="center" variant="h3" component="h2" gutterBottom>Damage</Typography>
+                  <DataGrid
+                     disableSelectionOnClick
+                     autoHeight
+                     autoWidth
+                     style={{backgroundColor: '#242424', color: 'white'}}
+                     rows={fightInfo}
+                     columns={damageDataColumns}
+                  />
+               </Box>   
+            <br />
+               <Box style={{width: "49%"}} alignItems="flex-end" aria-label="favorites table container">
+                  <Typography align="center" variant="h3" component="h2" gutterBottom>Healing</Typography>
+                  <DataGrid
+                     disableSelectionOnClick 
+                     autoHeight
+                     autoWidth
+                     style={{backgroundColor: '#242424', color: 'white'}}
+                     rows={healingInfo}
+                     columns={healingDataColumns}
+                  />
+               </Box>
+            </Grid>
+         </Box>
+         )}
       </>
    );
 }; // main function for this page

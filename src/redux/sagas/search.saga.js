@@ -12,7 +12,7 @@ function* search(searchQuery) { // main search function, this is where we sort o
       const start = date.toLocaleDateString("en-US"); // converts date to a readable format
       const overview = {date: start, report_length: (WCLResponse.data.end - WCLResponse.data.start), title: WCLResponse.data.title, zone: WCLResponse.data.zone, url: query};
       // sets a new variable overview and gives it data we want to send
-      const report = {id: query, name: WCLResponse.data.data.reportData.report.title};
+      const report = {id: query, name: WCLResponse.data.data.reportData.report.title, data: WCLResponse.data.data};
       // sets a new variable report and gives it data we want to send
       yield put ({type: "POST_SUMMARY", payload: WCLResponse.data.data.reportData.report}); // POST_SUMMARY
       yield put ({type: "POST_REPORT", payload: report}); // POST_REPORT
