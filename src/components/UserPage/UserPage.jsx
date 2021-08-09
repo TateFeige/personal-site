@@ -1,15 +1,12 @@
 //Main imports
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
 
 //MaterialUI imports
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import InputLabel from '@material-ui/core/InputLabel';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Modal from '@material-ui/core/Modal';
@@ -24,7 +21,7 @@ function UserPage() {
    const favoritesDataColumns = [{ field: 'date', type: 'date', headerName: 'Date Created', flex: 2 }, { field: 'guild', type: 'string', headerName: 'Guild', flex: 2 }, { field: 'title', type: 'string', headerName: 'Report Name', flex: 2,  renderCell: (params) => {return (<div style={{ cursor: "pointer" }}>{params.row.title}</div>);}}, { field: 'zone', type: 'string', headerName: 'Zone', flex: 2 }, { field: 'DeleteButton', type: 'string', headerName: 'Delete', flex: 2, renderCell: (params) => {return (<div style={{ cursor: "pointer" }}><Button variant="contained" color="secondary" onClick={() => deleteFavorite(params.row)}>Delete</Button></div>);}},];
    // condensed handler for datagrid columns
    const deleteFavorite = (item) => { // handles deleting the selected item
-      if (confirm(`Remove << ${item.title} >> from your favorites?`) === false) { // pop up asking for confirmation of delete, if cancel is hit decline to delete
+      if (confirm(`Remove <${item.title}> from your favorites?`) === false) { // pop up asking for confirmation of delete, if cancel is hit decline to delete
          return false;
      };
       dispatch({

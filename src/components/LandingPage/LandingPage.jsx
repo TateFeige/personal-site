@@ -16,7 +16,8 @@ function LandingPage() {
 
   return (
     <div className="container">
-      <h2>{heading}</h2>
+      <h1>{heading}</h1>
+      <h2>To get started, simply enter a valid WarcraftLogs report URL or report code in the input above.</h2>
       <div className="grid">
         <div className="grid-col grid-col_8">
         </div>

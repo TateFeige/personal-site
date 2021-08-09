@@ -71,7 +71,7 @@ function Nav() {
             setSearchURL(''); // clear search field
             return false;
       };
-      alert("an unknown error has occurred. Please try again");
+      alert("An unknown error has occurred. Please try again");
     };
 
    return (
