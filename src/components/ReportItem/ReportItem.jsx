@@ -46,9 +46,13 @@ function ReportItem(item) { // main function for this page
    };
 
    const fightSummary = (item) => {
-      console.log('fightSummary item is:', item); // test function
+      //console.log('fightSummary item is:', item); // test function
       dispatch({ // send our boss item to be further broken down
          type: "BOSS_REPORT",
+         payload: item
+      });
+      dispatch({ // send our boss item to be further broken down
+         type: "HEALING_REPORT",
          payload: item
       });
       history.push(`/fight?report=${item.url}&boss=${item.name}&difficulty=${item.difficulty}`); // push the user to a page based on the report and its information

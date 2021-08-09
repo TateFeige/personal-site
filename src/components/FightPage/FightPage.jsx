@@ -190,10 +190,6 @@ const damageDataColumns = [ // column data for the damage data grid
 
 function FightPage() { // main function for this page
    const history = useHistory();
-   const [bossItem, setBossItem] = useState({});
-   const [bossHealingItem, setBossHealingItem] = useState({});
-   const [damageRows, setDamageRows] = useState([]);
-   const [healingRows, setHealingRows] = useState([]);
    const classes = useStyles();
    const dispatch = useDispatch();
    const user = useSelector((store) => store.user);
@@ -215,53 +211,9 @@ function FightPage() { // main function for this page
       };
    };
 
-   // const findFight = () => { // loops through our complete fight array and locates the boss that the user clicked on
-   //    for (let x = 0; x < report.length; x++) { // loops through damage array
-   //       //console.log(report[x]);
-   //          if (report[x].fightID == fightInfo.id) {
-   //          //boss = report[x];
-   //          const match = report[x];
-   //          setBossItem(match); // set boss to be mapped
-   //          //console.log('boss is:', match);
-   //    }};
-   //    for (let x = 0; x < healingInfo.reportData.report.rankings.data.length; x++) { // loops through healing array
-   //       //console.log(report[x]);
-   //          if (healingInfo.reportData.report.rankings.data[x].fightID == fightInfo.id) {
-   //          //boss = report[x];
-   //          const healingMatch = healingInfo.reportData.report.rankings.data[x];
-   //          setBossHealingItem(healingMatch); // set boss to be mapped
-   //          //console.log(bossItem);
-   //    }};
-   //   // test();
-   // }; // end of findFight
-      
-   // useEffect(() => { // get data on page load
-   //    dispatch({
-   //       type: "GET_FIGHT"
-   //    })
-   // }, []);
-
    const test = () => {
       console.log(fightInfo[5]);
    };
-
-   // const test = () => { // onLoad function
-   //    console.log(bossItem) // test function
-   //    let tempHealingRows = []; // holder for healing data
-   //    bossHealingItem.roles.dps.characters.map((player) => {
-   //       ( // pushes DPS to healing array
-   //          tempHealingRows.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, HPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
-   //       )});
-   //    bossHealingItem.roles.healers.characters.map((player) => {
-   //       ( // pushes healers to healing array
-   //          tempHealingRows.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, HPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
-   //       )})
-   //    bossHealingItem.roles.tanks.characters.map((player) => {
-   //       ( // pushes tanks to healing array
-   //          tempHealingRows.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, HPS: player.amount.toFixed(2), ilvl: player.bracketData, bracketPercent: player.bracketPercent})
-   //       )})
-   //    setHealingRows(tempHealingRows); // sets our healing rows variable to our stored healing array
-   // }; // end of onLoad function
 
    return (
       <>
