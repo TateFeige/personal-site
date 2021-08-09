@@ -1,16 +1,18 @@
 //Main imports
 import React from 'react';
 import {useDispatch} from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 //MaterialUI imports
 import { withStyles, makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 const StyledTableCell = withStyles((theme) => ({head:{backgroundColor: theme.palette.common.black, color: theme.palette.common.white}, body:{fontSize: 18,}}))(TableCell);
 
 
 function ReportItem(item) { // main function for this page
+   const location = useLocation();
    const history = useHistory();
    const dispatch = useDispatch();
    const millisToMinutesAndSeconds = (millis) => { // function to convert the fight length (given from API in milliseconds) to minutes:seconds (much more readable)
@@ -44,7 +46,6 @@ function ReportItem(item) { // main function for this page
             return "no image found";
       };
    };
-   
 
    const fightSummary = (item) => {
       console.log('fightSummary item is:', item); // test function
@@ -56,7 +57,31 @@ function ReportItem(item) { // main function for this page
          type: "HEALING_REPORT",
          payload: item
       });
-      history.push(`/fight?report=${item.url}&boss=${item.name}&difficulty=${item.difficulty}&id=${item.id}`); // push the user to a page based on the report and its information
+      // history.push({
+      //    pathname: '/fight',
+      //    search: `${item.url}`,
+      //    hash: `${item.id}`,
+      //  })
+      //history.push(`/fight?report=${item.url}&boss=${item.name}&difficulty=${item.difficulty}&id=${item.id}`); // push the user to a page based on the report and its information
+      let params = new URLSearchParams();
+
+      //Add a third parameter.
+      params.append('report', item.url);
+      params.append('boss', item.name);
+      params.append('difficulty', item.difficulty);
+      params.append('id', item.id);
+      params.toString();
+      history.push({
+         pathname: '/fight',
+         search: `${params.toString()}`,
+         state: { params: params }
+       })
+      //history.push(`/fight/${params.toString()}`);
+      console.log(params.toString())
+   };
+
+   const test = () => {
+      
    };
 
    return (

@@ -63,7 +63,7 @@ function* healingReport(reportItem) {
                )});
          };
       };
-      console.log("healing send back is:", reportToSend);
+      //console.log("healing send back is:", reportToSend);
       yield put({type: "POST_HEALING", payload: reportToSend});
    }
    catch (error) {

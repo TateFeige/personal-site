@@ -27,6 +27,7 @@ import './App.css';
 function App() {
   const dispatch = useDispatch();
 
+
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
   }, [dispatch]);
@@ -47,23 +48,23 @@ function App() {
           >
             <AboutPage />
           </Route> */}
+          {/* <Route
+            path="/report"
+          >
+             <ReportPage />
+          </Route> */}
           <Route
             path="/report"
           >
              <ReportPage />
           </Route>
-          <Route
-            exact path="/report/:id"
-          >
-             <ReportPage />
-          </Route>
-          <Route
+          {/* <Route
             path="/fight"
           >
              <FightPage />
-          </Route>
+          </Route> */}
           <Route
-            exact path="/fight/:id  "
+            path="/fight"
           >
              <FightPage />
           </Route>
