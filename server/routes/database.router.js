@@ -152,6 +152,19 @@ router.get('/getdb', (req, res) => { // gets database of reports for displaying 
    })
 });
 
+router.get('/checkdb', (req, res) => { // gets database of reports for displaying on the user page
+   let qText = `SELECT report_code FROM "reports"`; // main query to send
+   pool.query(qText)
+   .then (results => 
+      res.send(results.rows)
+   )
+   .catch (error => { // catches any errors and console.logs them
+      console.log("Error in checkdb:", error);
+      res.sendStatus(500);
+   })
+});
+
+
 
 router.get('/getfavorites', (req, res) => { // gets the users personal favorites
    res.send(req.user.favorites);

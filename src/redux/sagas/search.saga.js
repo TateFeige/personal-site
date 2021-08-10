@@ -8,8 +8,8 @@ function* search(searchQuery) { // main search function, this is where we sort o
       const WCLResponse = yield axios.get(`/api/search/search/${query}`); // sets a variable to our response
       const report = {id: query, name: WCLResponse.data.data.reportData.report.title, data: WCLResponse.data.data};
       // sets a new variable report and gives it data we want to send
-      yield put ({type: "POST_SUMMARY", payload: WCLResponse.data.data.reportData.report}); // POST_SUMMARY
       yield put ({type: "POST_REPORT", payload: report}); // POST_REPORT
+      yield put ({type: "POST_SUMMARY", payload: WCLResponse.data.data.reportData.report}); // POST_SUMMARY
    }
    catch(error) { // catches any errors and logs them
       console.log(`Error in search.saga, ${error}`); 
