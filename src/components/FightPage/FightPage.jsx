@@ -163,7 +163,6 @@ const damageDataColumns = [ // column data for the damage data grid
          <>
             {Number(params.value).toFixed(1).toLocaleString("en-US")}
          </>
-      
       ),
    },
    { field: 'ilvl', type: 'number', headerName: 'ilvl', flex: 2 },
