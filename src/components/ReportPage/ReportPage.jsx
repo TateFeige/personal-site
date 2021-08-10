@@ -33,7 +33,7 @@ function ReportPage() { // main function for this page
    const user = useSelector((store) => store.user);
    const report = useSelector((store) => store.search);
    const reportInfo = useSelector((store) => store.report);
-   const difficultyConverter = (difficulty) => { switch (difficulty) {case 1: return "Looking For Raid"; case 3: return "Normal"; case 4: return "Heroic"; case 5: return "Mythic"; case 10: return "Mythic+";  default: return "Unknown";};};
+   const difficultyConverter = (difficulty) => { switch (difficulty.difficulty) {case 1: return "Looking For Raid"; case 3: return "Normal"; case 4: return "Heroic"; case 5: return "Mythic"; case 10: return `Mythic+`;  default: return `Unknown`;};};
    // function to convert difficulty (given from API as a number) to a string (so it can be read by the user)
    useEffect(() => { // get data on page load
       dispatch({ // main API call for the search query, returns some core information and the damage report
@@ -87,7 +87,7 @@ function ReportPage() { // main function for this page
                      <TableBody>
                         {report.map((reportItem) => {
                            return (
-                              <ReportItem id={reportItem.fightID} url={reportInfo.id} difficulty={difficultyConverter(reportItem.difficulty)} name={reportItem.encounter.name} length={reportItem.duration}/>
+                                 <ReportItem id={reportItem.fightID} url={reportInfo.id} difficulty={difficultyConverter({difficulty: reportItem.difficulty, data: reportItem})} name={reportItem.encounter.name} length={reportItem.duration} keystoneLevel={reportItem.bracket}/>
                         );})}
                      </TableBody>
                   </Table>

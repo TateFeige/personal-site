@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 //MaterialUI imports
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 const StyledTableCell = withStyles((theme) => ({head:{backgroundColor: theme.palette.common.black, color: theme.palette.common.white}, body:{fontSize: 18,}}))(TableCell);
@@ -108,8 +109,15 @@ function ReportItem(item) { // main function for this page
 
    return (
       <TableRow onClick={() => fightSummary(item)} style={{color: 'white'}}>
-        <StyledTableCell style={{color: 'white'}} align="left">{item.difficulty}</StyledTableCell>
-        <StyledTableCell style={{color: 'white'}} align="left"><img src={bossImage(item.name)} />{item.name}</StyledTableCell>
+        <StyledTableCell style={{color: 'white'}} align="left">{item.difficulty} {item.keystoneLevel}</StyledTableCell>
+        <StyledTableCell style={{color: 'white'}} align="left">
+            <Typography style={{display:"flex", textAlign: "left"}}>
+               <img style={{height: "48px", align: "center"}} src={bossImage(item.name)} alt={item.name} title={item.name}/>
+               <Typography style={{align:"left", marginTop: "auto", marginBottom: "auto"}}>&nbsp;&nbsp;
+                  {item.name}
+               </Typography>
+            </Typography>
+        </StyledTableCell>
         <StyledTableCell style={{color: 'white'}} align="left">{millisToMinutesAndSeconds(item.length)}</StyledTableCell>
       </TableRow>
    );

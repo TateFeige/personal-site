@@ -28,6 +28,7 @@ router.get('/search/:search', (req, res) => { // main search request, takes in U
                   code
                   startTime
                   title
+                  fights {keystoneLevel}
                   rankings(playerMetric: dps)
                }
             }
