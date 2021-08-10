@@ -21,7 +21,6 @@ router.get('/search/:search', (req, res) => { // main search request, takes in U
    };
    axios(config) // runs our first axios call
    .then(response => {
-   //console.log(response.data); //test function
       var data = JSON.stringify({ // main graphQL query, converted a string so axios can use it
          query: `{ 
             reportData {
@@ -47,7 +46,6 @@ router.get('/search/:search', (req, res) => { // main search request, takes in U
       };
       axios(config) // runs our second axios call
       .then(response => {
-         console.log("MAIN SEARCH RESPONSE IS:", response.data.data.reportData.report); // test function
          res.send(response.data) // send our data back
          })
       .catch(error => { // catch errors in second axios call (since it is nested inside the first call)

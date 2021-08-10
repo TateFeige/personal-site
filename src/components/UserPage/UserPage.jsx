@@ -63,7 +63,6 @@ function UserPage() {
       let characterRealm = '';
       let characterName = '';
       let profileLink = '';
-      //console.log(getSearchQueryByFullURL("https://raider.io/characters/us/kiljaeden/Sageth"));
       if (getSearchQueryByFullURL(armoryLink)[2] == "www.warcraftlogs.com") { // checks if input URL warcraftlogs.com and then isolates data to set as user character
          characterRegion = (getSearchQueryByFullURL(armoryLink)[4].toUpperCase());
          characterRealm = (getSearchQueryByFullURL(armoryLink)[5].charAt(0).toUpperCase() + getSearchQueryByFullURL(armoryLink)[5].slice(1));

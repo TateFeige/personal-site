@@ -5,14 +5,9 @@ function* report(reportItem) {
    const removeTilde = (url) => {return url.split('~').pop()};
    let reportToSend = [];
    const boss = reportItem.payload;
-   //console.log(`report saga has:`, boss); // test function
    try {
-      //console.log('bossResponse is:', boss); // test function
       const WCLResponse = yield axios.get(`/api/search/search/${boss.url}`);
-      //console.log("POST_BOSS_FIGHT:", WCLResponse.data.data.reportData.report);
       for (let x = 0; x < WCLResponse.data.data.reportData.report.rankings.data.length; x++) {
-         //console.log("Looking for:", boss);
-         //console.log (WCLResponse.data.data.reportData.report.rankings.data[x]);
          if (boss.id == WCLResponse.data.data.reportData.report.rankings.data[x].fightID) {
             WCLResponse.data.data.reportData.report.rankings.data[x].roles.tanks.characters.map((player) => {
                ( // pushes DPS players to damage array
@@ -28,7 +23,6 @@ function* report(reportItem) {
                )});
          }
       };
-      //console.log(reportToSend);
       yield put({type: "POST_BOSS_FIGHT", payload: reportToSend});
    }
    catch(error) {
@@ -40,14 +34,9 @@ function* healingReport(reportItem) {
    const removeTilde = (url) => {return url.split('~').pop()};
    let reportToSend = [];
    const boss = reportItem.payload;
-   //console.log(`healing report saga has:`, boss); // test function
    try {
-      //console.log('bossResponse is:', boss); // test function
       const WCLResponse = yield axios.get(`/api/search/healing/${boss.url}`);
-      //console.log("POST_HEALING:", WCLResponse.data.data);
       for (let x = 0; x < WCLResponse.data.data.reportData.report.rankings.data.length; x++) {
-         //console.log("Looking for:", boss);
-         //console.log (WCLResponse.data.data.reportData.report.rankings.data[x]);
          if (boss.id == WCLResponse.data.data.reportData.report.rankings.data[x].fightID) {
             WCLResponse.data.data.reportData.report.rankings.data[x].roles.tanks.characters.map((player) => {
                ( // pushes DPS players to damage array
@@ -63,7 +52,6 @@ function* healingReport(reportItem) {
                )});
          };
       };
-      //console.log("healing send back is:", reportToSend);
       yield put({type: "POST_HEALING", payload: reportToSend});
    }
    catch (error) {

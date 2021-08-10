@@ -4,8 +4,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 require('dotenv').config();
 
-router.get('/newitem/:search', (req, res) => { // main request to post search query to database
-   // side request, sent alongside the main search request since we cannot get both DPS rankings and HPS rankings in the same graphQL call and thus need to make a second call to the API
+router.get('/newitem/:search', (req, res) => { // sent on search submit, gets data from API and stores it in our database
    const search = req.params.search;
    const qs = require('qs'); // graphQL stuff
    const dataString = qs.stringify({ // graphQL stuff
@@ -22,7 +21,6 @@ router.get('/newitem/:search', (req, res) => { // main request to post search qu
    };
    axios(config) // runs our first axios call
    .then(response => {
-      //console.log(response.data); // test function
       var data = JSON.stringify({ // main graphQL query, converted a string so axios can use it
          query: `{
             reportData {
@@ -50,7 +48,6 @@ router.get('/newitem/:search', (req, res) => { // main request to post search qu
       };
       axios(config)// runs our second axios call
       .then(response => {
-         //console.log(response.data.data.reportData.report); // test function
          res.send(response.data)// send our data back
       })
       .catch(error => {
@@ -60,7 +57,7 @@ router.get('/newitem/:search', (req, res) => { // main request to post search qu
    .catch(error => {
       console.log(error); // catch errors in first axios call
    });
-}); // end of main healing request
+}); // end of database report post
 
 router.post('/additem', (req, res) => { // adds the searched for report to our database for user page displaying
    let guildFaction = "none"; // default value for inserting into DB since PostgreSQL default is finicky
@@ -96,15 +93,12 @@ router.post('/additem', (req, res) => { // adds the searched for report to our d
 });
 
 router.post('/addfavorite/:favorite', (req, res) => { // adds a report to the users database info
-   //console.log('req is:', req.params.favorite); // test function
-   //console.log(req.user.id); // test function
+
    let qText = `SELECT favorites FROM "user" WHERE id = $1`;
    pool.query(qText, [req.user.id])
    .then (results => {
-      console.log(results.rows[0].favorites);
-      const favoritesArray = results.rows[0].favorites;
+      let favoritesArray = results.rows[0].favorites;
       favoritesArray.push(req.params.favorite);
-      console.log(favoritesArray);
       let qText = `UPDATE "user" SET favorites = $1 WHERE id = $2`;
       pool.query(qText, [favoritesArray, req.user.id])
       .then (() => 
@@ -122,8 +116,6 @@ router.post('/addfavorite/:favorite', (req, res) => { // adds a report to the us
 });
 
 router.post('/removefavorite/:favorite', (req, res) => { // adds a report to the users database info
-   //console.log('req is:', req.params.favorite); // test function
-   //console.log(req.user.id); // test function
    let qText = `SELECT favorites FROM "user" WHERE id = $1`;
    pool.query(qText, [req.user.id])
    .then (results => {
@@ -132,7 +124,6 @@ router.post('/removefavorite/:favorite', (req, res) => { // adds a report to the
       favoritesList = favoritesList.filter((item) => { // delete item from favorites array
          return item !== itemToRemove
       });
-      console.log('returned:', favoritesList); // test function
       let qText = `UPDATE "user" SET favorites = $1 WHERE id = $2`;
       pool.query(qText, [favoritesList, req.user.id])
       .then (() => 
@@ -150,7 +141,6 @@ router.post('/removefavorite/:favorite', (req, res) => { // adds a report to the
 });
 
 router.get('/getdb', (req, res) => { // gets database of reports for displaying on the user page
-   //console.log('in getdb router');
    let qText = `SELECT * FROM "reports"`;
    pool.query(qText)
    .then (results => 
@@ -163,7 +153,6 @@ router.get('/getdb', (req, res) => { // gets database of reports for displaying 
 });
 
 router.get('/getfavorites', (req, res) => { // gets the users personal favorites
-   //console.log('in getfavorites router');
    res.send(req.user.favorites);
 });
 

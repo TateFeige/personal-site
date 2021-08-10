@@ -3,10 +3,8 @@ import axios from 'axios';
 
 function* addFavorite(favoriteItem) {
    const favorite = favoriteItem.payload;
-   //console.log(`addFavorite saga has:`, favorite); // test function
    try {
       const favorites = yield axios.get('/api/database/getfavorites');
-      //console.log('Favorites saga has:', favorites) // test function
       for (let x = 0; x < favorites.data.length; x++) { // checks user's current favorites for a match and declines to post if there is one
          if (favorites.data[x] == favorite) { // alert user with a popup if there is a match
             alert(`Looks like you're trying to add a duplicate!
@@ -35,22 +33,16 @@ function* deleteFavorite(favoriteItem) {
 
 function* getFavorites() {
    try {
-      //console.log('Getting favorites');
       const favorites = yield axios.get('/api/database/getfavorites');
-      //console.log(favorites.data); // test function
       const db = yield axios.get('/api/database/getdb');
-      //console.log(db.data); // test function
       let favoritesDetails = [];
       for (let x = 0; x < db.data.length; x++) {
-         //console.log(db.data[x].report_code); // test function
          for (let y = 0; y < favorites.data.length; y++) {
-            //console.log(favorites.data[y]); // test function
-            if (favorites.data[y] == db.data[x].report_code) {
-               //console.log(db.data[x]); // test function
+            if (favorites.data[y] == db.data[x].report_code)
+            {
                favoritesDetails.push(db.data[x]);
             };
          };
-      //console.log(favoritesDetails); // test function
       };
       yield put ({type: "POST_FAVORITES_LIST", payload: favoritesDetails});
    }

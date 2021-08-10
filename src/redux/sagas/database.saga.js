@@ -3,12 +3,8 @@ import axios from 'axios';
 
 function* addToDatabase(reportItem) { // main call for adding an item to our report database
    const item = reportItem.payload;
-   //console.log(`addToDatabase saga has:`, item); // test function
    try {
-      //const favoriteItem = yield axios.get(')
-      //console.log(item);
       const itemToAdd = yield axios.get(`/api/database/newitem/${item}`);
-      //console.log('test came back:', itemToAdd); // test function
       yield axios.post(`/api/database/additem`, itemToAdd);
    }
    catch(error) {
