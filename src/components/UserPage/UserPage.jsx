@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 //MaterialUI imports
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Modal from '@material-ui/core/Modal';
@@ -16,10 +16,9 @@ import Fade from '@material-ui/core/Fade';
 import { DataGrid } from '@material-ui/data-grid';
 const useStyles = makeStyles((theme) => ({table: {minWidth: 700}}, {modal: {display: 'flex', alignItems: 'center', justifyContent: 'center', color:"black"}, paper: {backgroundColor: theme.palette.background.paper, border: '2px solid #000', boxShadow: theme.shadows[5], padding: theme.spacing(2, 4, 3),},}));
 import './UserPage.css';
-//end of MaterialUI imports
 
 
-function UserPage() {
+function UserPage() { // main function for this page
    const favoritesDataColumns = [{ field: 'date', type: 'date', headerName: 'Date Created', flex: 2 }, { field: 'guild', type: 'string', headerName: 'Guild', flex: 2 }, { field: 'title', type: 'string', headerName: 'Report Name', flex: 2,  renderCell: (params) => {return (<div style={{ cursor: "pointer" }}>{params.row.title}</div>);}}, { field: 'zone', type: 'string', headerName: 'Zone', flex: 2 }, { field: 'DeleteButton', type: 'string', headerName: 'Delete', flex: 2, renderCell: (params) => {return (<div style={{ cursor: "pointer" }}><Button variant="contained" color="secondary" onClick={() => deleteFavorite(params.row)}>Delete</Button></div>);}},];
    // condensed handler for datagrid columns
    const deleteFavorite = (item) => { // handles deleting the selected item
@@ -63,7 +62,6 @@ function UserPage() {
       let characterRealm = '';
       let characterName = '';
       let profileLink = '';
-      //console.log(getSearchQueryByFullURL("https://raider.io/characters/us/kiljaeden/Sageth"));
       if (getSearchQueryByFullURL(armoryLink)[2] == "www.warcraftlogs.com") { // checks if input URL warcraftlogs.com and then isolates data to set as user character
          characterRegion = (getSearchQueryByFullURL(armoryLink)[4].toUpperCase());
          characterRealm = (getSearchQueryByFullURL(armoryLink)[5].charAt(0).toUpperCase() + getSearchQueryByFullURL(armoryLink)[5].slice(1));
@@ -103,8 +101,10 @@ function UserPage() {
          type: "CHANGE_CHARACTER",
          payload: characterToSend
       });
-      console.log(characterToSend);
       handleClose();
+      dispatch({
+         type: "FETCH_USER"
+      });
    };
    
 
@@ -132,14 +132,14 @@ function UserPage() {
             >
                <Fade in={open}>
                   <Box className={classes.paper} style={{width: "35%", height: "10%", minHeight:"150px"}} aria-labelledby="Change Character Input">
-                  <TextField style={{width: "100%"}} id="SetLink" label="Link" helperText={<>
-                  <a href="https://www.warcraftlogs.com" target="_blank" style={{fontSize: "16px"}}>WarcraftLogs</a><a style={{fontSize: "16px"}}>, </a>
-                  <a href="https://worldofwarcraft.com" target="_blank" style={{fontSize: "16px"}}>WorldofWarcraft</a><a style={{fontSize: "16px"}}>, or </a>
-                  <a href="https://raider.io" target="_blank" style={{fontSize: "16px"}}>Raider.io</a>
-                  </>
-                  } placeholder="E.g. https://worldofwarcraft.com/en-us/character/us/kelthuzad/Asmongold" variant="outlined" value={armoryLink} onChange={(event) => setArmoryLink(event.target.value)}/><br />
-                  <br />
-                  <Button style={{width: "30%", height:"35%", display: "flex", justify:"flex-end"}} variant="contained" color="primary" disableElevation onClick={saveCharacter}>Save</Button>
+                     <TextField style={{width: "100%"}} id="SetLink" label="Link" helperText={<>
+                        <a href="https://www.warcraftlogs.com" target="_blank" style={{fontSize: "16px"}}>WarcraftLogs</a><a style={{fontSize: "16px"}}>, </a>
+                        <a href="https://worldofwarcraft.com" target="_blank" style={{fontSize: "16px"}}>WorldofWarcraft</a><a style={{fontSize: "16px"}}>, or </a>
+                        <a href="https://raider.io" target="_blank" style={{fontSize: "16px"}}>Raider.io</a>
+                     </>} 
+                     placeholder="E.g. https://worldofwarcraft.com/en-us/character/us/kelthuzad/Asmongold" variant="outlined" value={armoryLink} onChange={(event) => setArmoryLink(event.target.value)}/><br />
+                     <br />
+                     <Button style={{width: "30%", height:"35%", display: "flex", justify:"flex-end"}} variant="contained" color="primary" disableElevation onClick={saveCharacter}>Save</Button>
                   </Box>
                </Fade>
             </Modal>
@@ -168,7 +168,7 @@ function UserPage() {
       }
       </>
    );
-};
+}; // end of main function for this page
 
 
 export default UserPage;

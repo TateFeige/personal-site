@@ -2,7 +2,6 @@
 import React from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
 import './Nav.css';
 
@@ -18,7 +17,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 const useStyles = makeStyles((theme) => ({root:{display: 'flex', flexWrap: 'wrap'}, margin:{width: '600px',  margin: theme.spacing(1), justifyContent:"flex-start",}, withoutLabel:{marginTop: theme.spacing(3)}}));
-//end of MaterialUI imports
 
 
 function Nav() {    
@@ -33,14 +31,12 @@ function Nav() {
    const user = useSelector((store) => store.user);
     const search = () => {
       let searchQuery = getSearchQueryByFullURL(searchURL);
-      //console.log(getSearchQueryByFullURL(searchURL));
       if (searchURL == '' || searchURL == ' ' || searchURL.length < 8) {
          alert("Please enter a valid search");
          setSearchURL(''); // clear search field
          return false;
       };
       if (searchQuery[0] !== "https:" && searchQuery[0] !== ""  && searchQuery[0]) {
-            //console.log('searching for:', searchQuery[0]);
             dispatch({ // main API call for the search query, returns some core information and the damage report
                type: 'SEARCH',
                payload: searchQuery[0]
@@ -58,7 +54,6 @@ function Nav() {
          return false;
       };
       if (searchQuery[2] == "www.warcraftlogs.com") {
-            //console.log('searching for:', searchQuery[4]);
             dispatch({ // main API call for the search query, returns some core information and the damage report
                type: 'SEARCH',
                payload: searchQuery[4]
@@ -101,5 +96,6 @@ function Nav() {
       </Box>
    );
 };
+
 
 export default Nav;

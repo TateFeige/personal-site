@@ -4,8 +4,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 require('dotenv').config();
 
-router.get('/newitem/:search', (req, res) => { // main request to post search query to database
-   // side request, sent alongside the main search request since we cannot get both DPS rankings and HPS rankings in the same graphQL call and thus need to make a second call to the API
+router.get('/newitem/:search', (req, res) => { // sent on search submit, gets data from API and stores it in our database
    const search = req.params.search;
    const qs = require('qs'); // graphQL stuff
    const dataString = qs.stringify({ // graphQL stuff
@@ -22,7 +21,6 @@ router.get('/newitem/:search', (req, res) => { // main request to post search qu
    };
    axios(config) // runs our first axios call
    .then(response => {
-      //console.log(response.data); // test function
       var data = JSON.stringify({ // main graphQL query, converted a string so axios can use it
          query: `{
             reportData {
@@ -50,7 +48,6 @@ router.get('/newitem/:search', (req, res) => { // main request to post search qu
       };
       axios(config)// runs our second axios call
       .then(response => {
-         //console.log(response.data.data.reportData.report); // test function
          res.send(response.data)// send our data back
       })
       .catch(error => {
@@ -60,7 +57,8 @@ router.get('/newitem/:search', (req, res) => { // main request to post search qu
    .catch(error => {
       console.log(error); // catch errors in first axios call
    });
-}); // end of main healing request
+}); // end of database report post
+
 
 router.post('/additem', (req, res) => { // adds the searched for report to our database for user page displaying
    let guildFaction = "none"; // default value for inserting into DB since PostgreSQL default is finicky
@@ -68,11 +66,9 @@ router.post('/additem', (req, res) => { // adds the searched for report to our d
    let guildServer = "none"; // default value for inserting into DB since PostgreSQL default is finicky
    const reportItem = req.body.data.data.reportData.report;
    const date = new Date(reportItem.startTime); // sets a date for the report
-   const start = date.toLocaleDateString("en-US")
-   //console.log('adding item:', reportItem); // test function 
+   const start = date.toLocaleDateString("en-US");
    let qText = `INSERT INTO "reports" (report_code, report_name, guild_faction, guild_name, guild_server, zone, date)
    VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id`; // main query to send
-   console.log('Guild is:', reportItem);
    if (reportItem.guild === null) {
       guildFaction = "none";
       guildName = "none";
@@ -83,7 +79,6 @@ router.post('/additem', (req, res) => { // adds the searched for report to our d
       guildName = reportItem.guild.name;
       guildServer = reportItem.guild.server.name;
    };
-   
    pool.query(qText, [reportItem.code, reportItem.title, guildFaction, guildName, guildServer, reportItem.zone.name, start ])
    // call our query with the data we want it to have 
    .then (() => 
@@ -95,17 +90,14 @@ router.post('/additem', (req, res) => { // adds the searched for report to our d
    });
 });
 
+
 router.post('/addfavorite/:favorite', (req, res) => { // adds a report to the users database info
-   //console.log('req is:', req.params.favorite); // test function
-   //console.log(req.user.id); // test function
-   let qText = `SELECT favorites FROM "user" WHERE id = $1`;
+   let qText = `SELECT favorites FROM "user" WHERE id = $1`; // main query to send
    pool.query(qText, [req.user.id])
    .then (results => {
-      console.log(results.rows[0].favorites);
-      const favoritesArray = results.rows[0].favorites;
+      let favoritesArray = results.rows[0].favorites;
       favoritesArray.push(req.params.favorite);
-      console.log(favoritesArray);
-      let qText = `UPDATE "user" SET favorites = $1 WHERE id = $2`;
+      let qText = `UPDATE "user" SET favorites = $1 WHERE id = $2`; // main query to send
       pool.query(qText, [favoritesArray, req.user.id])
       .then (() => 
          res.sendStatus(201)
@@ -121,19 +113,17 @@ router.post('/addfavorite/:favorite', (req, res) => { // adds a report to the us
    });
 });
 
+
 router.post('/removefavorite/:favorite', (req, res) => { // adds a report to the users database info
-   //console.log('req is:', req.params.favorite); // test function
-   //console.log(req.user.id); // test function
-   let qText = `SELECT favorites FROM "user" WHERE id = $1`;
+   let qText = `SELECT favorites FROM "user" WHERE id = $1`; // main query to send
    pool.query(qText, [req.user.id])
    .then (results => {
       let favoritesList = results.rows[0].favorites; // set an array to our response
       let itemToRemove = req.params.favorite; // set our item to filter out to our given param
       favoritesList = favoritesList.filter((item) => { // delete item from favorites array
-         return item !== itemToRemove
+         return item !== itemToRemove;
       });
-      console.log('returned:', favoritesList); // test function
-      let qText = `UPDATE "user" SET favorites = $1 WHERE id = $2`;
+      let qText = `UPDATE "user" SET favorites = $1 WHERE id = $2`; // main query to send
       pool.query(qText, [favoritesList, req.user.id])
       .then (() => 
          res.sendStatus(201)
@@ -149,9 +139,9 @@ router.post('/removefavorite/:favorite', (req, res) => { // adds a report to the
    });
 });
 
+
 router.get('/getdb', (req, res) => { // gets database of reports for displaying on the user page
-   //console.log('in getdb router');
-   let qText = `SELECT * FROM "reports"`;
+   let qText = `SELECT * FROM "reports"`; // main query to send
    pool.query(qText)
    .then (results => 
       res.send(results.rows)
@@ -162,20 +152,32 @@ router.get('/getdb', (req, res) => { // gets database of reports for displaying 
    })
 });
 
+router.get('/checkdb', (req, res) => { // gets database of reports for displaying on the user page
+   let qText = `SELECT report_code FROM "reports"`; // main query to send
+   pool.query(qText)
+   .then (results => 
+      res.send(results.rows)
+   )
+   .catch (error => { // catches any errors and console.logs them
+      console.log("Error in checkdb:", error);
+      res.sendStatus(500);
+   })
+});
+
+
+
 router.get('/getfavorites', (req, res) => { // gets the users personal favorites
-   //console.log('in getfavorites router');
    res.send(req.user.favorites);
 });
 
-router.post('/postcharacter/', (req, res) => {
-   console.log(req.body);
-   console.log(req.user);
-   let qText = `UPDATE "user" SET character = $1, armory = $2 WHERE id = $3`;
+
+router.post('/postcharacter/', (req, res) => { // post the users submitted character
+   let qText = `UPDATE "user" SET character = $1, armory = $2 WHERE id = $3`; // main query to send
    pool.query(qText, [req.body.name, req.body.armory, req.user.id])
    .then (results => 
       res.send(results.rows)
    )
-   .catch (error => {
+   .catch (error => { // catches any errors and console.logs them
       console.log('Error in postCharacter:', error);
       res.sendStatus(500);
    })
