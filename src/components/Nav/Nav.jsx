@@ -2,7 +2,6 @@
 import React from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
 import './Nav.css';
 
@@ -18,7 +17,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 const useStyles = makeStyles((theme) => ({root:{display: 'flex', flexWrap: 'wrap'}, margin:{width: '600px',  margin: theme.spacing(1), justifyContent:"flex-start",}, withoutLabel:{marginTop: theme.spacing(3)}}));
-//end of MaterialUI imports
 
 
 function Nav() {    
@@ -98,5 +96,6 @@ function Nav() {
       </Box>
    );
 };
+
 
 export default Nav;

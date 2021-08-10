@@ -24,8 +24,6 @@ import './App.css';
 
 function App() {
   const dispatch = useDispatch();
-
-
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
   }, [dispatch]);
@@ -106,6 +104,7 @@ function App() {
       </div>
     </Router>
   );
-}
+};
+
 
 export default App;

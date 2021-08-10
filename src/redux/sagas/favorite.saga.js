@@ -1,6 +1,7 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
+
 function* addFavorite(favoriteItem) {
    const favorite = favoriteItem.payload;
    try {
@@ -14,10 +15,11 @@ Why would you need this twice?`);
       };
       yield axios.post(`/api/database/addfavorite/${favorite}`); // if there isn't a match then post it
    }
-   catch (error) {
+   catch (error) { // catches any errors and logs them
       console.log('Error in addFavorites:', error);
    };
 };
+
 
 function* deleteFavorite(favoriteItem) {
    const favorite = favoriteItem.payload;
@@ -26,10 +28,11 @@ function* deleteFavorite(favoriteItem) {
       console.log(favorite);
       yield axios.post(`/api/database/removefavorite/${favorite}`);
    }
-   catch (error) {
+   catch (error) { // catches any errors and logs them
       console.log("Error in deleteFavorite:", error);
    };
 };
+
 
 function* getFavorites() {
    try {
@@ -46,7 +49,7 @@ function* getFavorites() {
       };
       yield put ({type: "POST_FAVORITES_LIST", payload: favoritesDetails});
    }
-   catch (error) {
+   catch (error) { // catches any errors and logs them
       console.log('Error in getFavorites:', error);
    };
 };
@@ -57,5 +60,6 @@ function* favoriteSaga() { // listens for calls and runs a given function when o
    yield takeLatest('DELETE_FAVORITE', deleteFavorite);
    yield takeLatest('GET_FAVORITES', getFavorites);
 };
+
   
 export default favoriteSaga;

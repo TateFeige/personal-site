@@ -8,4 +8,5 @@ const fightReducer = (state = [], action) => { // reducer that holds data for a 
    };
 };
 
+
 export default fightReducer;

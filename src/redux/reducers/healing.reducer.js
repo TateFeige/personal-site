@@ -1,5 +1,5 @@
-const healingReducer = (state = [], action) => { // reducer that holds our healing ranking info from the API cal;
-   switch (action.type) {
+const healingReducer = (state = [], action) => { // reducer that holds our healing ranking info from the API call;
+   switch (action.type){
       case "POST_HEALING":
          state = action.payload;
          return state;
@@ -7,5 +7,6 @@ const healingReducer = (state = [], action) => { // reducer that holds our heali
          return state;
    };
 };
+
 
 export default healingReducer;

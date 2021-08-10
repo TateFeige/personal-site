@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const searchReducer = (state = [], action) => { // reducer that holds our search query and its data returned
+const searchReducer = (state = [], action) => { // reducer that holds our search query
    switch (action.type) {
       case "POST_SUMMARY":
          state = action.payload.rankings.data;
@@ -13,5 +13,6 @@ const searchReducer = (state = [], action) => { // reducer that holds our search
          return state;
    };
 };
+
 
 export default searchReducer;

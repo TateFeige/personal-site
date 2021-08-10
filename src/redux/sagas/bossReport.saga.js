@@ -1,6 +1,7 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
+
 function* report(reportItem) {
    const removeTilde = (url) => {return url.split('~').pop()};
    let reportToSend = [];
@@ -30,6 +31,7 @@ function* report(reportItem) {
    };
 };
 
+
 function* healingReport(reportItem) {
    const removeTilde = (url) => {return url.split('~').pop()};
    let reportToSend = [];
@@ -54,14 +56,16 @@ function* healingReport(reportItem) {
       };
       yield put({type: "POST_HEALING", payload: reportToSend});
    }
-   catch (error) {
-      console.log("Error in healingReport:", error);
+   catch (error) { // catches any errors and logs them
+      console.log("Error in healingReport:", error); 
    };
 };
+
 
 function* bossReportSaga() { // listens for calls and runs a given function when one is heard
     yield takeLatest('BOSS_REPORT', report);
     yield takeLatest('HEALING_REPORT', healingReport);
 };
+
   
 export default bossReportSaga;

@@ -57,6 +57,7 @@ router.get('/search/:search', (req, res) => { // main search request, takes in U
    });
 }); // end of main search request
 
+
 router.get('/healing/:search', (req, res) => { 
    // side request, sent alongside the main search request since we cannot get both DPS rankings and HPS rankings in the same graphQL call and thus need to make a second call to the API
    const search = req.params.search;
@@ -98,7 +99,6 @@ router.get('/healing/:search', (req, res) => {
       };
       axios(config)// runs our second axios call
       .then(response => {
-         //console.log(response.data.data.reportData.report); // test function
          res.send(response.data)// send our data back
       })
       .catch(error => {

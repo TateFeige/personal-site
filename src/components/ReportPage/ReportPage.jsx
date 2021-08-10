@@ -35,7 +35,6 @@ function ReportPage() { // main function for this page
    const reportInfo = useSelector((store) => store.report);
    const difficultyConverter = (difficulty) => { switch (difficulty) {case 1: return "Looking For Raid"; case 3: return "Normal"; case 4: return "Heroic"; case 5: return "Mythic";   default: return "Unknown";};};
    // function to convert difficulty (given from API as a number) to a string (so it can be read by the user)
-
    useEffect(() => { // get data on page load
       dispatch({ // main API call for the search query, returns some core information and the damage report
          type: 'SEARCH',
