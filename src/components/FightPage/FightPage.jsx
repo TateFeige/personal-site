@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import clsx from 'clsx';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import { DataGrid } from '@material-ui/data-grid';
+import { DataGrid, GridColDef } from '@material-ui/data-grid';
 const specIcon = (spec) => { // giant switch statement that adds a class/spec icon next to a player name. looks for the player spec + class and returns an image URL
    switch (spec) {
       case "Blood DeathKnight":
@@ -88,9 +88,38 @@ const specIcon = (spec) => { // giant switch statement that adds a class/spec ic
          return "";
    };
 }; // end of spec icon handler
-
-const healingDataColumns = [ // column data for the healer data grid
-   { field: 'RankPercent', type: 'number', headerName: 'Rank %', flex: 2, cellClassName:(params) =>
+function getClassColor(spec) { // converts player class string into a hex code for coloring
+   switch(spec) {
+      case "DeathKnight":
+         return "#c0153f";
+      case "Druid":
+         return "#eb7b26";
+      case "DemonHunter":
+         return "#952abb";
+      case "Hunter":
+         return "#9cd577";
+      case "Mage":
+         return "#73ccef";
+      case "Monk":
+         return "#369c78";
+      case "Paladin":
+         return "#e48aaa";
+      case "Priest":
+         return "#ffffff";
+      case "Rogue":
+         return "#fcf672";
+      case "Shaman":
+         return "#3e56fc";
+      case "Warlock":
+         return "#9681c8";
+      case "Warrior":
+         return "#c49c71";
+      default:
+         return "default";
+   }
+};
+const healingDataColumns: GridColDef = [ // column data for the healer data grid
+   { field: 'RankPercent', type: 'number', headerName: 'Rank %', flex: 3, cellClassName:(params) =>
       clsx('rank-color', { // sorts number into color based on performance
          underwhelming: params.value >= 0,
          decent: params.value >= 35,
@@ -102,22 +131,21 @@ const healingDataColumns = [ // column data for the healer data grid
          },
       ),
    },
-   { field: 'Rank', type: 'number', headerName: 'Rank', flex: 2 },
-   { field: 'RankTotal', type: 'number', headerName: 'Out Of', flex: 2 },
-   { field: 'img', headerName: 'Spec', flex: 1, renderCell:(params) =>
-      ( // image handler
-         <>
-            <img src={specIcon(params.value)} alt={params.value} title={params.value}/>
-         </>
+   { field: 'Rank', type: 'number', headerName: 'Rank', flex: 3 },
+   { field: 'RankTotal', type: 'number', headerName: 'Out Of', flex: 3 },
+   { field: 'id', headerName: 'Player', flex: 10, hideSortIcons: true,  renderCell:(params) =>
+      ( // player name color handler
+         <Typography style={{display:"flex", textAlign: "center", color: getClassColor(params.value.split(' ')[2])}}>
+           <img style={{height: "80%", align: "center"}} src={specIcon(params.value.split(' ')[1] + " " + params.value.split(' ')[2])} alt={params.value.split(' ')[1] + " " + params.value.split(' ')[2]} title={params.value.split(' ')[1] + " " + params.value.split(' ')[2]}/>
+           <Typography style={{align:"center", margin: "auto"}}>&nbsp;&nbsp;{params.value.split(' ')[0]}</Typography>
+         </Typography>
       ),
    },
-   { field: 'id', headerName: 'Player', flex: 10 },
    { field: 'HPS', type: 'number', headerName: 'HPS', flex: 4, renderCell:(params) => 
       ( // converts raw number into a readable format
          <>
             {Number(params.value).toFixed(1).toLocaleString("en-US")} 
          </>
-      
       ),
    },
    { field: 'ilvl', type: 'number', headerName: 'ilvl', flex: 2 },
@@ -135,7 +163,7 @@ const healingDataColumns = [ // column data for the healer data grid
    },
 ]; // end of healingDataColumns
 
-const damageDataColumns = [ // column data for the damage data grid
+const damageDataColumns: GridColDef  = [ // column data for the damage data grid
    { field: 'RankPercent', type: 'number', headerName: 'Rank %', flex: 2, cellClassName:(params) =>
       clsx('rank-color', { // sorts number into color based on performance
          underwhelming: params.value >= 0,
@@ -150,14 +178,14 @@ const damageDataColumns = [ // column data for the damage data grid
    },
    { field: 'Rank', type: 'number', headerName: 'Rank', flex: 2 },
    { field: 'RankTotal', type: 'number', headerName: 'Out Of', flex: 2 },
-   { field: 'img', headerName: 'Spec', flex: 1, renderCell:(params) =>
-      ( // image handler
-         <>
-            <img src={specIcon(params.value)} alt={params.value} title={params.value}/>
-         </>
+   { field: 'id', headerName: 'Player', flex: 10, hideSortIcons: true,  renderCell:(params) =>
+      ( // player name color handler
+         <Typography style={{display:"flex", textAlign: "center", color: getClassColor(params.value.split(' ')[2])}}>
+           <img style={{height: "80%", align: "center"}} src={specIcon(params.value.split(' ')[1] + " " + params.value.split(' ')[2])} alt={params.value.split(' ')[1] + " " + params.value.split(' ')[2]} title={params.value.split(' ')[1] + " " + params.value.split(' ')[2]}/>
+           <Typography style={{align:"center", margin: "auto"}}>&nbsp;&nbsp;{params.value.split(' ')[0]}</Typography>
+         </Typography>
       ),
    },
-   { field: 'id', headerName: 'Player', flex: 10 },
    { field: 'DPS', type: 'number', headerName: 'DPS', flex: 4, renderCell:(params) => 
       ( // converts raw number into a readable format
          <>
@@ -189,9 +217,11 @@ function FightPage() { // main function for this page
    const healingInfo = useSelector((store) => store.healing);
    useEffect(() => { // get data on page load
       pageRefreshHandler();
+      window.scrollTo(0,0);
    }, []);
 
    const pageRefreshHandler = () => {
+      window.scrollTo(0,0);
       const queryString = window.location.hash.substring(15);
       const getSearchQueryByFullURL = (url) => {return url.split('&')}
       let report = getSearchQueryByFullURL(queryString)[0];
@@ -231,6 +261,7 @@ function FightPage() { // main function for this page
                <Box style={{width: "49%"}} alignItems="flex-end" aria-label="favorites table container">
                   <Typography align="center" variant="h3" component="h2" gutterBottom>Damage</Typography>
                   <DataGrid
+                     showCellRightBorder
                      showColumnRightBorder
                      hideFooter
                      disableSelectionOnClick
@@ -245,6 +276,7 @@ function FightPage() { // main function for this page
                <Box style={{width: "49%"}} alignItems="flex-end" aria-label="favorites table container">
                   <Typography align="center" variant="h3" component="h2" gutterBottom>Healing</Typography>
                   <DataGrid
+                     showCellRightBorder
                      showColumnRightBorder
                      hideFooter
                      disableSelectionOnClick 

@@ -17,15 +17,15 @@ function* report(reportItem) {
          if (boss.id == WCLResponse.data.data.reportData.report.rankings.data[x].fightID) {
             WCLResponse.data.data.reportData.report.rankings.data[x].roles.tanks.characters.map((player) => {
                ( // pushes DPS players to damage array
-                  reportToSend.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, DPS: player.amount, ilvl: player.bracketData, bracketPercent: player.bracketPercent})
+                  reportToSend.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, id: player.name + " " + player.spec + " " + player.class, DPS: player.amount, ilvl: player.bracketData, bracketPercent: player.bracketPercent})
                )});
             WCLResponse.data.data.reportData.report.rankings.data[x].roles.healers.characters.map((player) => {
                ( // pushes DPS players to damage array
-                  reportToSend.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, DPS: player.amount, ilvl: player.bracketData, bracketPercent: player.bracketPercent})
+                  reportToSend.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, id: player.name + " " + player.spec + " " + player.class, DPS: player.amount, ilvl: player.bracketData, bracketPercent: player.bracketPercent})
                )});
             WCLResponse.data.data.reportData.report.rankings.data[x].roles.dps.characters.map((player) => {
                ( // pushes DPS players to damage array
-                  reportToSend.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, DPS: player.amount, ilvl: player.bracketData, bracketPercent: player.bracketPercent})
+                  reportToSend.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, id: player.name + " " + player.spec + " " + player.class, DPS: player.amount, ilvl: player.bracketData, bracketPercent: player.bracketPercent})
                )});
          }
       };
@@ -52,15 +52,15 @@ function* healingReport(reportItem) {
          if (boss.id == WCLResponse.data.data.reportData.report.rankings.data[x].fightID) {
             WCLResponse.data.data.reportData.report.rankings.data[x].roles.tanks.characters.map((player) => {
                ( // pushes DPS players to damage array
-                  reportToSend.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, HPS: player.amount, ilvl: player.bracketData, bracketPercent: player.bracketPercent})
+                  reportToSend.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, id: player.name + " " + player.spec + " " + player.class, HPS: player.amount, ilvl: player.bracketData, bracketPercent: player.bracketPercent})
                )});
             WCLResponse.data.data.reportData.report.rankings.data[x].roles.healers.characters.map((player) => {
                ( // pushes DPS players to damage array
-                  reportToSend.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, HPS: player.amount, ilvl: player.bracketData, bracketPercent: player.bracketPercent})
+                  reportToSend.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, id: player.name + " " + player.spec + " " + player.class, HPS: player.amount, ilvl: player.bracketData, bracketPercent: player.bracketPercent})
                )});
             WCLResponse.data.data.reportData.report.rankings.data[x].roles.dps.characters.map((player) => {
                ( // pushes DPS players to damage array
-                  reportToSend.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, img: player.spec + " " + player.class, id: player.name, HPS: player.amount, ilvl: player.bracketData, bracketPercent: player.bracketPercent})
+                  reportToSend.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, id: player.name + " " + player.spec + " " + player.class, HPS: player.amount, ilvl: player.bracketData, bracketPercent: player.bracketPercent})
                )});
          };
       };
