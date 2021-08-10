@@ -21,6 +21,22 @@ function ReportItem(item) { // main function for this page
    };
    const bossImage = (bossName) => { // adds an image to the report table based on boss
       switch (bossName) {
+         case "De Other Side":
+            return "https://assets.rpglogs.com/img/warcraft/bosses/12291-icon.jpg";
+         case "Halls of Atonement":
+            return "https://assets.rpglogs.com/img/warcraft/bosses/12287-icon.jpg";
+         case "Mists of Tirna Scithe":
+            return "https://assets.rpglogs.com/img/warcraft/bosses/12290-icon.jpg";
+         case "The Necrotic Wake":
+            return "https://assets.rpglogs.com/img/warcraft/bosses/12286-icon.jpg";
+         case "Plaguefall":
+            return "https://assets.rpglogs.com/img/warcraft/bosses/12289-icon.jpg";
+         case "Sanguine Depths":
+            return "https://assets.rpglogs.com/img/warcraft/bosses/12284-icon.jpg";
+         case "Spires of Ascension":
+            return "https://assets.rpglogs.com/img/warcraft/bosses/12285-icon.jpg";
+         case "Theater of Pain":
+            return "https://assets.rpglogs.com/img/warcraft/bosses/12293-icon.jpg";
          case "The Tarragrue":
             return "https://assets.rpglogs.com/img/warcraft/bosses/2423-icon.jpg";
          case "The Eye of the Jailer":
@@ -40,13 +56,34 @@ function ReportItem(item) { // main function for this page
          case "Kel'Thuzad":
             return "https://assets.rpglogs.com/img/warcraft/bosses/2422-icon.jpg";
          case "Sylvanas Windrunner":
-            return "https://assets.rpglogs.com/img/warcraft/bosses/2435-icon.jpg"; 
+            return "https://assets.rpglogs.com/img/warcraft/bosses/2435-icon.jpg";
+         case "Shriekwing":
+            return "https://assets.rpglogs.com/img/warcraft/bosses/2398-icon.jpg";
+         case "Huntsman Altimor":
+            return "https://assets.rpglogs.com/img/warcraft/bosses/2418-icon.jpg";
+         case "Hungering Destroyer":
+            return "https://assets.rpglogs.com/img/warcraft/bosses/2383-icon.jpg";
+         case "Sun King's Salvation":
+            return "https://assets.rpglogs.com/img/warcraft/bosses/2402-icon.jpg";
+         case "Artificer Xy'mox":
+            return "https://assets.rpglogs.com/img/warcraft/bosses/2405-icon.jpg";
+         case "Lady Inerva Darkvein":
+            return "https://assets.rpglogs.com/img/warcraft/bosses/2406-icon.jpg ";
+         case "The Council Of Blood":
+            return "https://assets.rpglogs.com/img/warcraft/bosses/2412-icon.jpg";
+         case "Sludgefist":
+            return "https://assets.rpglogs.com/img/warcraft/bosses/2399-icon.jpg";
+         case "Stone Legion Generals":
+            return "https://assets.rpglogs.com/img/warcraft/bosses/2417-icon.jpg";
+         case "Sire Denathrius":
+            return "https://assets.rpglogs.com/img/warcraft/bosses/2407-icon.jpg";
          default:
             return "no image found";
       };
    };
 
    const fightSummary = (item) => {
+      console.log(item);
       dispatch({ // send our boss item to be further broken down
          type: "BOSS_REPORT",
          payload: item

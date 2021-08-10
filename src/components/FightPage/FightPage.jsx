@@ -131,8 +131,18 @@ const healingDataColumns: GridColDef = [ // column data for the healer data grid
          },
       ),
    },
-   { field: 'Rank', type: 'number', headerName: 'Rank', flex: 3, disableColumnMenu: true, hideSortIcons: true },
-   { field: 'RankTotal', type: 'number', headerName: 'Out Of', flex: 3, disableColumnMenu: true, hideSortIcons: true },
+   { field: 'Rank', type: 'number', headerName: 'Rank', flex: 3, disableColumnMenu: true, hideSortIcons: true, renderCell:(params) => 
+   ( // converts raw number into a readable format
+      <>
+         {Number(params.value).toLocaleString("en-US")}
+      </>
+   )}, 
+   { field: 'RankTotal', type: 'number', headerName: 'Out Of', flex: 3, disableColumnMenu: true, hideSortIcons: true, renderCell:(params) => 
+   ( // converts raw number into a readable format
+      <>
+         {Number(params.value).toLocaleString("en-US")}
+      </>
+   )}, 
    { field: 'id', headerName: 'Player', flex: 10, disableColumnMenu: true, hideSortIcons: true, renderCell:(params) =>
       ( // player name color handler
          <Typography style={{display:"flex", textAlign: "center", color: getClassColor(params.value.split(' ')[2])}}>
@@ -143,9 +153,9 @@ const healingDataColumns: GridColDef = [ // column data for the healer data grid
    },
    { field: 'HPS', type: 'number', headerName: 'HPS', flex: 4, disableColumnMenu: true, hideSortIcons: true, renderCell:(params) => 
       ( // converts raw number into a readable format
-         <>
-            {Number(params.value).toFixed(1).toLocaleString("en-US")} 
-         </>
+         <div style={{color: "#d0fb8a"}}>
+            {Number(params.value).toLocaleString(undefined, {'minimumFractionDigits':1,'maximumFractionDigits':1})} 
+         </div>
       ),
    },
    { field: 'ilvl', type: 'number', headerName: 'ilvl', flex: 2, disableColumnMenu: true, hideSortIcons: true, },
@@ -176,8 +186,18 @@ const damageDataColumns: GridColDef  = [ // column data for the damage data grid
          },
       ),
    },
-   { field: 'Rank', type: 'number', headerName: 'Rank', flex: 2, disableColumnMenu: true, hideSortIcons: true },
-   { field: 'RankTotal', type: 'number', headerName: 'Out Of', flex: 2, disableColumnMenu: true, hideSortIcons: true },
+   { field: 'Rank', type: 'number', headerName: 'Rank', flex: 2, disableColumnMenu: true, hideSortIcons: true, renderCell:(params) => 
+   ( // converts raw number into a readable format
+      <>
+         {Number(params.value).toLocaleString("en-US")}
+      </>
+   )},
+   { field: 'RankTotal', type: 'number', headerName: 'Out Of', flex: 2, disableColumnMenu: true, hideSortIcons: true, renderCell:(params) => 
+      ( // converts raw number into a readable format
+         <>
+            {Number(params.value).toLocaleString("en-US")}
+         </>
+      )},
    { field: 'id', headerName: 'Player', flex: 10, hideSortIcons: true, disableColumnMenu: true, hideSortIcons: true, renderCell:(params) =>
       ( // player name color handler
          <Typography style={{display:"flex", textAlign: "center", color: getClassColor(params.value.split(' ')[2])}}>
@@ -188,12 +208,12 @@ const damageDataColumns: GridColDef  = [ // column data for the damage data grid
    },
    { field: 'DPS', type: 'number', headerName: 'DPS', flex: 4, disableColumnMenu: true, hideSortIcons: true, renderCell:(params) => 
       ( // converts raw number into a readable format
-         <>
-            {Number(params.value).toFixed(1).toLocaleString("en-US")}
-         </>
+         <div style={{color: "#d0fb8a"}}>
+            {Number(params.value).toLocaleString(undefined, {'minimumFractionDigits':1,'maximumFractionDigits':1})} 
+         </div>
       ),
    },
-   { field: 'ilvl', type: 'number', headerName: 'ilvl', flex: 2, disableColumnMenu: true, hideSortIcons: true },
+   { field: 'ilvl', type: 'number', headerName: 'ilvl', flex: 2, disableColumnMenu: true, hideSortIcons: true,  },
    { field: 'bracketPercent', type: 'number', headerName: 'ilvl%', flex: 2, disableColumnMenu: true, hideSortIcons: true, cellClassName:(params) =>
       clsx('rank-color', { // sorts number into color based on performance
          underwhelming: params.value >= 0,
@@ -250,10 +270,10 @@ function FightPage() { // main function for this page
          <Box aria-label="user page">
             <Box textAlign="center" aria-label="report page info">
                <Typography align="center" variant="h2" component="h2" >
-                  {getSearchQueryByFullURL(window.location.hash.substring(15))[1].substring(5).split('+').join(' ')}
+                  {getSearchQueryByFullURL(window.location.hash.substring(15))[1].substring(5).split('+').join(' ').split('%27').join(`'`)}
                </Typography>
                <Typography align="center" variant="h5" component="h3" gutterBottom style={{fontSize: "28px"}}>
-                  {getSearchQueryByFullURL(window.location.hash.substring(15))[2].substring(11)}
+                  {getSearchQueryByFullURL(window.location.hash.substring(15))[2].substring(11).split('%2B').join('+')}
                </Typography>
             </Box>
             <br /><br /><br />
@@ -262,6 +282,7 @@ function FightPage() { // main function for this page
                   <Typography align="center" variant="h3" component="h2" gutterBottom>Damage</Typography>
                   <DataGrid
                      showCellRightBorder
+                     loading
                      showColumnRightBorder
                      hideFooter
                      disableSelectionOnClick
@@ -276,6 +297,7 @@ function FightPage() { // main function for this page
                   <Typography align="center" variant="h3" component="h2" gutterBottom>Healing</Typography>
                   <DataGrid
                      showCellRightBorder
+                     loading
                      showColumnRightBorder
                      hideFooter
                      disableSelectionOnClick 
