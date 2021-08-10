@@ -82,6 +82,60 @@ function ReportItem(item) { // main function for this page
             return "no image found";
       };
    };
+   const affixesHandler = (affix) => {
+      switch (affix) {
+         case "Overflowing":
+            return "https://icons.wowdb.com/retail/medium/inv_misc_volatilewater.jpg?39653";
+         case "Skittish":
+            return "https://assets.rpglogs.com/img/warcraft/abilities/spell_magic_lesserinvisibilty.jpg";
+         case "Volcanic":
+            return "https://assets.rpglogs.com/img/warcraft/abilities/spell_shaman_lavasurge.jpg";
+         case "Necrotic":
+            return "https://assets.rpglogs.com/img/warcraft/abilities/spell_deathknight_necroticplague.jpg";
+         case "Teeming":
+            return "https://assets.rpglogs.com/img/warcraft/abilities/spell_nature_massteleport.jpg";
+         case "Raging":
+            return "https://assets.rpglogs.com/img/warcraft/abilities/ability_warrior_focusedrage.jpg";
+         case "Bolstering":
+            return "https://assets.rpglogs.com/img/warcraft/abilities/ability_warrior_battleshout.jpg";
+         case "Sanguine":
+            return "https://assets.rpglogs.com/img/warcraft/abilities/spell_shadow_bloodboil.jpg";
+         case "Tyrannical":
+            return "https://assets.rpglogs.com/img/warcraft/abilities/achievement_boss_archaedas.jpg";
+         case "Fortified":
+            return "https://assets.rpglogs.com/img/warcraft/abilities/ability_toughness.jpg";
+         case "Bursting":
+            return "https://assets.rpglogs.com/img/warcraft/abilities/ability_ironmaidens_whirlofblood.jpg";
+         case "Grievous":
+            return "https://assets.rpglogs.com/img/warcraft/abilities/ability_backstab.jpg";
+         case "Explosive":
+            return "https://assets.rpglogs.com/img/warcraft/abilities/spell_fire_felflamering_red.jpg";
+         case "Quaking":
+            return "https://assets.rpglogs.com/img/warcraft/abilities/spell_nature_earthquake.jpg";
+         case "Relentless":
+            return "https://icons.wowdb.com/retail/large/inv_chest_plate04.jpg?39653";
+         case "Infested":
+            return "https://assets.rpglogs.com/img/warcraft/abilities/achievement_nazmir_boss_ghuun.jpg";
+         case "Reaping":
+            return "https://assets.rpglogs.com/img/warcraft/abilities/ability_racial_embraceoftheloa_bwonsomdi.jpg";
+         case "Beguiling":
+            return "https://assets.rpglogs.com/img/warcraft/abilities/spell_shadow_mindshear.jpg";
+         case "Awakened":
+            return "https://assets.rpglogs.com/img/warcraft/abilities/trade_archaeology_nerubian_obelisk.jpg";
+         case "Prideful":
+            return "https://assets.rpglogs.com/img/warcraft/abilities/spell_animarevendreth_buff.jpg";
+         case "Inspiring":
+            return "https://assets.rpglogs.com/img/warcraft/abilities/spell_holy_prayerofspirit.jpg";
+         case "Spiteful":
+            return "https://assets.rpglogs.com/img/warcraft/abilities/spell_holy_prayerofshadowprotection.jpg";
+         case "Storming":
+            return "https://assets.rpglogs.com/img/warcraft/abilities/spell_nature_cyclone.jpg";
+         case "Tormented":
+            return "https://assets.rpglogs.com/img/warcraft/abilities/spell_animamaw_orb.jpg";
+         default:
+            return "Unknown";
+      };
+   };
 
    const fightSummary = (item) => {
       console.log(item);
@@ -108,18 +162,35 @@ function ReportItem(item) { // main function for this page
 
 
    return (
-      <TableRow onClick={() => fightSummary(item)} style={{color: 'white'}}>
-        <StyledTableCell style={{color: 'white'}} align="left">{item.difficulty} {item.keystoneLevel}</StyledTableCell>
-        <StyledTableCell style={{color: 'white'}} align="left">
-            <Typography style={{display:"flex", textAlign: "left"}}>
-               <img style={{height: "48px", align: "center"}} src={bossImage(item.name)} alt={item.name} title={item.name}/>
-               <Typography style={{align:"left", marginTop: "auto", marginBottom: "auto"}}>&nbsp;&nbsp;
-                  {item.name}
-               </Typography>
-            </Typography>
-        </StyledTableCell>
-        <StyledTableCell style={{color: 'white'}} align="left">{millisToMinutesAndSeconds(item.length)}</StyledTableCell>
-      </TableRow>
+      <>
+         {(item.affixes == "none") ? 
+            <TableRow onClick={() => fightSummary(item)} style={{color: 'white'}}>
+               <StyledTableCell style={{color: 'white'}} align="left">{item.difficulty}</StyledTableCell>
+               <StyledTableCell style={{color: 'white'}} align="left">
+                  <Typography style={{display:"flex", textAlign: "left"}}>
+                     <img style={{height: "48px", align: "center"}} src={bossImage(item.name)} alt={item.name} title={item.name}/>
+                     <Typography style={{align:"left", marginTop: "auto", marginBottom: "auto"}}>&nbsp;&nbsp;{item.name}</Typography>
+                  </Typography>
+               </StyledTableCell>
+               <StyledTableCell style={{color: 'white'}} align="left">{millisToMinutesAndSeconds(item.length)}</StyledTableCell>
+            </TableRow>
+         :
+            <TableRow onClick={() => fightSummary(item)} style={{color: 'white'}}>
+               <StyledTableCell style={{color: 'white'}} align="left">{item.difficulty} {item.keystoneLevel} <br />
+                  {item.affixes.map((affix) => {
+                     return <img style={{height: "20px"}} src={affixesHandler(affix)} alt={affix} title={affix}/>
+                  })}
+               </StyledTableCell>
+               <StyledTableCell style={{color: 'white'}} align="left">
+                  <Typography style={{display:"flex", textAlign: "left"}}>
+                     <img style={{height: "48px", align: "center"}} src={bossImage(item.name)} alt={item.name} title={item.name}/>
+                     <Typography style={{align:"left", marginTop: "auto", marginBottom: "auto"}}>&nbsp;&nbsp;{item.name}</Typography>
+                  </Typography>
+               </StyledTableCell>
+               <StyledTableCell style={{color: 'white'}} align="left">{millisToMinutesAndSeconds(item.length)}</StyledTableCell>
+            </TableRow>
+         }
+      </> 
    );
 }; // end of main function for this page
 

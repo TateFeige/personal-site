@@ -24,6 +24,61 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 const StyledTableCell = withStyles((theme) => ({head:{backgroundColor: theme.palette.common.black, color: theme.palette.common.white}, body:{fontSize: 14,}}))(TableCell);
 const useStyles = makeStyles({table: {minWidth: 700}});
 
+const affixesHandler = (affix) => {
+   switch (affix) {
+      case 1:
+         return "Overflowing";
+      case 2:
+         return "Skittish";
+      case 3:
+         return "Volcanic";
+      case 4:
+         return "Necrotic";
+      case 5:
+         return "Teeming";
+      case 6:
+         return "Raging";
+      case 7:
+         return "Bolstering";
+      case 8:
+         return "Sanguine";
+      case 9:
+         return "Tyrannical";
+      case 10:
+         return "Fortified";
+      case 11:
+         return "Bursting";
+      case 12:
+         return "Grievous";
+      case 13:
+         return "Explosive";
+      case 14:
+         return "Quaking";
+      case 15:
+         return "Relentless";
+      case 16:
+         return "Infested";
+      case 117:
+         return "Reaping";
+      case 119:
+         return "Beguiling";
+      case 120:
+         return "Awakened";
+      case 121:
+         return "Prideful";
+      case 122:
+         return "Inspiring";
+      case 123:
+         return "Spiteful";
+      case 124:
+         return "Storming";
+      case 128:
+         return "Tormented";
+      default:
+         return "Unknown";
+   };
+};
+
 
 function ReportPage() { // main function for this page
    function getSearchQueryByFullURL(url) {return url.split('/').pop()};
@@ -56,6 +111,20 @@ function ReportPage() { // main function for this page
       });
    };
 
+   const getAffixes = (affixes) => {
+      let affixesArray = [];
+      if (affixes == [] || affixes == undefined) {
+         return "none";
+      }
+      if (affixes !== []) {
+         for (let x = 0; x < affixes.length; x++) {
+            affixesArray.push(affixesHandler(affixes[x]));
+         }; 
+      };
+      return affixesArray;
+   };
+   
+
    return (
       <Box aria-label="report page">
          <Grid container justify="center" aria-label="report header">
@@ -87,7 +156,7 @@ function ReportPage() { // main function for this page
                      <TableBody>
                         {report.map((reportItem) => {
                            return (
-                                 <ReportItem id={reportItem.fightID} url={reportInfo.id} difficulty={difficultyConverter({difficulty: reportItem.difficulty, data: reportItem})} name={reportItem.encounter.name} length={reportItem.duration} keystoneLevel={reportItem.bracket}/>
+                              <ReportItem id={reportItem.fightID} url={reportInfo.id} difficulty={difficultyConverter({difficulty: reportItem.difficulty, data: reportItem})} name={reportItem.encounter.name} length={reportItem.duration} keystoneLevel={reportItem.bracket} affixes={getAffixes(reportItem.affixes)}/>
                         );})}
                      </TableBody>
                   </Table>
