@@ -2,6 +2,7 @@ const favoriteReducer = (state = [], action) => { // reducer that holds data for
    switch (action.type) {
       case "POST_FAVORITES_LIST":
          const favHandler = action.payload;
+         let newFavList = [];
          for (let x = 0; x < favHandler.length; x++)  { // loops through guild name and converts the raw API call into a readable format
             let guildName = ``;
             if (favHandler[x].guild_faction == "Horde") { // if guild faction is Horde, create the following string

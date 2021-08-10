@@ -115,7 +115,7 @@ const healingDataColumns = [ // column data for the healer data grid
    { field: 'HPS', type: 'number', headerName: 'HPS', flex: 4, renderCell:(params) => 
       ( // converts raw number into a readable format
          <>
-            {Number(params.value).toLocaleString("en-US")} 
+            {Number(params.value).toFixed(1).toLocaleString("en-US")} 
          </>
       
       ),
@@ -161,7 +161,7 @@ const damageDataColumns = [ // column data for the damage data grid
    { field: 'DPS', type: 'number', headerName: 'DPS', flex: 4, renderCell:(params) => 
       ( // converts raw number into a readable format
          <>
-            {Number(params.value).toLocaleString("en-US")}
+            {Number(params.value).toFixed(1).toLocaleString("en-US")}
          </>
       
       ),
@@ -205,7 +205,6 @@ function FightPage() { // main function for this page
          name: bossName,
          url: report
       };
-      console.log(boss);
       dispatch({ // send our boss item to be further broken down
          type: "BOSS_REPORT",
          payload: boss

@@ -47,7 +47,6 @@ function ReportItem(item) { // main function for this page
    };
 
    const fightSummary = (item) => {
-      console.log('fightSummary item is:', item); // test function
       dispatch({ // send our boss item to be further broken down
          type: "BOSS_REPORT",
          payload: item
