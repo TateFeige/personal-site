@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
@@ -19,7 +20,7 @@ import './UserPage.css';
 
 
 function UserPage() { // main function for this page
-   const favoritesDataColumns = [{ field: 'date', type: 'date', headerName: 'Date Created', flex: 2 }, { field: 'guild', type: 'string', headerName: 'Guild', flex: 2 }, { field: 'title', type: 'string', headerName: 'Report Name', flex: 2,  renderCell: (params) => {return (<div style={{ cursor: "pointer" }}>{params.row.title}</div>);}}, { field: 'zone', type: 'string', headerName: 'Zone', flex: 2 }, { field: 'DeleteButton', type: 'string', headerName: 'Delete', flex: 2, renderCell: (params) => {return (<div style={{ cursor: "pointer" }}><Button variant="contained" color="secondary" onClick={() => deleteFavorite(params.row)}>Delete</Button></div>);}},];
+   const favoritesDataColumns = [{ field: 'date', type: 'date', headerName: 'Date Created', flex: 2 }, { field: 'guild', type: 'string', headerName: 'Guild', flex: 2 }, { field: 'title', type: 'string', headerName: 'Report Name', flex: 2,  renderCell: (params) => {return (<div style={{ cursor: "pointer" }}>{params.row.title}</div>);}}, { field: 'zone', type: 'string', headerName: 'Zone', flex: 2 }, { field: 'DeleteButton', type: 'string', headerName: 'Delete', flex: 2, renderCell: (params) => {return (<div style={{ cursor: "pointer" }}><Button variant="contained" color="secondary" startIcon={<DeleteIcon />} onClick={() => deleteFavorite(params.row)}>Delete</Button></div>);}},];
    // condensed handler for datagrid columns
    const deleteFavorite = (item) => { // handles deleting the selected item
       if (confirm(`Remove <${item.title}> from your favorites?`) === false) { // pop up asking for confirmation of delete, if cancel is hit decline to delete
@@ -152,17 +153,19 @@ function UserPage() { // main function for this page
             <br /><br /><br />
             <Grid container justify="center" aria-label="history and favorites tables container">
             <br />
-            <DataGrid
-               style={{backgroundColor: '#242424', color: 'white'}}
-               showColumnRightBorder
-               hideFooter
-               onCellClick={handleCellClick}
-               disableSelectionOnClick
-               autoHeight
-               autoWidth
-               rows={favoritesList}
-               columns={favoritesDataColumns}
-            />
+            <Box style={{width: "85%"}}>
+               <DataGrid
+                  style={{backgroundColor: '#242424', color: 'white'}}
+                  showColumnRightBorder
+                  hideFooter
+                  onCellClick={handleCellClick}
+                  disableSelectionOnClick
+                  autoHeight
+                  autoWidth
+                  rows={favoritesList}
+                  columns={favoritesDataColumns}
+               />
+            </Box>
          </Grid>
       </Box>
       }
