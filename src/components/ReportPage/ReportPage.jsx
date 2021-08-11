@@ -4,6 +4,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import ReportItem from '../ReportItem/ReportItem';
 import axios from 'axios';
+import './ReportPage.css';
 
 //MaterialUI imports
 import Box from '@material-ui/core/Box';
@@ -11,20 +12,19 @@ import Button from '@material-ui/core/Button';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import IconButton from '@material-ui/core/IconButton';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
+import MuiTableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
-const StyledTableCell = withStyles((theme) => ({head:{backgroundColor: theme.palette.common.black, color: theme.palette.common.white}, body:{fontSize: 14,}}))(TableCell);
 const useStyles = makeStyles({table: {minWidth: 700}});
 
-const affixesHandler = (affix) => {
+const affixesHandler = (affix) => { // converts affix ID given from API call to its corresponding name
    switch (affix) {
       case 1:
          return "Overflowing";
@@ -79,6 +79,27 @@ const affixesHandler = (affix) => {
    };
 };
 
+const TableHead = withStyles((theme) => ({
+   root: {
+      color: "white",
+      backgroundColor: "#322a24",
+      backgroundImage: `url(${"https://d2ertrwg9e34np.cloudfront.net/original/1X/41869db9dbc5e39ec78a2318471c9e61cb35d294.jpg"})`,
+      backgroundPosition: "center top -60px",
+      backgroundRepeat: "round",
+      backgroundBlendMode: "exclusion",
+   }
+ }))(MuiTableHead);
+ 
+ const TableHeaderCell = withStyles((theme) => ({
+   root: {
+     color: "white",
+     fontSize: "20px",
+     border: "1px solid white"
+   //   borderRight: "1px solid white",
+   //   borderLeft: "1px solid white",
+   //   borderTop: "1px solid white",
+   }
+ }))(TableCell);
 
 function ReportPage() { // main function for this page
    function getSearchQueryByFullURL(url) {return url.split('/').pop()};
@@ -123,6 +144,7 @@ function ReportPage() { // main function for this page
       };
       return affixesArray;
    };
+
    
 
    return (
@@ -141,16 +163,17 @@ function ReportPage() { // main function for this page
             <Box textAlign="center" aria-label="Waiting for response">
                <h1>Loading</h1>
                <CircularProgress style={{height:"10%", width:"10%"}}/>
-            </Box>:
+            </Box>
+            :
             <Box style={{width: "85%"}} aria-label="Report Table Container">
                <TableContainer component={Paper} style={{backgroundColor: '#242424', color: 'white'}}>
                   <Table className={classes.table} aria-label="Report Table">
-                     <caption>Report Table</caption>
+                     <caption style={{borderLeft: "1px solid white", borderRight: "1px solid white", borderBottom: "1px solid white", color: "white"}}>Report Table</caption>
                      <TableHead>
                         <TableRow>
-                           <StyledTableCell align="left" width="15%">Difficulty</StyledTableCell>
-                           <StyledTableCell align="center">Boss</StyledTableCell>
-                           <StyledTableCell align="left" width="15%">Length (minutes)</StyledTableCell>
+                           <TableHeaderCell align="left" width="15%">Difficulty</TableHeaderCell>
+                           <TableHeaderCell align="center">Boss</TableHeaderCell>
+                           <TableHeaderCell align="left" width="15%">Length (minutes)</TableHeaderCell>
                         </TableRow>
                      </TableHead>
                      <TableBody>

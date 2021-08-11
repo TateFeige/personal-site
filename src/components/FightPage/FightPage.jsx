@@ -174,7 +174,7 @@ const healingDataColumns: GridColDef = [ // column data for the healer data grid
 ]; // end of healingDataColumns
 
 const damageDataColumns: GridColDef  = [ // column data for the damage data grid
-   { field: 'RankPercent', type: 'number', headerName: 'Rank %', flex: 2, disableColumnMenu: true, hideSortIcons: true, cellClassName:(params) =>
+   { field: 'RankPercent', type: 'number', headerName: 'Rank %', flex: 3, disableColumnMenu: true, hideSortIcons: true, cellClassName:(params) =>
       clsx('rank-color', { // sorts number into color based on performance
          underwhelming: params.value >= 0,
          decent: params.value >= 35,
@@ -186,13 +186,13 @@ const damageDataColumns: GridColDef  = [ // column data for the damage data grid
          },
       ),
    },
-   { field: 'Rank', type: 'number', headerName: 'Rank', flex: 2, disableColumnMenu: true, hideSortIcons: true, renderCell:(params) => 
+   { field: 'Rank', type: 'number', headerName: 'Rank', flex: 3, disableColumnMenu: true, hideSortIcons: true, renderCell:(params) => 
    ( // converts raw number into a readable format
       <>
          {Number(params.value).toLocaleString("en-US")}
       </>
    )},
-   { field: 'RankTotal', type: 'number', headerName: 'Out Of', flex: 2, disableColumnMenu: true, hideSortIcons: true, renderCell:(params) => 
+   { field: 'RankTotal', type: 'number', headerName: 'Out Of', flex: 3, disableColumnMenu: true, hideSortIcons: true, renderCell:(params) => 
       ( // converts raw number into a readable format
          <>
             {Number(params.value).toLocaleString("en-US")}
@@ -266,7 +266,7 @@ function FightPage() { // main function for this page
 
    return (
       <>
-         {(fightInfo == [] ? <div>LOADING</div> :
+         {  (fightInfo == [] ? <div>LOADING</div> :
          <Box aria-label="user page">
             <Box textAlign="center" aria-label="report page info">
                <Typography align="center" variant="h2" component="h2" >
