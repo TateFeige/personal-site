@@ -23,6 +23,24 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 const useStyles = makeStyles({table: {minWidth: 700}});
+const TableHead = withStyles((theme) => ({
+   root: {
+      color: "white",
+      backgroundColor: "#322a24",
+      backgroundImage: `url(${"https://d2ertrwg9e34np.cloudfront.net/original/1X/41869db9dbc5e39ec78a2318471c9e61cb35d294.jpg"})`,
+      backgroundPosition: "center top -60px",
+      backgroundRepeat: "round",
+      backgroundBlendMode: "exclusion",
+   }
+ }))(MuiTableHead);
+ 
+ const TableHeaderCell = withStyles((theme) => ({
+   root: {
+      color: "MediumSpringGreen",
+      fontSize: "22px",
+      border: "1px solid white"
+   }
+ }))(TableCell);
 
 const affixesHandler = (affix) => { // converts affix ID given from API call to its corresponding name
    switch (affix) {
@@ -79,27 +97,6 @@ const affixesHandler = (affix) => { // converts affix ID given from API call to 
    };
 };
 
-const TableHead = withStyles((theme) => ({
-   root: {
-      color: "white",
-      backgroundColor: "#322a24",
-      backgroundImage: `url(${"https://d2ertrwg9e34np.cloudfront.net/original/1X/41869db9dbc5e39ec78a2318471c9e61cb35d294.jpg"})`,
-      backgroundPosition: "center top -60px",
-      backgroundRepeat: "round",
-      backgroundBlendMode: "exclusion",
-   }
- }))(MuiTableHead);
- 
- const TableHeaderCell = withStyles((theme) => ({
-   root: {
-     color: "white",
-     fontSize: "20px",
-     border: "1px solid white"
-   //   borderRight: "1px solid white",
-   //   borderLeft: "1px solid white",
-   //   borderTop: "1px solid white",
-   }
- }))(TableCell);
 
 function ReportPage() { // main function for this page
    function getSearchQueryByFullURL(url) {return url.split('/').pop()};
