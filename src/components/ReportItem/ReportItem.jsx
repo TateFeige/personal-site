@@ -245,7 +245,6 @@ function ReportItem(item) { // main function for this page
    };
 
    const fightSummary = (item) => {
-      console.log(item);
       dispatch({ // send our boss item to be further broken down
          type: "BOSS_REPORT",
          payload: item
@@ -272,18 +271,23 @@ function ReportItem(item) { // main function for this page
       <>
          {(item.affixes == "none") ? 
             <TableRow onClick={() => fightSummary(item)} style={{color: 'white'}}>
-               <TableCell style={{color: 'white', border: "1px solid white", fontSize: "18px"}} align="left">{item.difficulty}</TableCell>
+               <TableCell style={{color: 'white', border: "1px solid white", fontSize: "18px"}} align="left">
+                  {item.difficulty}
+               </TableCell>
                <TableCell style={{color: 'white', border: "1px solid white", fontSize: "18px"}} align="left">
                   <Typography style={{display:"flex", textAlign: "left"}}>
                      <img style={{height: "48px", align: "center"}} src={bossImage(item.name)} alt={item.name} title={item.name}/>
                      <Typography style={{align:"left", marginTop: "auto", marginBottom: "auto"}}>&nbsp;&nbsp;{item.name}</Typography>
                   </Typography>
                </TableCell>
-               <TableCell style={{color: 'white', border: "1px solid white", fontSize: "18px"}} align="left">{millisToMinutesAndSeconds(item.length)}</TableCell>
+               <TableCell style={{color: 'white', border: "1px solid white", fontSize: "18px"}} align="left">
+                  {millisToMinutesAndSeconds(item.length)}
+               </TableCell>
             </TableRow>
          :
             <TableRow onClick={() => fightSummary(item)} style={{color: 'white'}}>
-               <TableCell style={{color: 'white', border: "1px solid white", fontSize: "18px"}} align="left">{item.difficulty} {item.keystoneLevel} <br />
+               <TableCell style={{color: 'white', border: "1px solid white", fontSize: "18px"}} align="left">
+                  {item.difficulty} {item.keystoneLevel} <br />
                   {item.affixes.map((affix) => {
                      return <img style={{height: "24px"}} src={affixesHandler(affix)} alt={affix} title={affix}/>
                   })}

@@ -165,7 +165,9 @@ function ReportPage() { // main function for this page
             <Box style={{width: "85%"}} aria-label="Report Table Container">
                <TableContainer component={Paper} style={{backgroundColor: '#242424', color: 'white'}}>
                   <Table className={classes.table} aria-label="Report Table">
-                     <caption style={{borderLeft: "1px solid white", borderRight: "1px solid white", borderBottom: "1px solid white", color: "white"}}>Report Table</caption>
+                  <caption style={{borderLeft: "1px solid white", borderRight: "1px solid white", borderBottom: "1px solid white", color: "white"}}>
+                     Report Table
+                  </caption>
                      <TableHead>
                         <TableRow>
                            <TableHeaderCell align="left" width="15%">Difficulty</TableHeaderCell>
@@ -181,7 +183,8 @@ function ReportPage() { // main function for this page
                      </TableBody>
                   </Table>
                </TableContainer>
-            </Box>}
+            </Box>
+            }
          </Grid>
       </Box>
    );

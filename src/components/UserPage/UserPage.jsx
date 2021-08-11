@@ -33,11 +33,7 @@ function UserPage() { // main function for this page
       dispatch({type: 'GET_FAVORITES'});
    };
    // handles redirecting to report page on report name click
-   const handleCellClick = (param) => { 
-      if (param.colDef.headerName == "Report Name") {
-        history.push(`/report/${param.row.code}`);
-      };
-    };
+   const handleCellClick = (param) => { if (param.colDef.headerName == "Report Name") {history.push(`/report/${param.row.code}`)}}; // redirects to report code when cell a cell under the Report Name column is clicked
    const getSearchQueryByFullURL = (url) => {return url.split('/')}; // isolate the text after the final "/" in our input URL, since our API only takes that final string and not the whole URL
    const [armoryLink, setArmoryLink] = useState('');
    const history = useHistory();
@@ -48,16 +44,10 @@ function UserPage() { // main function for this page
    const classes = useStyles();
    const user = useSelector((store) => store.user);
    const favoritesList = useSelector((store) => store.favorites);
-
-   useEffect(() => { // get data on page load
-      dispatch({type: 'GET_FAVORITES'});
-   }, []);
-
-   const changeCharacter = () => {
-      handleOpen();
-   };
+   useEffect(() => {dispatch({type: 'GET_FAVORITES'});}, []);
+   // get data on page load
    
-   const saveCharacter = () => {
+   const saveCharacter = () => { // handles input character link breakdown for database storage and DOM use
       let characterToSend = '';
       let characterRegion = '';
       let characterRealm = '';
@@ -72,7 +62,7 @@ function UserPage() { // main function for this page
             Name: `(${characterRegion}) ${characterName}-${characterRealm}`,
             Armory: profileLink
          };
-      }
+      };
       if (getSearchQueryByFullURL(armoryLink)[2] == "raider.io") { // checks if input URL is raider.io and then isolates data to set as user character
          characterRegion = (getSearchQueryByFullURL(armoryLink)[4].toUpperCase());
          characterRealm = (getSearchQueryByFullURL(armoryLink)[5].charAt(0).toUpperCase() + getSearchQueryByFullURL(armoryLink)[5].slice(1));
@@ -82,7 +72,7 @@ function UserPage() { // main function for this page
             Name: `(${characterRegion}) ${characterName}-${characterRealm}`,
             Armory: profileLink
          };
-      }
+      };
       if (getSearchQueryByFullURL(armoryLink)[2] == "worldofwarcraft.com") { // // checks if input URL is worldofwarcraft.com and then isolates data to set as user character
          characterRegion = (getSearchQueryByFullURL(armoryLink)[5].toUpperCase());
          characterRealm = (getSearchQueryByFullURL(armoryLink)[6].charAt(0).toUpperCase() + getSearchQueryByFullURL(armoryLink)[6].slice(1));
@@ -93,7 +83,7 @@ function UserPage() { // main function for this page
          Armory: profileLink
          };
       };
-      if (characterToSend == '' || characterRegion == '' || characterRealm == '' || characterName == ''|| profileLink == '') {
+      if (characterToSend == '' || characterRegion == '' || characterRealm == '' || characterName == '' || profileLink == '') {
          alert("Invalid link");
          setArmoryLink('');
          return false;
@@ -119,17 +109,15 @@ function UserPage() { // main function for this page
       <Box aria-label="user page">
          <Box textAlign="center" aria-label="user information">
             <Modal
-            align="center"
-            aria-labelledby="player link modal"
-            aria-describedby="transition-modal-description"
-            className={classes.modal}
-            open={open}
-            onClose={handleClose}
-            closeAfterTransition
-            BackdropComponent={Backdrop}
-            BackdropProps={{
-               timeout: 500,
-            }}
+               align="center"
+               aria-labelledby="player link modal"
+               aria-describedby="transition-modal-description"
+               className={classes.modal}
+               open={open}
+               onClose={handleClose}
+               closeAfterTransition
+               BackdropComponent={Backdrop}
+               BackdropProps={{timeout: 500}}
             >
                <Fade in={open}>
                   <Box className={classes.paper} style={{width: "35%", height: "10%", minHeight:"150px"}} aria-labelledby="Change Character Input">
@@ -147,8 +135,7 @@ function UserPage() { // main function for this page
             <h1>Welcome, {user.username}</h1>
             <h2>Current Character:</h2>
             <h3><a href={user.armory} target="_blank_" style={{color:"pink"}}>{user.character}</a></h3>
-            <Button variant="contained" color="primary" disableElevation onClick={changeCharacter}>Change Character</Button>
-            {/* <Button variant="contained" color="primary" disableElevation onClick={test}>Test</Button> */}
+            <Button variant="contained" color="primary" disableElevation onClick={handleOpen}>Change Character</Button>
             </Box>
             <br /><br /><br />
             <Grid container justify="center" aria-label="history and favorites tables container">

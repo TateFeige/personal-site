@@ -6,7 +6,6 @@ function* search(searchQuery) { // main search function, this is where we sort o
    const query = searchQuery.payload;
    try {
       const WCLResponse = yield axios.get(`/api/search/search/${query}`); // sets a variable to our response
-      console.log(WCLResponse)
       const report = {id: query, name: WCLResponse.data.data.reportData.report.title, data: WCLResponse.data.data, keystoneLevel: WCLResponse.data.data.reportData.report.rankings};
       // sets a new variable report and gives it data we want to send
       yield put ({type: "POST_REPORT", payload: report}); // POST_REPORT

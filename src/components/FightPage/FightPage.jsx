@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import clsx from 'clsx';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { DataGrid, GridColDef } from '@material-ui/data-grid';
 const specIcon = (spec) => { // giant switch statement that adds a class/spec icon next to a player name. looks for the player spec + class and returns an image URL
    switch (spec) {
@@ -85,9 +86,10 @@ const specIcon = (spec) => { // giant switch statement that adds a class/spec ic
       case "Protection Warrior":
          return "https://assets.rpglogs.com/img/warcraft/icons/Warrior-Protection.jpg";
       default:
-         return "";
+         return "https://icons.wowdb.com/retail/medium/inv_misc_questionmark.jpg?39653";
    };
 }; // end of spec icon handler
+
 function getClassColor(spec) { // converts player class string into a hex code for coloring
    switch(spec) {
       case "DeathKnight":
@@ -115,9 +117,10 @@ function getClassColor(spec) { // converts player class string into a hex code f
       case "Warrior":
          return "#c49c71";
       default:
-         return "default";
-   }
+         return "white";
+   };
 };
+
 const healingDataColumns: GridColDef = [ // column data for the healer data grid
    { field: 'RankPercent', type: 'number', headerName: 'Rank %', flex: 3, disableColumnMenu: true, hideSortIcons: true, cellClassName:(params) =>
       clsx('rank-color', { // sorts number into color based on performance
@@ -128,20 +131,18 @@ const healingDataColumns: GridColDef = [ // column data for the healer data grid
          amazing: params.value >= 95,
          almostPerfect: params.value >= 99,
          perfect: params.value >= 100,
-         },
-      ),
-   },
+   })},
    { field: 'Rank', type: 'number', headerName: 'Rank', flex: 3, disableColumnMenu: true, hideSortIcons: true, renderCell:(params) => 
-   ( // converts raw number into a readable format
-      <>
-         {Number(params.value).toLocaleString("en-US")}
-      </>
+      ( // converts raw number into a readable format
+         <>
+            {Number(params.value).toLocaleString("en-US")}
+         </>
    )}, 
    { field: 'RankTotal', type: 'number', headerName: 'Out Of', flex: 3, disableColumnMenu: true, hideSortIcons: true, renderCell:(params) => 
-   ( // converts raw number into a readable format
-      <>
-         {Number(params.value).toLocaleString("en-US")}
-      </>
+      ( // converts raw number into a readable format
+         <>
+            {Number(params.value).toLocaleString("en-US")}
+         </>
    )}, 
    { field: 'id', headerName: 'Player', flex: 10, disableColumnMenu: true, hideSortIcons: true, renderCell:(params) =>
       ( // player name color handler
@@ -149,15 +150,13 @@ const healingDataColumns: GridColDef = [ // column data for the healer data grid
            <img style={{height: "80%", align: "center"}} src={specIcon(params.value.split(' ')[1] + " " + params.value.split(' ')[2])} alt={params.value.split(' ')[1] + " " + params.value.split(' ')[2]} title={params.value.split(' ')[1] + " " + params.value.split(' ')[2]}/>
            <Typography style={{align:"center", margin: "auto"}}>&nbsp;&nbsp;{params.value.split(' ')[0]}</Typography>
          </Typography>
-      ),
-   },
+   )},
    { field: 'HPS', type: 'number', headerName: 'HPS', flex: 4, disableColumnMenu: true, hideSortIcons: true, renderCell:(params) => 
       ( // converts raw number into a readable format
          <div style={{color: "#d0fb8a"}}>
             {Number(params.value).toLocaleString(undefined, {'minimumFractionDigits':1,'maximumFractionDigits':1})} 
          </div>
-      ),
-   },
+   )},
    { field: 'ilvl', type: 'number', headerName: 'ilvl', flex: 2, disableColumnMenu: true, hideSortIcons: true, },
    { field: 'bracketPercent', type: 'number', headerName: 'ilvl%', flex: 2, disableColumnMenu: true, hideSortIcons: true, cellClassName:(params) =>
       clsx('rank-color', { // sorts number into color based on performance
@@ -168,9 +167,7 @@ const healingDataColumns: GridColDef = [ // column data for the healer data grid
          amazing: params.value >= 95,
          almostPerfect: params.value >= 99,
          perfect: params.value >= 100,
-         },
-      ),
-   },
+   })},
 ]; // end of healingDataColumns
 
 const damageDataColumns: GridColDef  = [ // column data for the damage data grid
@@ -183,37 +180,33 @@ const damageDataColumns: GridColDef  = [ // column data for the damage data grid
          amazing: params.value >= 95,
          almostPerfect: params.value >= 99,
          perfect: params.value >= 100,
-         },
-      ),
-   },
+   })},
    { field: 'Rank', type: 'number', headerName: 'Rank', flex: 3, disableColumnMenu: true, hideSortIcons: true, renderCell:(params) => 
-   ( // converts raw number into a readable format
-      <>
-         {Number(params.value).toLocaleString("en-US")}
-      </>
+      ( // converts raw number into a readable format
+         <>
+            {Number(params.value).toLocaleString("en-US")}
+         </>
    )},
    { field: 'RankTotal', type: 'number', headerName: 'Out Of', flex: 3, disableColumnMenu: true, hideSortIcons: true, renderCell:(params) => 
       ( // converts raw number into a readable format
          <>
             {Number(params.value).toLocaleString("en-US")}
          </>
-      )},
+   )},
    { field: 'id', headerName: 'Player', flex: 10, hideSortIcons: true, disableColumnMenu: true, hideSortIcons: true, renderCell:(params) =>
       ( // player name color handler
          <Typography style={{display:"flex", textAlign: "center", color: getClassColor(params.value.split(' ')[2])}}>
            <img style={{height: "80%", align: "center"}} src={specIcon(params.value.split(' ')[1] + " " + params.value.split(' ')[2])} alt={params.value.split(' ')[1] + " " + params.value.split(' ')[2]} title={params.value.split(' ')[1] + " " + params.value.split(' ')[2]}/>
            <Typography style={{align:"center", margin: "auto"}}>&nbsp;&nbsp;{params.value.split(' ')[0]}</Typography>
          </Typography>
-      ),
-   },
+   )},
    { field: 'DPS', type: 'number', headerName: 'DPS', flex: 4, disableColumnMenu: true, hideSortIcons: true, renderCell:(params) => 
       ( // converts raw number into a readable format
          <div style={{color: "#d0fb8a"}}>
             {Number(params.value).toLocaleString(undefined, {'minimumFractionDigits':1,'maximumFractionDigits':1})} 
          </div>
-      ),
-   },
-   { field: 'ilvl', type: 'number', headerName: 'ilvl', flex: 2, disableColumnMenu: true, hideSortIcons: true,  },
+   )},
+   { field: 'ilvl', type: 'number', headerName: 'ilvl', flex: 2, disableColumnMenu: true, hideSortIcons: true},
    { field: 'bracketPercent', type: 'number', headerName: 'ilvl%', flex: 2, disableColumnMenu: true, hideSortIcons: true, cellClassName:(params) =>
       clsx('rank-color', { // sorts number into color based on performance
          underwhelming: params.value >= 0,
@@ -223,9 +216,7 @@ const damageDataColumns: GridColDef  = [ // column data for the damage data grid
          amazing: params.value >= 95,
          almostPerfect: params.value >= 99,
          perfect: params.value >= 100,
-         },
-      ),
-   },
+   })},
 ]; // end of damageDataColumns
 
 
@@ -267,7 +258,12 @@ function FightPage() { // main function for this page
 
    return (
       <>
-         {  (fightInfo == [] ? <div>LOADING</div> :
+         {(fightInfo == [] ? 
+            <Box textAlign="center" aria-label="Waiting for response">
+               <h1>Loading</h1>
+               <CircularProgress style={{height:"10%", width:"10%"}}/>
+            </Box>
+         :
          <Box aria-label="user page">
             <Box textAlign="center" aria-label="report page info">
                <Typography align="center" variant="h2" component="h2" >
@@ -293,7 +289,7 @@ function FightPage() { // main function for this page
                      columns={damageDataColumns}
                   />
                </Box>   
-            <br />
+               <br />
                <Box style={{width: "49%"}} alignItems="flex-end" aria-label="healing table container">
                   <Typography align="center" variant="h3" component="h2" gutterBottom>Healing</Typography>
                   <DataGrid
