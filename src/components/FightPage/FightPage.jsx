@@ -264,6 +264,7 @@ function FightPage() { // main function for this page
       });
    };
 
+
    return (
       <>
          {  (fightInfo == [] ? <div>LOADING</div> :
