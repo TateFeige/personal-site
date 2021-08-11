@@ -7,7 +7,7 @@ CREATE DATABASE "warcraftlogs";
 
 CREATE TABLE "user" (
 	"id" serial PRIMARY KEY,
-	"username" varchar(255) NOT NULL,
+	"username" varchar(255) NOT NULL UNIQUE,
 	"password" varchar(255) NOT NULL,
 	"character" varchar(255),
    "armory" varchar(255),
