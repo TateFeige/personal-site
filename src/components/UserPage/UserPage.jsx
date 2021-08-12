@@ -121,14 +121,14 @@ function UserPage() { // main function for this page
             >
                <Fade in={open}>
                   <Box className={classes.paper} style={{width: "35%", height: "10%", minHeight:"150px"}} aria-labelledby="Change Character Input">
-                     <TextField style={{width: "100%"}} id="SetLink" label="Link" helperText={<>
+                     <TextField style={{width: "100%"}}id="SetLink" label="Link" helperText={<>
                         <a href="https://www.warcraftlogs.com" target="_blank" style={{fontSize: "16px"}}>WarcraftLogs</a><a style={{fontSize: "16px"}}>, </a>
                         <a href="https://worldofwarcraft.com" target="_blank" style={{fontSize: "16px"}}>WorldofWarcraft</a><a style={{fontSize: "16px"}}>, or </a>
                         <a href="https://raider.io" target="_blank" style={{fontSize: "16px"}}>Raider.io</a>
                      </>} 
-                     placeholder="E.g. https://worldofwarcraft.com/en-us/character/us/kelthuzad/Asmongold" variant="outlined" value={armoryLink} onChange={(event) => setArmoryLink(event.target.value)}/><br />
+                     placeholder="E.g. https://worldofwarcraft.com/en-us/character/us/kelthuzad/Asmongold"  variant="outlined" value={armoryLink} onChange={(event) => setArmoryLink(event.target.value)}/><br />
                      <br />
-                     <Button style={{width: "30%", height:"35%", display: "flex", justify:"flex-end"}} variant="contained" color="primary" disableElevation onClick={saveCharacter}>Save</Button>
+                     <Button style={{width: "30%", height:"35%", display: "flex"}} variant="contained" color="primary" disableElevation onClick={saveCharacter}>Save</Button>
                   </Box>
                </Fade>
             </Modal>
@@ -138,7 +138,7 @@ function UserPage() { // main function for this page
             <Button variant="contained" color="primary" disableElevation onClick={handleOpen}>Change Character</Button>
             </Box>
             <br /><br /><br />
-            <Grid container justify="center" aria-label="history and favorites tables container">
+            <Grid container justifyContent="center" aria-label="history and favorites tables container">
             <br />
             <Box style={{width: "85%"}}>
                <DataGrid

@@ -274,7 +274,7 @@ function FightPage() { // main function for this page
                </Typography>
             </Box>
             <br /><br /><br />
-            <Grid container style={{width: "100%", height: "2000px"}} justify="space-between" aria-label="damage and healing tables container">
+            <Grid container style={{width: "100%", height: "2000px"}} justifyContent="space-between" aria-label="damage and healing tables container">
                <Box style={{width: "49%"}} alignItems="flex-end" aria-label="damage table container">
                   <Typography align="center" variant="h3" component="h2" gutterBottom>Damage</Typography>
                   <DataGrid

@@ -146,7 +146,7 @@ function ReportPage() { // main function for this page
 
    return (
       <Box aria-label="report page">
-         <Grid container justify="center" aria-label="report header">
+         <Grid container justifyContent="center" aria-label="report header">
             <IconButton color="primary" aria-label="Refresh Report" onClick={refreshHandler}><RefreshIcon /></IconButton>
             <h1 align="center">{reportInfo.name}</h1>
             {( user.id >= 1 ) ?
@@ -155,7 +155,7 @@ function ReportPage() { // main function for this page
             <></>}
          </Grid>
          <br /><br /><br />
-         <Grid container justify="center">
+         <Grid container justifyContent="center">
             {( report == [] ) ?
             <Box textAlign="center" aria-label="Waiting for response">
                <h1>Loading</h1>

@@ -27,7 +27,7 @@ function* report(reportItem) {
                ( // pushes DPS players to damage array
                   reportToSend.push({RankPercent: player.rankPercent, Rank: removeTilde(player.rank), RankTotal: player.totalParses, id: player.name + " " + player.spec + " " + player.class, DPS: player.amount, ilvl: player.bracketData, bracketPercent: player.bracketPercent})
                )});
-         }
+         };
       };
       yield put({type: "POST_BOSS_FIGHT", payload: reportToSend});
    }
