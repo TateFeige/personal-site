@@ -39,7 +39,7 @@ function LoginForm() {
             type="text"
             name="username"
             required
-            autocomplete="off"
+            autoComplete="off"
             value={username}
             onChange={(event) => setUsername(event.target.value)}
           />
