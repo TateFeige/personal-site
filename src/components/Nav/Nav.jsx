@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({root:{display: 'flex', flexWrap: 'wrap
 function Nav() {    
    const homeHandler = () => {history.push('/'); setSearchURL('');};
    const loginHandler = () => {history.push('/login'); setSearchURL('');};
+   const aboutHandler = () => {history.push('/about'); setSearchURL('');};
    const logoutHandler = () => {dispatch({ type: 'LOGOUT' }); setSearchURL('');};
    const history = useHistory();
    const getSearchQueryByFullURL = (url) => {return url.split('/')};
@@ -29,8 +30,10 @@ function Nav() {
    const dispatch = useDispatch();
    const classes = useStyles();
    const user = useSelector((store) => store.user);
+
     const search = () => {
       let searchQuery = getSearchQueryByFullURL(searchURL);
+      console.log(getSearchQueryByFullURL(searchURL))
       if (searchURL == '' || searchURL == ' ' || searchURL.length < 8) {
          alert("Please enter a valid search");
          setSearchURL(''); // clear search field
@@ -89,6 +92,7 @@ function Nav() {
          </Box>
          <Box>
             <Button variant="contained" color="primary" style={{height: "70px"}} onClick={homeHandler}>Home</Button>
+            <Button variant="contained" color="primary" style={{height: "70px"}} onClick={aboutHandler}>About</Button>
             {(user.id == null) ? <Button variant="contained" color="primary" style={{height: "70px"}} onClick={loginHandler}>Log In</Button> :
             <Button variant="contained" color="primary" style={{height: "70px"}} onClick={logoutHandler}>Log Out</Button>
             }

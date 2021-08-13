@@ -19,6 +19,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import ReportPage from '../ReportPage/ReportPage';
 import FightPage from '../FightPage/FightPage';
+import AboutPage from '../AboutPage/AboutPage';
 
 import './App.css';
 
@@ -47,6 +48,11 @@ function App() {
           >
              <FightPage />
           </Route>
+          <Route
+            path = "/about"
+         >
+            <AboutPage />
+         </Route>
           {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
