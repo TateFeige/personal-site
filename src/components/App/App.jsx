@@ -1,9 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { useEffect } from 'react';
+import {
+  HashRouter as Router,
+  Route,
+  Redirect,
+  Switch,
+} from 'react-router-dom';
+import NavBar from '../NavBar/NavBar';
 
 function App() {
   return (
     <div className="App">
+      <NavBar />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
