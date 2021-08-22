@@ -38,5 +38,8 @@
 }
 
 body {
-   background-color: #bbd0ff;
-}
+   margin: 0px;
+   color: white;
+   background: url(https://wallpapercave.com/wp/wp7061580.png) center;
+   background-size: cover;
+ }
