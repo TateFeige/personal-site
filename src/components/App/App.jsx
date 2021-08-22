@@ -2,12 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import React, { useEffect } from 'react';
 import { makeStyles, createTheme, ThemeProvider } from '@material-ui/core/styles';
-import {
-  HashRouter as Router,
-  Route,
-  Redirect,
-  Switch,
-} from 'react-router-dom';
+import Typography from '@material-ui/core/Typography';
 import NavBar from '../NavBar/NavBar';
 
 const theme = createTheme({
@@ -34,8 +29,7 @@ function App() {
       <ThemeProvider theme={theme}>
          <div className="App">
             <NavBar />
-         </div>
-         <div>
+         <p>soon&trade;</p>
          </div>
       </ThemeProvider>
    );
