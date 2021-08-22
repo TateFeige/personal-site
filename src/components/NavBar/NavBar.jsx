@@ -4,7 +4,7 @@ import {
    Route,
    Redirect,
  } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, createTheme, ThemeProvider } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -20,6 +20,7 @@ import Menu from '@material-ui/core/Menu';
 import Link from '@material-ui/core/Link';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import '../App/palette.scss';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,20 +34,39 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const theme = createTheme({
+   palette: {
+     primary: {
+       pinklace: '#ffd6ff',
+       mauve: '#e7c6ff',
+       main: '#c8b6ff',
+       lavenderblue: '#b8c0ff',
+       lavenderblue2: '#bbd0ff',
+       contrastText: '#fff',
+     },
+     secondary: {
+       light: '#ff7961',
+       main: '#f44336',
+       dark: '#ba000d',
+       contrastText: '#000',
+     },
+   },
+ });
+
 export default function NavBar() {
    const classes = useStyles();
    const [auth, setAuth] = React.useState(true);
    const [anchorEl, setAnchorEl] = React.useState(null);
 
    return (
+      <ThemeProvider theme={theme}>
       <div className={classes.root}>
          <AppBar position="static">
             <Toolbar>
-               <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                  <MenuIcon />
-               </IconButton>
+                  {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                     <MenuIcon />
+                  </IconButton> */}
             <Typography variant="h6" className={classes.title}>
-               Photos
             </Typography>
             <Router>
                <div>
@@ -78,5 +98,6 @@ export default function NavBar() {
             </Toolbar>
          </AppBar>
       </div>
+      </ThemeProvider>
    );
 };
