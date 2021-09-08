@@ -7,7 +7,7 @@ import './WCLCarousel.css';
 
 function WCLCarousel() {
    return (
-      <Card>
+      <Card className="Carousel">
          <Carousel fade>
             <Carousel.Item>
                <a href="https://i.imgur.com/zEBGJOM.png" target="_blank" rel="noopener noreferrer">
