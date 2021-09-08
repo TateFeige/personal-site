@@ -61,7 +61,7 @@ function STEMtellCarousel() {
                </a>
                <Carousel.Caption id="Caption">
                   <h3>Sorted Report Item Summary</h3>
-                  <p>Same as previous, but with "Damage" table sorted by DPS (highest -> lowest) and "Healing" table sorted by ilvl% (highest -> lowest)</p>
+                  <p>Same as previous, but with "Damage" table sorted by DPS (highest -&gt; lowest) and "Healing" table sorted by ilvl% (highest -&gt; lowest)</p>
                </Carousel.Caption>
             </Carousel.Item>
 
