@@ -1,23 +1,14 @@
 import React from 'react';
 import {
    HashRouter as Router,
-   Route,
-   Redirect,
+
  } from 'react-router-dom';
 import { makeStyles, createTheme, ThemeProvider } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
 import GitHubIcon from '@material-ui/icons/GitHub';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import Link from '@material-ui/core/Link';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import '../App/palette.scss';
@@ -55,13 +46,11 @@ const theme = createTheme({
 
 export default function NavBar() {
    const classes = useStyles();
-   const [auth, setAuth] = React.useState(true);
-   const [anchorEl, setAnchorEl] = React.useState(null);
 
    return (
       <ThemeProvider theme={theme}>
       <div className={classes.root}>
-         <AppBar position="static">
+         <AppBar position="sticky">
             <Toolbar>
                   {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                      <MenuIcon />
@@ -71,7 +60,7 @@ export default function NavBar() {
             <Router>
                <div>
                   <IconButton
-                     href="mailto:tatefeige@gmail.com"
+                     href="mailto:tate@tatefeige.com"
                      aria-label="email"
                      color="inherit"
                   >
