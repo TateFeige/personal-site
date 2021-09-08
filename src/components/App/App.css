@@ -39,14 +39,14 @@
 
 body {
    margin: 0px;
-   color: white;
+   color: black;
    background: url(https://wallpapercave.com/wp/wp7061580.png) center;
    background-size: cover;
    background-attachment: fixed;
 }
 
 p {
-   font-size:18px;
+   font-size: 18px;
    text-align: center;
 }
 

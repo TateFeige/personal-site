@@ -20,7 +20,7 @@ function LandingPage() {
                <Card className="frosted-lav">
                   <Card.Body>
                      <Card.Text>
-                        I love to code!
+                        I love to code! This website is a work in progress, but take a look at my GitHub or a couple of my projects if you'd like.
                      </Card.Text>
                   </Card.Body>
                </Card>

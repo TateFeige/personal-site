@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-   HashRouter as Router,
+   BrowserRouter as Router,
 
  } from 'react-router-dom';
 import { makeStyles, createTheme, ThemeProvider } from '@material-ui/core/styles';
