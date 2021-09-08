@@ -95,7 +95,7 @@ function WCLCarousel() {
          </Carousel>
 
          <Card.Body>
-            <Card.Title>Warcraftlogs Simplifier</Card.Title>
+            <Card.Title align="center">Warcraftlogs Simplifier</Card.Title>
             <Card.Text>
                Do you love warcraftlogs, but hate all the “important breakdown information”? Are you just looking to see the information you REALLY care about? Then this is the site for you! Simply enter in your report and see the only important things: damage and healing meters. Everything else has been whisked away!
                <br />
