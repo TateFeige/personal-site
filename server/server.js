@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const { Client } = require('pg');
 require('dotenv').config();
 
 const app = express();
