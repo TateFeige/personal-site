@@ -107,4 +107,5 @@ function WCLCarousel() {
    );
 };
 
+
 export default WCLCarousel;

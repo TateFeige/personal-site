@@ -4,10 +4,10 @@ import MyStack from '../MyStack/MyStack';
 import MyProjectsHeader from '../MyProjectsHeader/MyProjectsHeader';
 import WCLCarousel from '../WCLCarousel/WCLCarousel';
 import STEMtellCarousel from '../STEMtellCarousel/STEMtellCarousel';
-import { Container, Grid, GridItem } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
+
 
 function LandingPage() {
-
   return (
    <>
       <AboutMe />
@@ -27,5 +27,6 @@ function LandingPage() {
    </>
   );
 };
+
 
 export default LandingPage;

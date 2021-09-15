@@ -19,11 +19,11 @@ const useStyles = makeStyles(() => ({
    },
 }));
 
+
 function MyStack() {
    const styles = useN03TextInfoContentStyles();
    const shadowStyles = useLightTopShadowStyles();
    const cardStyles = useStyles();
-   
    return (
       <center>
          <Card className={cx(cardStyles.root, shadowStyles.root)}>
@@ -43,5 +43,6 @@ function MyStack() {
       </center>
    );
 };
+
 
 export default MyStack

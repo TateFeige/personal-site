@@ -1,7 +1,6 @@
 import React from 'react';
 import cx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import Chip from '@material-ui/core/Chip';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import TextInfoContent from '@mui-treasury/components/content/textInfo';
@@ -19,11 +18,11 @@ const useStyles = makeStyles(() => ({
    },
 }));
 
+
 function MyProjectsHeader() {
    const styles = useN03TextInfoContentStyles();
    const shadowStyles = useLightTopShadowStyles();
    const cardStyles = useStyles();
-   
    return (
       <center>
          <Card className={cx(cardStyles.root, shadowStyles.root)}>
@@ -34,5 +33,6 @@ function MyProjectsHeader() {
       </center>
    );
 };
+
 
 export default MyProjectsHeader;
