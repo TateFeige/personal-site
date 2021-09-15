@@ -2,12 +2,11 @@ import React from 'react';
 import Card from 'react-bootstrap/Card';
 import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './STEMtellCarousel.css';
 
 
 function STEMtellCarousel() {
    return (
-      <Card className="Carousel">
+      <Card className="Carousel" style={{width: "90%"}}>
          <Carousel fade>
             <Carousel.Item>
                <a href="https://i.imgur.com/sV0ZCk7.png" target="_blank" rel="noopener noreferrer">
