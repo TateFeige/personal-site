@@ -90,7 +90,7 @@ function Nav() {
             </FormControl>
          </Box>
          <Box>
-            <a href="tatefeige.com"><Button variant="contained" color="primary" style={{height: "70px"}}>Home</Button></a>
+            <meta http-equiv = "refresh" content = " time ; url = tatefeige.com"><Button variant="contained" color="primary" style={{height: "70px"}}>Home</Button></meta>
             <Button variant="contained" color="primary" style={{height: "70px"}} onClick={aboutHandler}>About</Button>
             {(user.id == null) ? <Button variant="contained" color="primary" style={{height: "70px"}} onClick={loginHandler}>Log In</Button> :
             <Button variant="contained" color="primary" style={{height: "70px"}} onClick={logoutHandler}>Log Out</Button>
