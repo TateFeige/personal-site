@@ -47,7 +47,7 @@ function LoginPage() {
       };
    };
    const demoLogin = () => {
-      setEmail('toby.blake@email.edu';
+      setEmail('toby.blake@email.edu');
       setPassword('password');
       dispatch({
          type: 'LOGIN',
