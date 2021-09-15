@@ -33,6 +33,7 @@ function Nav() {
 
     const search = () => {
       let searchQuery = getSearchQueryByFullURL(searchURL);
+      console.log(searchQuery);
       if (searchURL == '' || searchURL == ' ' || searchURL.length < 8) {
          alert("Please enter a valid search");
          setSearchURL(''); // clear search field
