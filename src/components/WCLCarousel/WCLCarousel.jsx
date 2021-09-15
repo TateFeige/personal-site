@@ -2,12 +2,11 @@ import React from 'react';
 import Card from 'react-bootstrap/Card';
 import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './WCLCarousel.css';
 
 
 function WCLCarousel() {
    return (
-      <Card className="Carousel">
+      <Card className="Carousel" style={{width: "90%"}}>
          <Carousel fade>
             <Carousel.Item>
                <a href="https://i.imgur.com/zEBGJOM.png" target="_blank" rel="noopener noreferrer">
