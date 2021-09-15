@@ -1,6 +1,5 @@
 import './App.css';
 import React from 'react';
-import NavBar from '../NavBar/NavBar';
 import LandingPage from '../LandingPage/LandingPage';
 
 
@@ -8,8 +7,7 @@ import LandingPage from '../LandingPage/LandingPage';
 function App() {
    return (
       <>
-         <NavBar />
-         <br />
+      <br /><br /><br />
          <LandingPage />
       </>
    );
