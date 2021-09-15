@@ -46,6 +46,16 @@ function LoginPage() {
          dispatch({ type: 'LOGIN_INPUT_ERROR' });
       };
    };
+   const demoLogin = () => {
+      dispatch({
+         type: 'LOGIN',
+         payload: {
+            email: 'toby.blake@email.edu',
+            password: 'password',
+         },
+      });
+      history.push('/');
+   }
 
    return (
       <form className="LoginForm" onSubmit={login}>
@@ -69,6 +79,9 @@ function LoginPage() {
             <br />
             <Button onClick={() => {history.push('/forgotpassword')}}>
                Forgot Password?
+            </Button>
+            <Button onClick={() => {demoLogin}}>
+               Login as a Demo User
             </Button>
          </center>
       </form>
