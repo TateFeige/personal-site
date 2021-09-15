@@ -90,7 +90,7 @@ function Nav() {
             </FormControl>
          </Box>
          <Box>
-            <Button variant="contained" color="primary" style={{height: "70px"}} onClick={() => {window.location.href = "tatefeige.com"}}>Home</Button>
+            <Button variant="contained" color="primary" style={{height: "70px"}} onClick={homeHandler}>Home</Button>
             <Button variant="contained" color="primary" style={{height: "70px"}} onClick={aboutHandler}>About</Button>
             {(user.id == null) ? <Button variant="contained" color="primary" style={{height: "70px"}} onClick={loginHandler}>Log In</Button> :
             <Button variant="contained" color="primary" style={{height: "70px"}} onClick={logoutHandler}>Log Out</Button>
