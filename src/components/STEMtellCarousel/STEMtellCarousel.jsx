@@ -29,7 +29,9 @@ function STEMtellCarousel() {
             <Card.Text>
                STEMtelling is a social media platform for STEM and high school students, with the goal to encourage the exploration of STEM-related fields by creating an enjoyable and interesting place for students to share activities and how they tie into the core of STEM.
                <br />
-               {/* <a href="https://github.com/zoofly/STEMtell" target="_blank" rel="noopener noreferrer">View Source Code</a> */}
+               <a href="https://github.com/zoofly/STEMtell" target="_blank" rel="noopener noreferrer">View Source Code</a>
+               <br />
+               <a href="http://stemtelling.tatefeige.com" rel="noopener noreferrer">View Project</a>
             </Card.Text>
          </Card.Body>
       </Card>

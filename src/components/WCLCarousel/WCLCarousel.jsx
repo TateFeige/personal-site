@@ -100,6 +100,8 @@ function WCLCarousel() {
                Do you love warcraftlogs, but hate all the “important breakdown information”? Are you just looking to see the information you REALLY care about? Then this is the site for you! Simply enter in your report and see the only important things: damage and healing meters. Everything else has been whisked away!
                <br />
                <a href="https://github.com/TateFeige/WarcraftLogs-Simplifier" target="_blank" rel="noopener noreferrer">View Source Code</a>
+               <br />
+               <a href="http://simple-wcl.tatefeige.com" rel="noopener noreferrer">View Project</a>
             </Card.Text>
          </Card.Body>
       </Card>
