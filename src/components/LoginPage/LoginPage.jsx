@@ -82,7 +82,7 @@ function LoginPage() {
             <Button onClick={() => {history.push('/forgotpassword')}}>
                Forgot Password?
             </Button>
-            <Button onClick={() => {demoLogin}}>
+            <Button onClick={demoLogin}>
                Login as a Demo User
             </Button>
          </center>
