@@ -30,6 +30,11 @@ function Nav() {
       if (user.authority === 'student') {
          return (
             <Menu id="long-menu" anchorEl={anchorEl} keepMounted open={open} onClose={handleClose} PaperProps={{style:{maxHeight: ITEM_HEIGHT * 4.5, width: '20ch'}}}>
+               <a href="https://www.tatefeige.com">
+                  <MenuItem>
+                     Main Page
+                  </MenuItem>
+               </a>
                <MenuItem onClick={() => handleHistoryPush('homepage')}>
                   Home
                </MenuItem>
@@ -48,6 +53,11 @@ function Nav() {
       else if (user.authority === 'teacher') {
          return (
             <Menu id="long-menu" anchorEl={anchorEl} keepMounted open={open} onClose={handleClose} PaperProps={{style:{maxHeight: ITEM_HEIGHT * 6.5, width: '20ch'}}}>
+               <a href="https://www.tatefeige.com">
+                  <MenuItem>
+                     Main Page
+                  </MenuItem>
+               </a>
                <MenuItem onClick={() => handleHistoryPush('homepage')}>
                   Home
                </MenuItem>
