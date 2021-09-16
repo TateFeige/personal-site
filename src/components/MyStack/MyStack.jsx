@@ -33,7 +33,7 @@ function MyStack() {
                heading={'My Stack'}
             />
             <h5>Languages</h5>
-            <Chip label="HTML" /><Chip label="CSS" /><Chip label="Vanilla JavaScript" /><Chip label="C#" /><Chip label="ASP.NET" /><Chip label="MVC" /><Chip label="PostgreSQL" /><Chip label="GraphQL" /><Chip label="JSON" /><Chip label="REST" /><Chip label="SASS" /><Chip label="SCSS" />
+            <Chip label="HTML" /><Chip label="CSS" /><Chip label="Vanilla JavaScript" /><Chip label="C#" /><Chip label="ASP.NET" /><Chip label=".NET Entity Framework Core" /><Chip label="MVC" /><Chip label="PostgreSQL" /><Chip label="GraphQL" /><Chip label="JSON" /><Chip label="XML" /><Chip label="REST" /><Chip label="SASS" /><Chip label="SCSS" />
             <br /><br />
             <h5>Frameworks & Systems</h5>
             <Chip label="Express.js" /><Chip label="React" /><Chip label="Node.js" /><Chip label="jQuery" /><Chip label="Axios" /><Chip label="Ajax" /><Chip label="jQuery" /><Chip label="Redux" /><Chip label="Redux Hooks" /><Chip label="Redux Sagas" />
