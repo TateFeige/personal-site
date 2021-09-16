@@ -1,12 +1,11 @@
 ## About
-STEMtelling is a Full Stack high school classroom learning application. STEMtelling shows students the relevance of STEM in their lives and helps them share stories called “STEMtells” that connect their STEM interests with their unique backgrounds. STEMtell promotes students to be more active and participate with teachers and classmates. STEMtell can help a teacher develop particular cirriculum to suit a student's needs depending on how they veiw the class subject.  
+STEMtelling is a Full Stack, high school classroom learning application. STEMtelling shows students the relevance of STEM in their lives and helps them share stories called “STEMtells” that connect their STEM interests with their unique backgrounds. STEMtelling encourages students to be more active in class and build connections with their teachers and fellow classmates. STEMtelling helps teachers adjust their curriculum to make it more relevant and appealing to their students.
 
 
 ### Screen Shot
-
+![Screen Shot](documentation/images/STEMtell-example.gif)
 
 ### System Requirements
-![Screen Shot]()
 
 
 Make sure you have the following software installed on your computer or server:
@@ -32,6 +31,10 @@ SQL code for the tables is in <database.sql>;
   SERVER_SESSION_SECRET=superDuperSecret
   NODEMAILER_USER=GmailLogin
   NODEMAILER_PASS=GmailPassword
+  CLOUDINARY_NAME=stemtelling
+  CLOUDINARY_API_KEY=773161645471824
+  CLOUDINARY_API_SECRET=isRkBv2rO_wyjy93sX1Lq0b0PTc
+  TEACHER_CODE=IAmATeacher
   ```
   In the `.env` file, replace `superDuperSecret` with a long random string like `25POUbVtx6RKVNWszd9ERB9Bb6` to keep the application secure. You can generate a string from [passwordsgenerator.net](https://passwordsgenerator.net/).
   `NODEMAILER_USER` and `NODEMAILER_PASS` are fields for an email username as password. This is where user password reset emails will come from
