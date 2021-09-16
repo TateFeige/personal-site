@@ -16,7 +16,7 @@ function STEMtellCarousel() {
                      alt="Homepage"
                   />
                </a>
-               <Carousel.Caption id="Homepage">
+               <Carousel.Caption id="Caption">
                   <h3>Homepage</h3>
                   <p>A list of all STEMtells available to a student (only shows STEMtells from classes they are in)</p>
                </Carousel.Caption>
@@ -30,7 +30,7 @@ function STEMtellCarousel() {
                      alt="Profile Page"
                   />
                </a>
-               <Carousel.Caption id="Profile Page">
+               <Carousel.Caption id="Caption">
                   <h3>Profile Page</h3>
                   <p>Shows a user profile and their STEMtells</p>
                </Carousel.Caption>
@@ -44,7 +44,7 @@ function STEMtellCarousel() {
                      alt="Details Page"
                   />
                </a>
-               <Carousel.Caption id="STEMtell Details">
+               <Carousel.Caption id="Caption">
                   <h3>STEMtell Details</h3>
                   <p>Shows all info about a STEMtell: Author, Class, Date Uploaded, Image, Description, STEMtags, Reactions, and Comments</p>
                </Carousel.Caption>
