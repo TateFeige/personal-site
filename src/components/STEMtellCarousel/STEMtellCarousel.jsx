@@ -9,18 +9,47 @@ function STEMtellCarousel() {
       <Card className="Carousel" style={{width: "90%"}}>
          <Carousel fade>
             <Carousel.Item>
-               <a href="https://i.imgur.com/sV0ZCk7.png" target="_blank" rel="noopener noreferrer">
+               <a href="https://i.imgur.com/4hSx8xy.png" target="_blank" rel="noopener noreferrer">
                   <img
                      className="d-block w-100"
-                     src="https://i.imgur.com/tCwoHcN.png"
-                     alt="STEMtelling Cover"
+                     src="https://i.imgur.com/4hSx8xy.png"
+                     alt="Homepage"
                   />
                </a>
-               <Carousel.Caption id="Caption">
-                  <h3>WIP</h3>
-                  <p>This project is currently a work in progress. Check back later!</p>
+               <Carousel.Caption id="Homepage">
+                  <h3>Homepage</h3>
+                  <p>A list of all STEMtells available to a student (only shows STEMtells from classes they are in)</p>
                </Carousel.Caption>
             </Carousel.Item>
+
+            <Carousel.Item>
+               <a href="https://i.imgur.com/EyxiXUJ.png" target="_blank" rel="noopener noreferrer">
+                  <img
+                     className="d-block w-100"
+                     src="https://i.imgur.com/EyxiXUJ.png"
+                     alt="Profile Page"
+                  />
+               </a>
+               <Carousel.Caption id="Profile Page">
+                  <h3>Profile Page</h3>
+                  <p>Shows a user profile and their STEMtells</p>
+               </Carousel.Caption>
+            </Carousel.Item>
+
+            <Carousel.Item>
+               <a href="https://i.imgur.com/JBBAnCd.png" target="_blank" rel="noopener noreferrer">
+                  <img
+                     className="d-block w-100"
+                     src="https://i.imgur.com/JBBAnCd.png"
+                     alt="Details Page"
+                  />
+               </a>
+               <Carousel.Caption id="STEMtell Details">
+                  <h3>STEMtell Details</h3>
+                  <p>Shows all info about a STEMtell: Author, Class, Date Uploaded, Image, Description, STEMtags, Reactions, and Comments</p>
+               </Carousel.Caption>
+            </Carousel.Item>
+
          </Carousel>
 
          <Card.Body>
