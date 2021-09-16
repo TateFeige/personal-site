@@ -9,10 +9,10 @@ function STEMtellCarousel() {
       <Card className="Carousel" style={{width: "90%"}}>
          <Carousel fade>
             <Carousel.Item>
-               <a href="https://i.imgur.com/4hSx8xy.png" target="_blank" rel="noopener noreferrer">
+               <a href="https://i.imgur.com/97dPbql.png" target="_blank" rel="noopener noreferrer">
                   <img
                      className="d-block w-100"
-                     src="https://i.imgur.com/4hSx8xy.png"
+                     src="https://i.imgur.com/97dPbql.png"
                      alt="Homepage"
                   />
                </a>
