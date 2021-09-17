@@ -100,10 +100,6 @@ function AboutMe() {
                      href="https://github.com/tatefeige"
                      target="_blank"
                   />
-                  <SocialLink
-                     brand="EnvelopeSquare"
-                     href="mailto:tate@tatefeige.com"
-                  />
                </SocialProvider>
             </center>
          </CardContent>
